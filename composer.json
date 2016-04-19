@@ -1,0 +1,7 @@
+{
+    "name": "webiny/cron-manager",
+    "type": "webiny-app",
+    "require": {
+        "mtdowling/cron-expression": "~1"
+    }
+}
