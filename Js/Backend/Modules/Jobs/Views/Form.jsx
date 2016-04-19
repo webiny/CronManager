@@ -15,10 +15,12 @@ Form.defaultProps = {
 			api: '/entities/cron-manager/jobs',
 			fields: '*',
 			connectToRouter: true,
-			onSubmitSuccess: 'CronManager.Jobs'
+			onSubmitSuccess: 'CronManager.Jobs',
+            onCancel: () => Webiny.Router.goToRoute('CronManager.Jobs')
 		};
 
 		const frequencySelect = {
+            ui: 'frequencySelect',
 			label: 'Frequency',
 			name: 'frequency',
 			placeholder: 'Select frequency',
@@ -36,8 +38,7 @@ Form.defaultProps = {
 				return option.name;
 			},
 			api: '/entities/cron-manager/job-frequency',
-			fields: 'name,mask',
-			perPage: 2
+			fields: 'name,mask'
 		};
 
 		const notificationEmails = (

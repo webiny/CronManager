@@ -7,7 +7,7 @@ class List extends Webiny.Ui.View {
 }
 
 List.defaultProps = {
-	renderer: function render() {
+	renderer() {
 		const listProps = {
 			api: '/entities/cron-manager/jobs',
 			fields: 'name,url,frequency,enabled',
@@ -46,6 +46,7 @@ List.defaultProps = {
 									<Table.DeleteAction/>
 								</Table.Actions>
 							</Table.Row>
+							<Table.Empty/>
 						</Table.Table>
 						<Ui.List.Pagination/>
 					</Ui.List.ApiContainer>
