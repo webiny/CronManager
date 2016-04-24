@@ -42,7 +42,7 @@ Form.defaultProps = {
 		};
 
 		const notificationEmails = (
-			<Ui.Dynamic.FieldSet name="notifyEmails">
+			<Ui.Dynamic.Fieldset name="notifyEmails">
 				<Ui.Dynamic.Row>
                     {function (record, index, actions) {
 						return (
@@ -72,7 +72,7 @@ Form.defaultProps = {
 						)
 					}}
 				</Ui.Dynamic.Empty>
-			</Ui.Dynamic.FieldSet>
+			</Ui.Dynamic.Fieldset>
 		);
 
 		return (
