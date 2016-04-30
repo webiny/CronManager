@@ -41,11 +41,12 @@ class Job extends EntityAbstract
 
         $this->attr('description')->char()->setToArrayDefault();
         $this->attr('url')->char()->setValidators('required')->setToArrayDefault();
-        $this->attr('frequency')->char()->setToArrayDefault();
         $this->attr('timeout')->integer()->setToArrayDefault();
         $this->attr('notifyOn')->arr()->setToArrayDefault();
-
-
+        $this->attr('notifyEmails')->arr()->setToArrayDefault();
         $this->attr('enabled')->boolean()->setDefaultValue(true)->setToArrayDefault();
+
+        $frequency = '\Apps\CronManager\Php\Entities\JobFrequency';
+        $this->attr('frequency')->many2one('Frequency')->setEntity($frequency);
     }
 }

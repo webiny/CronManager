@@ -11,9 +11,9 @@ class Form extends Webiny.Ui.View {
 Form.defaultProps = {
 	renderer: function render() {
 		const formProps = {
-			title: 'Test title',
+			title: 'Cron Job',
 			api: '/entities/cron-manager/jobs',
-			fields: '*',
+			fields: '*,frequency',
 			connectToRouter: true,
 			onSubmitSuccess: 'CronManager.Jobs',
             onCancel: () => Webiny.Router.goToRoute('CronManager.Jobs')
@@ -38,11 +38,11 @@ Form.defaultProps = {
 				return option.name;
 			},
 			api: '/entities/cron-manager/job-frequency',
-			fields: 'name,mask'
+			fields: '*'
 		};
 
 		const notificationEmails = (
-			<Ui.Dynamic.FieldSet name="notifyEmails">
+			<Ui.Dynamic.Fieldset name="notifyEmails">
 				<Ui.Dynamic.Row>
                     {function (record, index, actions) {
 						return (
@@ -72,7 +72,7 @@ Form.defaultProps = {
 						)
 					}}
 				</Ui.Dynamic.Empty>
-			</Ui.Dynamic.FieldSet>
+			</Ui.Dynamic.Fieldset>
 		);
 
 		return (
@@ -83,7 +83,7 @@ Form.defaultProps = {
 						<Ui.Grid.Row>
 							<Ui.Grid.Col all={6}>
 
-								<Ui.Form.Fieldset title="About Cron Job"/>
+								<Ui.Form.Fieldset title="About"/>
 
 								<Ui.Input label="Name" name="name" validate="required"/>
 								<Ui.Input label="Url" name="url" validate="required" description="If your url doesn't start with http, the current domain name will automatically be prepended"/>
@@ -92,22 +92,26 @@ Form.defaultProps = {
 
 								<Ui.Form.Fieldset title="Notifications"/>
 
-								<Ui.CheckboxGroup label="Notify on" name="notifyOn" grid={12} validate="required">
-									<option value="Error">Failed run</option>
-									<option value="Success">Successful run</option>
-								</Ui.CheckboxGroup>
+								<Ui.Grid.Row>
+									<Ui.Grid.Col all={12}>
+										<Ui.CheckboxGroup label="Notify on" name="notifyOn" grid={12} validate="required">
+											<option value="Error">Failed run</option>
+											<option value="Success">Successful run</option>
+										</Ui.CheckboxGroup>
+									</Ui.Grid.Col>
+								</Ui.Grid.Row>
 
 								<Ui.Grid.Row>
 									<Ui.Grid.Col all={12}>
-										<h4>Notification emails</h4>
-                                                    {notificationEmails}
+										<label>Notification emails</label>
+										{notificationEmails}
 									</Ui.Grid.Col>
 								</Ui.Grid.Row>
 
 							</Ui.Grid.Col>
 
 							<Ui.Grid.Col all={6}>
-								<Ui.Form.Fieldset title="Job Run Settings">
+								<Ui.Form.Fieldset title="Run Settings">
 									<Ui.Button size="small" label="Add new" onClick={this.ui('addFrequencyModal:show')}>Add New Frequency</Ui.Button>
 								</Ui.Form.Fieldset>
 								<Ui.Grid.Col all={12}>
