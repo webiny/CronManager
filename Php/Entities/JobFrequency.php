@@ -3,7 +3,6 @@ namespace Apps\CronManager\Php\Entities;
 
 use Apps\Core\Php\DevTools\DevToolsTrait;
 use Apps\Core\Php\DevTools\Entity\EntityAbstract;
-use Apps\CronManager\Php\Lib\CronSchedule;
 
 /**
  * Class Jobs
@@ -46,13 +45,12 @@ class JobFrequency extends EntityAbstract
             $status = true;
 
             try {
-                $cron = CronSchedule::fromCronString($data['mask']);
                 $cronRunner = \Cron\CronExpression::factory($data['mask']);
 
                 $prev = $cronRunner->getNextRunDate('now', 0, true)->format('Y-m-d H:i:s');
                 $next = $cronRunner->getNextRunDate('now', 1, true)->format('Y-m-d H:i:s');
 
-                $frequency = $cron->asNaturalLanguage() . ' (e.g. ' . $prev . ', ' . $next . ')';
+                $frequency = '(' . $prev . ', ' . $next . ')';
             } catch (\Exception $e) {
                 $status = false;
             }

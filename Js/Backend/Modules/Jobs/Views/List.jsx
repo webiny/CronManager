@@ -74,6 +74,7 @@ List.defaultProps = {
 
 								<Table.Actions>
 									<Table.EditAction route="CronManager.Job.Edit"/>
+									<Table.Action label="History" type="primary" align="right" route="CronManager.Job.History"/>
 									<Table.DeleteAction/>
 								</Table.Actions>
 							</Table.Row>

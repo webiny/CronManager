@@ -9,6 +9,7 @@ class Runner extends AbstractService
     function __construct()
     {
         $this->api('get', 'run', function () {
+            die('running');
             return $this->run();
         });
 
@@ -20,6 +21,7 @@ class Runner extends AbstractService
 
     private function run()
     {
+        die('running');
         // get all active cron jobs
         $jobs = Job::find(['enabled' => true, 'nextRunDate' => time(date('Y-m-d H:i:00'))]);
 
