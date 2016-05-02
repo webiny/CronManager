@@ -38,22 +38,8 @@ class Runner extends AbstractService
 
     private function issueJob(Job $job)
     {
-        // build curl request
-        $ch = curl_init();
-
+        // fork the cron request into separate process
         $url = $this->wConfig()->get('Application.ApiPath') . '/services/cron-manager/runner/run-job/' . $job->getId();
-
-        echo "Job : ".$url."\n";
-/*
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_FRESH_CONNECT, true);
-        // we timeout the request on this end, so we fork the execution into a different request thread
-        curl_setopt($ch, CURLOPT_TIMEOUT_MS, 10);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        curl_exec($ch);
-        curl_close($ch);
-*/
 
         $cmd = "curl -X GET ".$url." > /dev/null 2>&1 &";
         exec($cmd);
@@ -113,8 +99,6 @@ class Runner extends AbstractService
 
         // set status to scheduled
         $job->status = 2; // scheduled
-
-        sleep(20);
 
         // set the date for the next run
         $job->scheduleNextRunDate($job);
