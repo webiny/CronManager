@@ -24,14 +24,11 @@ class Module extends Webiny.Module {
 
         Webiny.Tools.Validator.addValidator('cronFrequency', (val) => {
             const api = new Webiny.Api.Endpoint('/entities/cron-manager/job-frequency');
-
             return api.post('validate', {mask: val}).then(ar => {
-
                 if (!ar.getData().status) {
                     throw new Error('Invalid cron job pattern.');
                 }
-
-                return true;
+                return ar.getData().frequency;
             });
         });
     }
