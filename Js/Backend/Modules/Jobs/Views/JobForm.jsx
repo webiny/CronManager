@@ -1,14 +1,13 @@
 import Webiny from 'Webiny';
 const Ui = Webiny.Ui.Components;
-const UiD = Webiny.Ui.Dispatcher;
 
 import AddFrequencyModal from './AddFrequencyModal';
 
-class Form extends Webiny.Ui.View {
+class JobForm extends Webiny.Ui.View {
 
 }
 
-Form.defaultProps = {
+JobForm.defaultProps = {
     renderer() {
         const formProps = {
             title: 'Cron Job',
@@ -144,4 +143,4 @@ Form.defaultProps = {
 };
 
 
-export default Form;
+export default JobForm;

@@ -44,9 +44,41 @@ class Job extends EntityAbstract
         $this->attr('timeout')->integer()->setToArrayDefault();
         $this->attr('notifyOn')->arr()->setToArrayDefault();
         $this->attr('notifyEmails')->arr()->setToArrayDefault();
-        $this->attr('enabled')->boolean()->setDefaultValue(true)->setToArrayDefault();
+        $this->attr('enabled')->boolean()->setDefaultValue(true)->setToArrayDefault()->onSet(function ($enabled) {
+            // in case we create a new cron job, or in case if we re-enable a disabled cron job, we need to set the next run date
+            if ($enabled) {
+                $this->scheduleNextRunDate($this);
+                $this->status = 2;
+            } else {
+                $this->status = 1;
+            }
+
+            return $enabled;
+        });
 
         $frequency = '\Apps\CronManager\Php\Entities\JobFrequency';
         $this->attr('frequency')->many2one('Frequency')->setEntity($frequency);
+        $this->attr('nextRunDate')->datetime()->setToArrayDefault();
+
+        /**
+         * 1 - innactive
+         * 2 - scheduled
+         * 3 - running
+         */
+        $this->attr('status')->integer()->setDefaultValue(0);
+    }
+
+    public function scheduleNextRunDate(Job $job)
+    {
+        // get the next run date
+        $cronRunner = \Cron\CronExpression::factory($job->frequency->mask);
+        $runDate = $cronRunner->getNextRunDate('now', 0, true)->format('Y-m-d H:i:s');
+
+        // we need to have at least one minute offset between the current date and the next run date
+        if (strtotime($runDate) - time() <= 60) {
+            $runDate = $cronRunner->getNextRunDate('now', 1, true)->format('Y-m-d H:i:s');
+        }
+
+        $job->nextRunDate = $this->datetime($runDate)->setTimezone('UTC')->format(DATE_ISO8601);
     }
 }

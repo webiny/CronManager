@@ -12,16 +12,20 @@ class Module extends Webiny.Module {
 
         this.registerRoutes(
             new Webiny.Route('CronManager.Jobs', '/cron-manager', {
-                MasterContent: Views.List
+                MasterContent: Views.JobList
             }),
             new Webiny.Route('CronManager.Job.Create', '/cron-manager/job', {
-                MasterContent: Views.Form
+                MasterContent: Views.JobForm
             }),
             new Webiny.Route('CronManager.Job.Edit', '/cron-manager/job/:id', {
-                MasterContent: Views.Form
+                MasterContent: Views.JobForm
+            }),
+            new Webiny.Route('CronManager.Job.History', '/cron-manager/job/history/:id', {
+                MasterContent: Views.JobHistoryList
             })
         );
 
+        // register the cronFrequency validator
         Webiny.Tools.Validator.addValidator('cronFrequency', (val) => {
             const api = new Webiny.Api.Endpoint('/entities/cron-manager/job-frequency');
 

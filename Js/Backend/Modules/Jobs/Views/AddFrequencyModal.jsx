@@ -20,6 +20,10 @@ class AddFrequencyModal extends Webiny.Ui.Component {
 		this.bindMethods('show,hide');
 	}
 
+	cronFrequencyCallback(validationResult) {
+
+	}
+
 	hide() {
 		this.refs.dialog.hide();
 	}

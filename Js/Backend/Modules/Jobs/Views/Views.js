@@ -1,9 +1,9 @@
-import Form from './Form';
-import List from './List';
-import History from './History';
+import JobForm from './JobForm';
+import JobList from './JobList';
+import JobHistoryList from './JobHistoryList';
 
 export default {
-	List,
-	Form,
-	History
+	JobList,
+	JobForm,
+	JobHistoryList
 };
