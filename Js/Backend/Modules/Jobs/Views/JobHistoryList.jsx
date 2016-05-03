@@ -17,13 +17,56 @@ JobHistoryList.defaultProps = {
 			connectToRouter: true
 		};
 
+		const statProps = {
+			api: '/entities/cron-manager/job',
+			url: '/' + Webiny.Router.getParams('id')
+		};
+
 		return (
 			<Ui.Grid.Row>
-				<Ui.Grid.Col all={12}>
-					<h2>
-						Job History: $jobName
-					</h2>
-				</Ui.Grid.Col>
+				<Ui.Data ui="stats" {...statProps} >
+					{(data, filter, api) => (
+						<Ui.Grid.Row>
+							<Ui.Grid.Col all={12}>
+								<h2>
+									<Ui.Grid.Row>
+										<Ui.Grid.Col all={10}>
+											Job History: {_.get(data, 'name')}
+										</Ui.Grid.Col>
+										<Ui.Grid.Col all={2}>
+											<Ui.Link type="default" align="right" route="CronManager.Jobs">Back to Job List</Ui.Link>
+										</Ui.Grid.Col>
+									</Ui.Grid.Row>
+								</h2>
+							</Ui.Grid.Col>
+
+							<Ui.Grid.Col all={2} xsOffset={3}>
+								<Ui.Tile.Tile>
+									<Ui.Tile.Header title="# of executions"/>
+									<Ui.Tile.Body>
+										<h1>{_.get(data, 'stats.numberOfRuns')}</h1>
+									</Ui.Tile.Body>
+								</Ui.Tile.Tile>
+							</Ui.Grid.Col>
+							<Ui.Grid.Col all={2}>
+								<Ui.Tile.Tile>
+									<Ui.Tile.Header title="Success ratio"/>
+									<Ui.Tile.Body>
+										<h1>{_.round(((_.get(data, 'stats.successfulRuns') / _.get(data, 'stats.numberOfRuns')) * 100), 2)}%</h1>
+									</Ui.Tile.Body>
+								</Ui.Tile.Tile>
+							</Ui.Grid.Col>
+							<Ui.Grid.Col all={2}>
+								<Ui.Tile.Tile>
+									<Ui.Tile.Header title="Avg. response time"/>
+									<Ui.Tile.Body>
+										<h1>{_.round(_.get(data, 'stats.totalExecTime') / _.get(data, 'stats.numberOfRuns'), 5)} sec</h1>
+									</Ui.Tile.Body>
+								</Ui.Tile.Tile>
+							</Ui.Grid.Col>
+						</Ui.Grid.Row>
+					)}
+				</Ui.Data>
 				<Ui.Grid.Col all={12}>
 					<Ui.List.ApiContainer ui="historyList" {...listProps}>
 
@@ -36,10 +79,10 @@ JobHistoryList.defaultProps = {
 									<Table.FieldRenderer>
 									{function (data) {
 										return (
-										<td className={this.getTdClasses()}>
-											<Ui.Button type="default" label="Show Details" onClick={this.ui('historyDetailsModal:show')}/>
-											<HistoryDetailsModal ui="historyDetailsModal" data={data}/>
-										</td>
+											<td className={this.getTdClasses()}>
+												<Ui.Button type="default" label="Show Details" onClick={this.ui('historyDetailsModal:show')}/>
+												<HistoryDetailsModal ui="historyDetailsModal" data={data}/>
+											</td>
 										);
 									}}
 									</Table.FieldRenderer>

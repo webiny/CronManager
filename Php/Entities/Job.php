@@ -18,6 +18,7 @@ use Apps\Core\Php\DevTools\Entity\EntityAbstract;
  * @property bool              $enabled
  * @property int               $nextRunDate
  * @property string            $status
+ * @property array             $stats
  *
  * @package Apps\Core\Php\Entities
  *
@@ -44,6 +45,7 @@ class Job extends EntityAbstract
         $this->attr('timeout')->integer()->setToArrayDefault();
         $this->attr('notifyOn')->arr()->setToArrayDefault();
         $this->attr('notifyEmails')->arr()->setToArrayDefault();
+
         $this->attr('enabled')->boolean()->setDefaultValue(true)->setToArrayDefault()->onSet(function ($enabled) {
             // in case we create a new cron job, or in case if we re-enable a disabled cron job, we need to set the next run date
             if ($enabled) {
@@ -54,7 +56,7 @@ class Job extends EntityAbstract
             }
 
             return $enabled;
-        });
+        })->setAfterPopulate();
 
         $frequency = '\Apps\CronManager\Php\Entities\JobFrequency';
         $this->attr('frequency')->many2one('Frequency')->setEntity($frequency);
@@ -66,12 +68,13 @@ class Job extends EntityAbstract
          * 3 - running
          */
         $this->attr('status')->integer()->setDefaultValue(0);
+        $this->attr('stats')->object()->setDefaultValue(['totalExecTime'=>0, 'numberOfRuns'=>0, 'successfulRuns'=>0])->setToArrayDefault();
     }
 
-    public function scheduleNextRunDate(Job $job)
+    public function scheduleNextRunDate()
     {
         // get the next run date
-        $cronRunner = \Cron\CronExpression::factory($job->frequency->mask);
+        $cronRunner = \Cron\CronExpression::factory($this->frequency->mask);
         $runDate = $cronRunner->getNextRunDate('now', 0, true)->format('Y-m-d H:i:s');
 
         // we need to have at least one minute offset between the current date and the next run date
@@ -79,6 +82,6 @@ class Job extends EntityAbstract
             $runDate = $cronRunner->getNextRunDate('now', 1, true)->format('Y-m-d H:i:s');
         }
 
-        $job->nextRunDate = $this->datetime($runDate)->setTimezone('UTC')->format(DATE_ISO8601);
+        $this->nextRunDate = $this->datetime($runDate)->setTimezone('UTC')->format(DATE_ISO8601);
     }
 }

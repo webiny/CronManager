@@ -19,23 +19,20 @@ JobList.defaultProps = {
 			api: '/entities/cron-manager/jobs',
 			fields: 'name,url,frequency,enabled,createdOn,nextRunDate,status',
 			connectToRouter: true,
-			searchFields: 'name',
-			autoRefresh: 2
+			searchFields: 'name'
+			//autoRefresh: 2
 		};
 
 		const statusProps = {
 			ui: 'statusFilter',
 			placeholder: Webiny.i18n('webiny.core.statusFilter.placeholder', 'Status'),
 			allowClear: true,
-			name: 'enabled',
-			onChange: e => this.ui('myList').setSearchQuery(this.ui('statusFilter').getValue()),
-			valueLink: this.bindTo('search')
+			name: 'enabled'
 		};
 
 		const searchProps = {
-			onEnter: e => this.ui('myList').setSearchQuery(e.target.value),
 			placeholder: 'Search...',
-			valueLink: this.bindTo('search')
+			name: '_searchQuery'
 		};
 
 		return (
@@ -56,14 +53,14 @@ JobList.defaultProps = {
 				<Ui.Grid.Col all={12}>
 					<Ui.List.ApiContainer ui="myList" {...listProps}>
 
-						<Ui.List.Filters>
+						<Ui.List.FormFilters>
                         {(applyFilters, resetFilters) => (
 							<Ui.Grid.Row>
 								<Ui.Grid.Col all={5}>
-									<Ui.Input {...searchProps} />
+									<Ui.Input {...searchProps} onEnter={applyFilters()} />
 								</Ui.Grid.Col>
 								<Ui.Grid.Col all={5}>
-									<Ui.Select {...statusProps}>
+									<Ui.Select {...statusProps} onChange={applyFilters()}>
 										<option value="true">Enabled</option>
 										<option value="false">Disabled</option>
 									</Ui.Select>
@@ -74,7 +71,7 @@ JobList.defaultProps = {
 								</Ui.Grid.Col>
 							</Ui.Grid.Row>
 						)}
-						</Ui.List.Filters>
+						</Ui.List.FormFilters>
 
 						<Table.Table>
 							<Table.Row>

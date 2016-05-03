@@ -24,9 +24,8 @@ class Runner extends AbstractService
     private function run()
     {
         // get all active cron jobs
-        $runDate = $this->datetime(strtotime(date('Y-m-d H:i:00')))->setTimezone('UTC')->format(DATE_ISO8601);
-        $mongoDate = $this->datetime($runDate)->getMongoDate();
-        //$jobs = Job::find(['enabled' => true, 'nextRunDate' => $mongoDate]);
+        $runDate = $this->datetime(strtotime(date('Y-m-d H:i:00')))->setTimezone('UTC');
+        //$jobs = Job::find(['enabled' => true, 'nextRunDate' => $runDate->getMongoDate()]);
 
         // temp - for testing we skip the date filter
         $jobs = Job::find(['enabled' => true]);
@@ -87,9 +86,14 @@ class Runner extends AbstractService
         $jobHistory->responseCode = $curlInfo['http_code'];
         $jobHistory->result = $result;
 
+        // update job stats
+        $job->stats->totalExecTime+=$jobHistory->runTime;
+        $job->stats->numberOfRuns+=1;
+
         // validate the curl response
         if ($jobHistory->responseCode >= 200 && $jobHistory->responseCode <= 399) {
             $jobHistory->successful = true;
+            $job->stats->successfulRuns+=1;
         } else {
             $jobHistory->successful = false;
         }
@@ -101,7 +105,7 @@ class Runner extends AbstractService
         $job->status = 2; // scheduled
 
         // set the date for the next run
-        $job->scheduleNextRunDate($job);
+        $job->scheduleNextRunDate();
         $job->save();
     }
 }

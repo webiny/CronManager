@@ -1,28 +1,20 @@
 import Webiny from 'Webiny';
 const Ui = Webiny.Ui.Components;
-const Textarea = Ui.Textarea;
 
-
-class HistoryDetailsModal extends Webiny.Ui.Component {
+class HistoryDetailsModal extends Webiny.Ui.ModalComponent  {
 
 	constructor(props) {
 		super(props);
 
-		this.bindMethods('show,hide');
-	}
-
-	hide() {
-		this.refs.historyDialog.hide();
-	}
-
-	show() {
-		this.refs.historyDialog.show();
+        this.state = {
+			data: props.data
+		}
 	}
 
 	render() {
 		return (
-			<Ui.Modal.Dialog ref="historyDialog">
-				<Ui.Modal.Header title="Add Frequency"/>
+			<Ui.Modal.Dialog ref="dialog">
+				<Ui.Modal.Header title="History Details"/>
 				<Ui.Modal.Body>
 					<Ui.Tabs.Tabs ui="tabs">
 						<Ui.Tabs.Tab label="Details">
@@ -46,15 +38,12 @@ class HistoryDetailsModal extends Webiny.Ui.Component {
 								<dd>{this.props.data.responseCode}</dd>
 							</dl>
 						</Ui.Tabs.Tab>
+
 						<Ui.Tabs.Tab label="Response">
-							<Textarea disabled="disabled" value="test">
-								{this.props.data.result}
-							</Textarea>
+							<Ui.Textarea readonly="readonly" valueLink={this.bindTo('data.result')}/>
 						</Ui.Tabs.Tab>
 						<Ui.Tabs.Tab label="Debug Log">
-							<pre>
-							{this.props.data.debugLog}
-							</pre>
+							<Ui.Textarea disabled="disabled" valueLink={this.bindTo('data.debugLog')}/>
 						</Ui.Tabs.Tab>
 
 					</Ui.Tabs.Tabs>
