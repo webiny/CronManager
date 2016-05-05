@@ -19,8 +19,8 @@ JobList.defaultProps = {
 			api: '/entities/cron-manager/jobs',
 			fields: 'name,url,frequency,enabled,createdOn,nextRunDate,status',
 			connectToRouter: true,
-			searchFields: 'name'
-			//autoRefresh: 2
+			searchFields: 'name',
+			autoRefresh: 2
 		};
 
 		const statusProps = {
