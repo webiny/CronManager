@@ -45,10 +45,10 @@ JobForm.defaultProps = {
                 <Ui.Dynamic.Row>
                     {(record, index, actions) => (
                         <Ui.Grid.Row>
-                            <Ui.Grid.Col all={10}>
+                            <Ui.Grid.Col all={9}>
                                 <Ui.Input placeholder="Email address" name="email" validate="required, email"/>
                             </Ui.Grid.Col>
-                            <Ui.Grid.Col all={2}>
+                            <Ui.Grid.Col all={3}>
                                 <div className="btn-group">
                                     <Ui.Button type="primary" label="Add" onClick={actions.add(index)}/>
                                     <Ui.Button type="secondary" label="x" onClick={actions.remove(index)}/>

@@ -16,7 +16,11 @@ class AddFrequencyModal extends Webiny.Ui.ModalComponent {
             ui: 'addFrequencyForm',
             api: '/entities/cron-manager/job-frequency',
             fields: 'id, name, mask',
-            connectToRouter: true
+            connectToRouter: true,
+            onSubmitSuccess: () => {
+                this.ui('frequencySelect').prepareOptions();
+                this.hide();
+            }
         };
 
         return (
