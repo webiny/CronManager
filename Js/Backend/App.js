@@ -1,5 +1,3 @@
 import Webiny from 'Webiny';
 
-const cronManager = new Webiny.App('CronManager.Backend');
-
-export default cronManager;
+export default new Webiny.App('CronManager.Backend');

@@ -11,18 +11,10 @@ class Module extends Webiny.Module {
         );
 
         this.registerRoutes(
-            new Webiny.Route('CronManager.Jobs', '/cron-manager', {
-                MasterContent: Views.JobList
-            }),
-            new Webiny.Route('CronManager.Job.Create', '/cron-manager/job', {
-                MasterContent: Views.JobForm
-            }),
-            new Webiny.Route('CronManager.Job.Edit', '/cron-manager/job/:id', {
-                MasterContent: Views.JobForm
-            }),
-            new Webiny.Route('CronManager.Job.History', '/cron-manager/job/history/:id', {
-                MasterContent: Views.JobHistoryList
-            })
+            new Webiny.Route('CronManager.Jobs', '/cron-manager', Views.JobList, 'Cron Manager - Jobs'),
+            new Webiny.Route('CronManager.Job.Create', '/cron-manager/job', Views.JobForm, 'Cron Manager - New Job'),
+            new Webiny.Route('CronManager.Job.Edit', '/cron-manager/job/:id', Views.JobForm, 'Cron Manager - Edit Job'),
+            new Webiny.Route('CronManager.Job.History', '/cron-manager/job/history/:id', Views.JobHistoryList, 'Cron Manager - Job History')
         );
 
         // register the cronFrequency validator
