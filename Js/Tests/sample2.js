@@ -1,29 +1,13 @@
-var assert = require('assert'),
-	test = require('selenium-webdriver/testing');
+import {TestSuite, By, until} from './../../../../Core/Js/Webiny/Modules/Core/TestLib/TestSuite.js';
+var driver = TestSuite.getDriver();
 
-var webdriver = require('selenium-webdriver'),
-	By = require('selenium-webdriver').By,
-	until = require('selenium-webdriver').until;
+describe('Login Page', function () {
+	this.timeout(10000);
 
-test.before(function () {
-	this.timeout(15000);
-	driver = new webdriver.Builder()
-		.withCapabilities(webdriver.Capabilities.chrome())
-		.build();
-});
-
-test.after(function () {
-	driver.quit().then(this.done);
-});
-
-// tests
-test.describe('Login Page', function () {
 	it('should display the login form', function (done) {
-		this.timeout(15000);
-
 		// open login page
 		driver.get('http://demo.app/admin/login').then(function () {
-			driver.wait(until.elementLocated({xpath: '/html/body/webiny-app/rad-placeholder/webiny-form-container/div/div/form/layout/div[3]/input'})).then(function () {
+			driver.wait(until.elementLocated({xpath: '/html/body/webiny-app/rad-placeholder/webiny-form-container/div/div/form/layout/div[3]/div/input'})).then(function () {
 				done();
 			});
 		});
@@ -31,11 +15,11 @@ test.describe('Login Page', function () {
 
 	it('should populate the login form with invalid data and it should show the alert', function (done) {
 		// populate email input
-		emailInput = driver.findElement({xpath: '/html/body/webiny-app/rad-placeholder/webiny-form-container/div/div/form/layout/div[3]/input'});
+		var emailInput = driver.findElement({xpath: '/html/body/webiny-app/rad-placeholder/webiny-form-container/div/div/form/layout/div[3]/div/input'});
 		emailInput.sendKeys('foobar@webiny.com');
 
 		// populate password input
-		passwordInput = driver.findElement({xpath: '/html/body/webiny-app/rad-placeholder/webiny-form-container/div/div/form/layout/div[4]/input'});
+		var passwordInput = driver.findElement({xpath: '/html/body/webiny-app/rad-placeholder/webiny-form-container/div/div/form/layout/div[4]/div/input'});
 		passwordInput.sendKeys('dev-password-123');
 
 		// submit form
@@ -52,9 +36,11 @@ test.describe('Login Page', function () {
 
 	it('should populate the form with valid data, submit the form and should redirect to the dashboard', function (done) {
 		// populate email input
+		var emailInput = driver.findElement({xpath: '/html/body/webiny-app/rad-placeholder/webiny-form-container/div/div/form/layout/div[3]/div/input'});
 		emailInput.sendKeys('sven@webiny.com');
 
 		// populate password input
+		var passwordInput = driver.findElement({xpath: '/html/body/webiny-app/rad-placeholder/webiny-form-container/div/div/form/layout/div[4]/div/input'});
 		passwordInput.sendKeys('dev');
 
 		// submit form
