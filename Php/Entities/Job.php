@@ -7,18 +7,18 @@ use Apps\Core\Php\DevTools\Entity\EntityAbstract;
 /**
  * Class Jobs
  *
- * @property string            $id
- * @property string            $name
- * @property string            $description
- * @property string            $url
- * @property string            $frequency
- * @property int               $timeout
- * @property array             $notifyOn
- * @property array             $notifyEmails
- * @property bool              $enabled
- * @property int               $nextRunDate
- * @property string            $status
- * @property array             $stats
+ * @property string $id
+ * @property string $name
+ * @property string $description
+ * @property string $url
+ * @property string $frequency
+ * @property int    $timeout
+ * @property array  $notifyOn
+ * @property array  $notifyEmails
+ * @property bool   $enabled
+ * @property int    $nextRunDate
+ * @property string $status
+ * @property array  $stats
  *
  * @package Apps\Core\Php\Entities
  *
@@ -30,12 +30,10 @@ class Job extends EntityAbstract
     protected static $entityCollection = 'Jobs';
     protected static $entityMask = '{name}';
 
-    /**
-     * This method is called during instantiation to build entity structure
-     * @return void
-     */
-    protected function entityStructure()
+    public function __construct()
     {
+        parent::__construct();
+
         $this->attr('name')->char()->setValidators('required,unique')->setValidationMessages([
             'unique' => 'This cron job already exists.'
         ])->setToArrayDefault();
@@ -63,13 +61,17 @@ class Job extends EntityAbstract
         $this->attr('nextRunDate')->datetime()->setToArrayDefault();
 
         /**
-         * 1 - innactive
+         * 1 - inactive
          * 2 - scheduled
          * 3 - running
          */
         $this->attr('status')->integer()->setDefaultValue(0);
-        $this->attr('stats')->object()->setDefaultValue(['totalExecTime'=>0, 'numberOfRuns'=>0, 'successfulRuns'=>0])->setToArrayDefault();
+        $this->attr('stats')
+             ->object()
+             ->setDefaultValue(['totalExecTime' => 0, 'numberOfRuns' => 0, 'successfulRuns' => 0])
+             ->setToArrayDefault();
     }
+
 
     public function scheduleNextRunDate()
     {

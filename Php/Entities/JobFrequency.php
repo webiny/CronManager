@@ -7,9 +7,9 @@ use Apps\Core\Php\DevTools\Entity\EntityAbstract;
 /**
  * Class Jobs
  *
- * @property string           $id
- * @property string           $name
- * @property string           $mask
+ * @property string $id
+ * @property string $name
+ * @property string $mask
  *
  * @package Apps\Core\Php\Entities
  *
@@ -21,18 +21,13 @@ class JobFrequency extends EntityAbstract
     protected static $entityCollection = 'JobFrequency';
     protected static $entityMask = '{name}';
 
-    /**
-     * This method is called during instantiation to build entity structure
-     * @return void
-     */
-    protected function entityStructure()
+    public function __construct()
     {
+        parent::__construct();
+
         $this->attr('name')->char()->setValidators('required')->setToArrayDefault();
         $this->attr('mask')->char()->setValidators('required')->setToArrayDefault();
-    }
 
-    protected function entityApi()
-    {
         /**
          * @api.name Validate
          * @api.url /validate
@@ -62,6 +57,4 @@ class JobFrequency extends EntityAbstract
             ];
         })->setBodyValidators(['mask' => 'required']);
     }
-
-
 }
