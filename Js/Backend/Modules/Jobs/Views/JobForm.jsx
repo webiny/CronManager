@@ -70,9 +70,10 @@ JobForm.defaultProps = {
             </Ui.Dynamic.Fieldset>
         );
 
+        const urlDescription = 'If your url doesn\'t start with http, the current domain name will automatically be prepended';
+
         return (
             <Ui.Form.ApiContainer ui="myForm" {...formProps}>
-
                 <Ui.Form.Form>
                     <fields>
                         <Ui.Grid.Row>
@@ -81,8 +82,7 @@ JobForm.defaultProps = {
                                 <Ui.Form.Fieldset title="About"/>
 
                                 <Ui.Input label="Name" name="name" validate="required"/>
-                                <Ui.Input label="Url" name="url" validate="required"
-                                          description="If your url doesn't start with http, the current domain name will automatically be prepended"/>
+                                <Ui.Input label="Url" name="url" validate="required" description={urlDescription}/>
                                 <Ui.Textarea label="Description" name="description"/>
 
 

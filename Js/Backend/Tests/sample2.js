@@ -1,4 +1,4 @@
-import {TestSuite, By, until} from './../../../../Core/Js/Webiny/Modules/Core/TestLib/TestSuite.js';
+import {TestSuite, By, until} from './../../../../Core/Js/Webiny/Modules/Core/TestLib/TestSuite';
 var driver = TestSuite.getDriver();
 
 describe('Login Page', function () {
@@ -6,7 +6,7 @@ describe('Login Page', function () {
 
 	it('should display the login form', function (done) {
 		// open login page
-		driver.get('http://demo.app/admin/login').then(function () {
+		driver.get('http://selecto.app:8001/admin/login').then(function () {
 			driver.wait(until.elementLocated({xpath: '/html/body/webiny-app/rad-placeholder/webiny-form-container/div/div/form/layout/div[3]/div/input'})).then(function () {
 				done();
 			});
@@ -37,7 +37,7 @@ describe('Login Page', function () {
 	it('should populate the form with valid data, submit the form and should redirect to the dashboard', function (done) {
 		// populate email input
 		var emailInput = driver.findElement({xpath: '/html/body/webiny-app/rad-placeholder/webiny-form-container/div/div/form/layout/div[3]/div/input'});
-		emailInput.sendKeys('sven@webiny.com');
+		emailInput.sendKeys('pavel@webiny.com');
 
 		// populate password input
 		var passwordInput = driver.findElement({xpath: '/html/body/webiny-app/rad-placeholder/webiny-form-container/div/div/form/layout/div[4]/div/input'});

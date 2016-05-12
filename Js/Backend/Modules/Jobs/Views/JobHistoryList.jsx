@@ -9,96 +9,99 @@ class JobHistoryList extends Webiny.Ui.View {
 
 JobHistoryList.defaultProps = {
 
-	renderer() {
-		const listProps = {
-			api: '/entities/cron-manager/job-history',
-			defaultQuery: {job: Webiny.Router.getParams('id'), '_sort': '-runDate'},
-			fields: 'job,runDate,runTime,responseCode,successful,serverIp,debugLog,result',
-			connectToRouter: true
-		};
+    renderer() {
+        const listProps = {
+            api: '/entities/cron-manager/job-history',
+            defaultQuery: {job: Webiny.Router.getParams('id'), '_sort': '-runDate'},
+            fields: 'job,runDate,runTime,responseCode,successful,serverIp,debugLog,result',
+            connectToRouter: true
+        };
 
-		const statProps = {
-			api: '/entities/cron-manager/job',
-			url: '/' + Webiny.Router.getParams('id')
-		};
+        const statProps = {
+            api: '/entities/cron-manager/job',
+            url: '/' + Webiny.Router.getParams('id')
+        };
 
-		return (
-			<Ui.Grid.Row>
-				<Ui.Data ui="stats" {...statProps} >
-					{(data, filter, api) => (
-						<Ui.Grid.Row>
-							<Ui.Grid.Col all={12}>
-								<h2>
-									<Ui.Grid.Row>
-										<Ui.Grid.Col all={10}>
-											Job History: {_.get(data, 'name')}
-										</Ui.Grid.Col>
-										<Ui.Grid.Col all={2}>
-											<Ui.Link type="default" align="right" route="CronManager.Jobs">Back to Job List</Ui.Link>
-										</Ui.Grid.Col>
-									</Ui.Grid.Row>
-								</h2>
-							</Ui.Grid.Col>
+        return (
+            <Ui.Grid.Row>
+                <Ui.Data ui="stats" {...statProps} >
+                    {data => (
+                        <Ui.Grid.Row>
+                            <Ui.Grid.Col all={12}>
+                                <h2>
+                                    <Ui.Grid.Row>
+                                        <Ui.Grid.Col all={10}>
+                                            Job History: {_.get(data, 'name')}
+                                        </Ui.Grid.Col>
+                                        <Ui.Grid.Col all={2}>
+                                            <Ui.Link type="default" align="right" route="CronManager.Jobs">Back to Job List</Ui.Link>
+                                        </Ui.Grid.Col>
+                                    </Ui.Grid.Row>
+                                </h2>
+                            </Ui.Grid.Col>
 
-							<Ui.Grid.Col all={2} xsOffset={3}>
-								<Ui.Tile.Tile>
-									<Ui.Tile.Header title="# of executions"/>
-									<Ui.Tile.Body>
-										<h1>{_.get(data, 'stats.numberOfRuns')}</h1>
-									</Ui.Tile.Body>
-								</Ui.Tile.Tile>
-							</Ui.Grid.Col>
-							<Ui.Grid.Col all={2}>
-								<Ui.Tile.Tile>
-									<Ui.Tile.Header title="Success ratio"/>
-									<Ui.Tile.Body>
-										<h1>{_.round(((_.get(data, 'stats.successfulRuns') / _.get(data, 'stats.numberOfRuns')) * 100), 2)}%</h1>
-									</Ui.Tile.Body>
-								</Ui.Tile.Tile>
-							</Ui.Grid.Col>
-							<Ui.Grid.Col all={2}>
-								<Ui.Tile.Tile>
-									<Ui.Tile.Header title="Avg. response time"/>
-									<Ui.Tile.Body>
-										<h1>{_.round(_.get(data, 'stats.totalExecTime') / _.get(data, 'stats.numberOfRuns'), 5)} sec</h1>
-									</Ui.Tile.Body>
-								</Ui.Tile.Tile>
-							</Ui.Grid.Col>
-						</Ui.Grid.Row>
-					)}
-				</Ui.Data>
-				<Ui.Grid.Col all={12}>
-					<Ui.List.ApiContainer ui="historyList" {...listProps}>
+                            <Ui.Grid.Col all={2} xsOffset={3}>
+                                <Ui.Tile.Tile>
+                                    <Ui.Tile.Header title="# of executions"/>
+                                    <Ui.Tile.Body>
+                                        <h1>{_.get(data, 'stats.numberOfRuns')}</h1>
+                                    </Ui.Tile.Body>
+                                </Ui.Tile.Tile>
+                            </Ui.Grid.Col>
+                            <Ui.Grid.Col all={2}>
+                                <Ui.Tile.Tile>
+                                    <Ui.Tile.Header title="Success ratio"/>
+                                    <Ui.Tile.Body>
+                                        <h1>{_.round(((_.get(data, 'stats.successfulRuns') / _.get(data, 'stats.numberOfRuns')) * 100), 2)}%</h1>
+                                    </Ui.Tile.Body>
+                                </Ui.Tile.Tile>
+                            </Ui.Grid.Col>
+                            <Ui.Grid.Col all={2}>
+                                <Ui.Tile.Tile>
+                                    <Ui.Tile.Header title="Avg. response time"/>
+                                    <Ui.Tile.Body>
+                                        <h1>{_.round(_.get(data, 'stats.totalExecTime') / _.get(data, 'stats.numberOfRuns'), 5)} sec</h1>
+                                    </Ui.Tile.Body>
+                                </Ui.Tile.Tile>
+                            </Ui.Grid.Col>
+                        </Ui.Grid.Row>
+                    )}
+                </Ui.Data>
+                <Ui.Grid.Col all={12}>
+                    <Ui.List.ApiContainer ui="historyList" {...listProps}>
 
-						<Table.Table>
-							<Table.Row>
-								<Table.TimeAgoField name="runDate" align="left" label="Run Date" sort="runDate"/>
-								<Table.Field name="runTime" align="left" label="Run Time" sort="runTime"/>
-								<Table.Field name="responseCode" align="left" label="Response Code" sort="responseCode"/>
-								<Table.Field align="right">
-									<Table.FieldRenderer>
-									{function (data) {
-										return (
-											<td className={this.getTdClasses()}>
-												<Ui.Button type="default" label="Show Details" onClick={this.ui('historyDetailsModal:show')}/>
-												<HistoryDetailsModal ui="historyDetailsModal" data={data}/>
-											</td>
-										);
-									}}
-									</Table.FieldRenderer>
+                        <Table.Table>
+                            <Table.Row>
+                                <Table.TimeAgoField name="runDate" align="left" label="Run Date" sort="runDate"/>
+                                <Table.Field name="runTime" align="left" label="Run Time" sort="runTime"/>
+                                <Table.Field name="responseCode" align="left" label="Response Code" sort="responseCode"/>
+                                <Table.Field align="right">
+                                    <Table.FieldRenderer>
+                                        {function renderer(data) {
+                                            return (
+                                                <td className={this.getTdClasses()}>
+                                                    <Ui.Button
+                                                        type="default"
+                                                        label="Show Details"
+                                                        onClick={this.ui('historyDetailsModal:show')}/>
+                                                    <HistoryDetailsModal ui="historyDetailsModal" data={data}/>
+                                                </td>
+                                            );
+                                        }}
+                                    </Table.FieldRenderer>
 
-								</Table.Field>
-							</Table.Row>
+                                </Table.Field>
+                            </Table.Row>
 
-							<Table.Empty/>
-						</Table.Table>
+                            <Table.Empty/>
+                        </Table.Table>
 
-						<Ui.List.Pagination/>
-					</Ui.List.ApiContainer>
-				</Ui.Grid.Col>
-			</Ui.Grid.Row>
-		);
-	}
+                        <Ui.List.Pagination/>
+                    </Ui.List.ApiContainer>
+                </Ui.Grid.Col>
+            </Ui.Grid.Row>
+        );
+    }
 };
 
 export default JobHistoryList;
