@@ -7,7 +7,7 @@ class Module extends Webiny.Module {
         const Menu = Webiny.Ui.Menu;
 
         this.registerMenus(
-            new Menu('CronManager', 'CronManager.Jobs', 'icon-website')
+            new Menu('CronManager', 'CronManager.Jobs', 'icon-calendar-o')
         );
 
         this.registerRoutes(

@@ -66,10 +66,11 @@ class Job extends EntityAbstract
          * 3 - running
          */
         $this->attr('status')->integer()->setDefaultValue(0);
-        $this->attr('stats')
-             ->object()
-             ->setDefaultValue(['totalExecTime' => 0, 'numberOfRuns' => 0, 'successfulRuns' => 0])
-             ->setToArrayDefault();
+        $this->attr('stats')->object()->setDefaultValue([
+            'totalExecTime'  => 0,
+            'numberOfRuns'   => 0,
+            'successfulRuns' => 0
+        ])->setToArrayDefault();
     }
 
 

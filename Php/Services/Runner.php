@@ -40,7 +40,7 @@ class Runner extends AbstractService
         // fork the cron request into separate process
         $url = $this->wConfig()->get('Application.ApiPath') . '/services/cron-manager/runner/run-job/' . $job->getId();
 
-        $cmd = "curl -X GET ".$url." > /dev/null 2>&1 &";
+        $cmd = "curl -X GET " . $url . " > /dev/null 2>&1 &";
         exec($cmd);
     }
 
@@ -87,13 +87,13 @@ class Runner extends AbstractService
         $jobHistory->result = $result;
 
         // update job stats
-        $job->stats->totalExecTime+=$jobHistory->runTime;
-        $job->stats->numberOfRuns+=1;
+        $job->stats->totalExecTime += $jobHistory->runTime;
+        $job->stats->numberOfRuns += 1;
 
         // validate the curl response
         if ($jobHistory->responseCode >= 200 && $jobHistory->responseCode <= 399) {
             $jobHistory->successful = true;
-            $job->stats->successfulRuns+=1;
+            $job->stats->successfulRuns += 1;
         } else {
             $jobHistory->successful = false;
         }
