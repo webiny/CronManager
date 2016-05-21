@@ -15,7 +15,7 @@ JobForm.defaultProps = {
             connectToRouter: true,
             onSubmitSuccess: 'CronManager.Jobs',
             onCancel: 'CronManager.Jobs',
-            onSuccessGrowl(record) {
+            onSuccessMessage(record) {
                 return <span>Cron job <strong>{record.name}</strong> saved!</span>;
             }
         };
