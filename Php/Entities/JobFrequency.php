@@ -3,6 +3,7 @@ namespace Apps\CronManager\Php\Entities;
 
 use Apps\Core\Php\DevTools\DevToolsTrait;
 use Apps\Core\Php\DevTools\Entity\EntityAbstract;
+use Webiny\Component\Entity\Attribute\Validation\ValidationException;
 
 /**
  * Class Jobs
@@ -25,8 +26,15 @@ class JobFrequency extends EntityAbstract
     {
         parent::__construct();
 
+        $maskValidator = function ($mask) {
+            $frequency = $this->getFrequency($mask);
+            if (!$frequency) {
+                throw new ValidationException('Invalid cron job pattern');
+            }
+        };
+
         $this->attr('name')->char()->setValidators('required')->setToArrayDefault();
-        $this->attr('mask')->char()->setValidators('required')->setToArrayDefault();
+        $this->attr('mask')->char()->setValidators(['required', $maskValidator])->setToArrayDefault();
 
         /**
          * @api.name Validate
@@ -36,25 +44,30 @@ class JobFrequency extends EntityAbstract
         $this->api('POST', 'validate', function () {
             $data = $this->wRequest()->getRequestData();
 
-            $frequency = '';
+            $frequency = $this->getFrequency($data['mask']);
             $status = true;
-
-            try {
-                $cronRunner = \Cron\CronExpression::factory($data['mask']);
-
-                $prev = $cronRunner->getNextRunDate('now', 0, true)->format('Y-m-d H:i:s');
-                $next = $cronRunner->getNextRunDate('now', 1, true)->format('Y-m-d H:i:s');
-
-                $frequency = '(' . $prev . ', ' . $next . ')';
-            } catch (\Exception $e) {
+            if (!$frequency) {
                 $status = false;
             }
-
 
             return [
                 'status'    => $status,
                 'frequency' => $frequency
             ];
         })->setBodyValidators(['mask' => 'required']);
+    }
+
+    private function getFrequency($mask)
+    {
+        try {
+            $cronRunner = \Cron\CronExpression::factory($mask);
+
+            $prev = $cronRunner->getNextRunDate('now', 0, true)->format('Y-m-d H:i:s');
+            $next = $cronRunner->getNextRunDate('now', 1, true)->format('Y-m-d H:i:s');
+
+            return '(' . $prev . ', ' . $next . ')';
+        } catch (\Exception $e) {
+            return '';
+        }
     }
 }
