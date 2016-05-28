@@ -1,5 +1,6 @@
 import Webiny from 'Webiny';
 const Ui = Webiny.Ui.Components;
+const Table = Ui.List.Table;
 
 class AddFrequencyModal extends Webiny.Ui.ModalComponent {
 
@@ -23,11 +24,21 @@ class AddFrequencyModal extends Webiny.Ui.ModalComponent {
             }
         };
 
+        const listProps = {
+            api: '/entities/cron-manager/job-frequency',
+            fields: '*',
+            connectToRouter: true
+        };
+
         return (
             <Ui.Modal.Dialog ref="dialog">
                 <Ui.Modal.Header title="Add Frequency"/>
                 <Ui.Modal.Body>
-                    <Ui.Form.Container {...formProps}>
+
+                    <Ui.Tabs.Tabs ui="myTabs" position="left">
+                        <Ui.Tabs.Tab label="Create New">
+
+                            <Ui.Form.Container {...formProps}>
                         {() => (
                             <Ui.Grid.Row>
                                 <Ui.Grid.Col all={12}>
@@ -38,7 +49,30 @@ class AddFrequencyModal extends Webiny.Ui.ModalComponent {
                                 </Ui.Grid.Col>
                             </Ui.Grid.Row>
                         )}
-                    </Ui.Form.Container>
+                            </Ui.Form.Container>
+                        </Ui.Tabs.Tab>
+
+                        <Ui.Tabs.Tab label="Manage Existing">
+                            <Ui.List.ApiContainer ui="maskList" {...listProps}>
+
+                                <Table.Table>
+                                    <Table.Row>
+                                        <Table.Field name="Name" align="left" label="Name" sort="name" />
+                                        <Table.Field name="Mask" align="left" label="Mask" sort="mask" />
+
+                                        <Table.Actions>
+                                            <Table.DeleteAction/>
+                                        </Table.Actions>
+                                    </Table.Row>
+
+                                    <Table.Empty/>
+                                </Table.Table>
+
+                                <Ui.List.Pagination/>
+                            </Ui.List.ApiContainer>
+                        </Ui.Tabs.Tab>
+
+                    </Ui.Tabs.Tabs>
                 </Ui.Modal.Body>
                 <Ui.Modal.Footer>
                     <Ui.Button type="secondary" label="Cancel" onClick={this.ui('addFrequencyModal:hide')}/>
