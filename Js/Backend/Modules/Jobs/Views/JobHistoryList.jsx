@@ -76,20 +76,15 @@ JobHistoryList.defaultProps = {
                                 <Table.Field name="runTime" align="left" label="Run Time" sort="runTime"/>
                                 <Table.Field name="responseCode" align="left" label="Response Code" sort="responseCode"/>
                                 <Table.Field align="right">
-                                    <Table.FieldRenderer>
-                                        {function renderer(data) {
-                                            return (
-                                                <td className={this.getTdClasses()}>
-                                                    <Ui.Button
-                                                        type="default"
-                                                        label="Show Details"
-                                                        onClick={this.ui('historyDetailsModal:show')}/>
-                                                    <HistoryDetailsModal ui="historyDetailsModal" data={data}/>
-                                                </td>
-                                            );
-                                        }}
-                                    </Table.FieldRenderer>
-
+                                    {data => (
+                                        <span>
+                                            <Ui.Button
+                                                type="default"
+                                                label="Show Details"
+                                                onClick={this.ui('historyDetailsModal:show')}/>
+                                            <HistoryDetailsModal ui="historyDetailsModal" data={data}/>
+                                        </span>
+                                    )}
                                 </Table.Field>
                             </Table.Row>
 

@@ -81,7 +81,7 @@ JobList.defaultProps = {
                                     <case value={true}>
                                         {data => (
                                             <div>
-                                                {data.frequency.name}
+                                                {_.get(data, 'frequency.name')}
                                                 <br/>
                                                 Next Run: {data.nextRunDate}
                                             </div>
