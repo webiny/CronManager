@@ -93,7 +93,7 @@ JobForm.defaultProps = {
                                         <Ui.Form.Fieldset title="Notifications"/>
                                         <Ui.Grid.Row>
                                             <Ui.Grid.Col all={12}>
-                                                <Ui.CheckboxGroup label="Notify on" name="notifyOn" grid={12} validate="required">
+                                                <Ui.CheckboxGroup label="Notify on" name="notifyOn" grid={12}>
                                                     <option value="Error">Failed run</option>
                                                     <option value="Success">Successful run</option>
                                                 </Ui.CheckboxGroup>
