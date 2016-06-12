@@ -25,10 +25,9 @@ class Runner extends AbstractService
     {
         // get all active cron jobs
         $runDate = $this->datetime(strtotime(date('Y-m-d H:i:00')))->setTimezone('UTC');
-        //$jobs = Job::find(['enabled' => true, 'nextRunDate' => $runDate->getMongoDate()]);
-
+        $jobs = Job::find(['enabled' => true, 'nextRunDate' => $runDate->getMongoDate()]);
         // temp - for testing we skip the date filter
-        $jobs = Job::find(['enabled' => true]);
+        //$jobs = Job::find(['enabled' => true]);
 
         foreach ($jobs as $j) {
             $this->issueJob($j);
