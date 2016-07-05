@@ -77,7 +77,7 @@ class Runner extends AbstractService
 
         // populate history data
         $jobHistory = new JobHistory();
-        $jobHistory->job = $job->getId();
+        $jobHistory->job = $job;
         $jobHistory->debugLog = $debugLog;
         $jobHistory->runDate = $this->datetime()->getMongoDate();
         $jobHistory->serverIp = $curlInfo['primary_ip'];

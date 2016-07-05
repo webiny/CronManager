@@ -20,7 +20,7 @@ JobList.defaultProps = {
             fields: 'name,url,frequency,enabled,createdOn,nextRunDate,status',
             connectToRouter: true,
             searchFields: 'name',
-            autoRefresh: 2
+            autoRefresh: 5
         };
 
         const statusProps = {
@@ -36,27 +36,21 @@ JobList.defaultProps = {
         };
 
         return (
-            <Ui.Grid.Row>
-                <Ui.Grid.Col all={12}>
-                    <h2>
-                        <Ui.Grid.Row>
-                            <Ui.Grid.Col all={10}>
-                                Cron Jobs
-                            </Ui.Grid.Col>
-                            <Ui.Grid.Col all={2}>
-                                <Ui.Link type="primary" align="right" route="CronManager.Job.Create">Create new CronJob</Ui.Link>
-                            </Ui.Grid.Col>
-                        </Ui.Grid.Row>
-                    </h2>
-                </Ui.Grid.Col>
+            <Ui.View.List>
+                <Ui.View.Header title="Cron Jobs">
+                    <Ui.Link type="primary" align="right" route="CronManager.Job.Create">
+                        <Ui.Icon icon="icon-plus-circled"/>
+                        Create new job
+                    </Ui.Link>
+                </Ui.View.Header>
 
-                <Ui.Grid.Col all={12}>
+                <Ui.View.Body>
                     <Ui.List.ApiContainer ui="myList" {...listProps}>
 
                         <Ui.List.FormFilters>
                             {(applyFilters, resetFilters) => (
                                 <Ui.Grid.Row>
-                                    <Ui.Grid.Col all={5}>
+                                    <Ui.Grid.Col all={6}>
                                         <Ui.Input {...searchProps} onEnter={applyFilters()}/>
                                     </Ui.Grid.Col>
                                     <Ui.Grid.Col all={5}>
@@ -65,8 +59,7 @@ JobList.defaultProps = {
                                             <option value="false">Disabled</option>
                                         </Ui.Select>
                                     </Ui.Grid.Col>
-                                    <Ui.Grid.Col all={2}>
-                                        <Ui.Button type="primary" label="Filter" onClick={applyFilters()}/>
+                                    <Ui.Grid.Col all={1}>
                                         <Ui.Button type="secondary" label="Reset" onClick={resetFilters()}/>
                                     </Ui.Grid.Col>
                                 </Ui.Grid.Row>
@@ -96,7 +89,7 @@ JobList.defaultProps = {
                                     <case value={2}>Scheduled</case>
                                     <case value={3}>Running</case>
                                 </Table.CaseField>
-                                <Table.TimeAgoField name="createdOn" align="left" label="Created On" sort="createdOn"/>
+                                <Table.TimeAgoField name="createdOn" align="left" label="Created" sort="createdOn"/>
 
                                 <Table.ToggleField name="enabled" label="Enabled" align="center"/>
 
@@ -110,8 +103,8 @@ JobList.defaultProps = {
                         </Table.Table>
                         <Ui.List.Pagination/>
                     </Ui.List.ApiContainer>
-                </Ui.Grid.Col>
-            </Ui.Grid.Row>
+                </Ui.View.Body>
+            </Ui.View.List>
         );
     }
 };
