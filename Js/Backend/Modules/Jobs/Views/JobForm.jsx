@@ -32,13 +32,13 @@ JobForm.defaultProps = {
             optionRenderer: option => {
                 return (
                     <div>
-                        <strong>{option.name}</strong><br/>
-                        <span>Cron: {option.mask}</span>
+                        <strong>{option.data.name}</strong><br/>
+                        <span>Cron: {option.data.mask}</span>
                     </div>
                 );
             },
             selectedRenderer: option => {
-                return option.name;
+                return option.data.name;
             }
         };
 
@@ -80,9 +80,9 @@ JobForm.defaultProps = {
             <Ui.Form.Container ui="myForm" {...formProps}>
                 {(data, container) => {
                     return (
-                        <Ui.Panel.Panel>
-                            <Ui.Panel.Header title="Cron Job"/>
-                            <Ui.Panel.Body>
+                        <Ui.View.Form>
+                            <Ui.View.Header title="Cron Job"/>
+                            <Ui.View.Body>
                                 <Ui.Grid.Row>
                                     <Ui.Form.Error container={container}/>
                                     <Ui.Grid.Col all={6}>
@@ -111,7 +111,8 @@ JobForm.defaultProps = {
 
                                     <Ui.Grid.Col all={6}>
                                         <Ui.Form.Fieldset title="Run Settings">
-                                            <Ui.Button size="small" label="Add new" onClick={this.ui('addFrequencyModal:show')}>Add New
+                                            <Ui.Button size="small" label="Add new" onClick={this.ui('addFrequencyModal:show')}>Add
+                                                New
                                                 Frequency</Ui.Button>
                                         </Ui.Form.Fieldset>
                                         <Ui.Grid.Col all={12}>
@@ -132,12 +133,12 @@ JobForm.defaultProps = {
                                         </Ui.Grid.Col>
                                     </Ui.Grid.Col>
                                 </Ui.Grid.Row>
-                            </Ui.Panel.Body>
-                            <Ui.Panel.Footer className="text-right">
+                            </Ui.View.Body>
+                            <Ui.View.Footer align="right">
                                 <Ui.Button type="default" onClick={container.cancel} label="Cancel"/>
                                 <Ui.Button type="primary" onClick={container.submit} label="Submit"/>
-                            </Ui.Panel.Footer>
-                        </Ui.Panel.Panel>
+                            </Ui.View.Footer>
+                        </Ui.View.Form>
                     );
                 }}
             </Ui.Form.Container>
