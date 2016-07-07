@@ -129,7 +129,7 @@ JobList.defaultProps = {
                 </Ui.ViewSwitcher.View>
 
                 <Ui.ViewSwitcher.View view="runJobView" modal>
-                    {(showView, data) => <RunJobModal ui="themeModal" {...{showView, data}} />}
+                    {(showView, data) => <RunJobModal ui="runJobModal" {...{showView, data}} />}
                 </Ui.ViewSwitcher.View>
 
 

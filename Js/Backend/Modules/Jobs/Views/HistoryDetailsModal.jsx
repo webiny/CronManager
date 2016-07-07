@@ -6,8 +6,10 @@ class HistoryDetailsModal extends Webiny.Ui.ModalComponent {
     constructor(props) {
         super(props);
 
+        console.log(this.props);
+
         this.state = {
-            data: props.data
+            data: this.props.data
         };
     }
 
