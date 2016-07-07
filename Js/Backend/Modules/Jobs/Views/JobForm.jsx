@@ -29,6 +29,7 @@ JobForm.defaultProps = {
             placeholder: 'Select frequency',
             allowClear: true,
             textAttr: 'name',
+            validate: 'required',
             optionRenderer: option => {
                 return (
                     <div>
@@ -40,6 +41,16 @@ JobForm.defaultProps = {
             selectedRenderer: option => {
                 return option.data.name;
             }
+        };
+
+        const tzSelect = {
+            ui: 'tzSelect',
+            label: 'Timezone',
+            name: 'timezone',
+            placeholder: 'Select a timezone',
+            allowClear: true,
+            api: '/entities/cron-manager/jobs/list-timezones',
+            validate: 'required'
         };
 
         const notificationEmails = (
@@ -121,6 +132,10 @@ JobForm.defaultProps = {
                                         <AddFrequencyModal ui="addFrequencyModal"/>
 
                                         <Ui.Grid.Col all={12}>
+                                            <Ui.Select {...tzSelect}/>
+                                        </Ui.Grid.Col>
+
+                                        <Ui.Grid.Col all={12}>
                                             <Ui.Input
                                                 label="Timeout"
                                                 name="timeout"
@@ -136,7 +151,6 @@ JobForm.defaultProps = {
                             </Ui.View.Body>
                             <Ui.View.Footer align="right">
                                 <Ui.Button type="default" onClick={container.cancel} label="Cancel"/>
-                                <Ui.Button type="secondary" onClick={container.reset} label="Reset"/>
                                 <Ui.Button type="primary" onClick={container.submit} label="Submit"/>
                             </Ui.View.Footer>
                         </Ui.View.Form>

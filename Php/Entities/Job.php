@@ -12,6 +12,7 @@ use Apps\Core\Php\DevTools\Entity\EntityAbstract;
  * @property string $description
  * @property string $url
  * @property string $frequency
+ * @property string $timezone
  * @property int    $timeout
  * @property array  $notifyOn
  * @property array  $notifyEmails
@@ -41,6 +42,8 @@ class Job extends EntityAbstract
         $this->attr('description')->char()->setToArrayDefault();
         $this->attr('url')->char()->setValidators('required')->setToArrayDefault();
         $this->attr('timeout')->integer()->setToArrayDefault();
+        $this->attr('timezone')->char()->setValidators('required')->setToArrayDefault();
+
         $this->attr('notifyOn')->arr()->setToArrayDefault();
         $this->attr('notifyEmails')->arr()->setToArrayDefault();
 
@@ -58,7 +61,7 @@ class Job extends EntityAbstract
 
         $frequency = '\Apps\CronManager\Php\Entities\JobFrequency';
         $this->attr('frequency')->many2one('Frequency')->setEntity($frequency);
-        $this->attr('nextRunDate')->datetime()->setToArrayDefault();
+        $this->attr('nextRunDate')->char()->setToArrayDefault();
 
         /**
          * 1 - inactive
@@ -71,20 +74,56 @@ class Job extends EntityAbstract
             'numberOfRuns'   => 0,
             'successfulRuns' => 0
         ])->setToArrayDefault();
+
+        $this->api('GET', 'list-timezones', function () {
+            return $this->listTimezones();
+        });
     }
 
 
     public function scheduleNextRunDate()
     {
-        // get the next run date
+        // set timezone
+        date_default_timezone_set(str_replace(' ', '_', $this->timezone));
+
         $cronRunner = \Cron\CronExpression::factory($this->frequency->mask);
-        $runDate = $cronRunner->getNextRunDate('now', 0, true)->format('Y-m-d H:i:s');
+        $runDate = $cronRunner->getNextRunDate('now', 0, true);
 
         // we need to have at least one minute offset between the current date and the next run date
-        if (strtotime($runDate) - time() <= 60) {
-            $runDate = $cronRunner->getNextRunDate('now', 1, true)->format('Y-m-d H:i:s');
+        if ($runDate->format('U') - time() <= 60) {
+            $runDate = $cronRunner->getNextRunDate('now', 1, true);
         }
 
-        $this->nextRunDate = $this->datetime($runDate)->setTimezone('UTC')->format(DATE_ISO8601);
+        $this->nextRunDate = $runDate->format('c');
+    }
+
+    public function shouldJobRunNow()
+    {
+        $tz = date_default_timezone_get();
+        date_default_timezone_set(str_replace(' ', '_', $this->timezone));
+
+        // get the timestamp of the job
+        $jobTs = $this->datetime($this->nextRunDate)->format('U');
+
+
+        date_default_timezone_set($tz);
+        // job should run if the time diff is less than 60 seconds
+        if ((time() - $jobTs) < 60 && (time() - $jobTs) > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function listTimezones()
+    {
+        $timezone_identifiers = \DateTimeZone::listIdentifiers();
+
+        $result = [];
+        foreach($timezone_identifiers as $ti){
+            $result[] = str_replace('_', ' ', $ti);
+        }
+
+        return $result;
     }
 }

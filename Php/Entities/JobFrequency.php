@@ -57,13 +57,13 @@ class JobFrequency extends EntityAbstract
         })->setBodyValidators(['mask' => 'required']);
     }
 
-    private function getFrequency($mask)
+    private function getFrequency($mask, $clientOffset)
     {
         try {
             $cronRunner = \Cron\CronExpression::factory($mask);
 
-            $prev = $cronRunner->getNextRunDate('now', 0, true)->format('Y-m-d H:i:s');
-            $next = $cronRunner->getNextRunDate('now', 1, true)->format('Y-m-d H:i:s');
+            $prev = $cronRunner->getNextRunDate('now', 0, true)->format('Y-m-d H:i:00');
+            $next = $cronRunner->getNextRunDate('now', 1, true)->format('Y-m-d H:i:00');
 
             return '(' . $prev . ', ' . $next . ')';
         } catch (\Exception $e) {

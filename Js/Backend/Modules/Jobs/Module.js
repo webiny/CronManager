@@ -26,6 +26,7 @@ class Module extends Webiny.Module {
                 if (!ar.getData().status) {
                     throw new Error('Invalid cron job pattern.');
                 }
+
                 return ar.getData().frequency;
             });
         });

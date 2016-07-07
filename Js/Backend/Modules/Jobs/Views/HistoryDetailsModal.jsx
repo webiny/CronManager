@@ -43,7 +43,7 @@ class HistoryDetailsModal extends Webiny.Ui.ModalComponent {
                             <Ui.Textarea readOnly={true} valueLink={this.bindTo('data.result')}/>
                         </Ui.Tabs.Tab>
                         <Ui.Tabs.Tab label="Debug Log">
-                            <Ui.Textarea disabled={true} valueLink={this.bindTo('data.debugLog')}/>
+                            <Ui.Textarea readOnly={true} valueLink={this.bindTo('data.debugLog')}/>
                         </Ui.Tabs.Tab>
 
                     </Ui.Tabs.Tabs>

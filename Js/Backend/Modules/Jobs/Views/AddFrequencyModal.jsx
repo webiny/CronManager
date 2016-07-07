@@ -25,7 +25,8 @@ class AddFrequencyModal extends Webiny.Ui.ModalComponent {
 
         const listProps = {
             api: '/entities/cron-manager/job-frequency',
-            fields: '*'
+            fields: '*',
+            perPage: 1000
         };
 
         return (
@@ -57,16 +58,12 @@ class AddFrequencyModal extends Webiny.Ui.ModalComponent {
                                         <Table.Field name="mask" align="left" label="Mask" sort="mask"/>
                                         <Table.Actions>
                                             <Table.Action label="Delete" onClick={(data, $this) => {
-                                                // 1. $this je instanca akcije (Table.Action)
-                                                // 2. $this.props.actions - to su akcije koje mozes pozvati na listi, to se salje od liste kroz propse
-                                                // pogledaj kroz React plugin da vidis sta sve imas unutra. Delete automatski i refresha tablicu.
                                                 $this.props.actions.delete(data.id);
                                             }}/>
                                         </Table.Actions>
                                     </Table.Row>
                                     <Table.Empty/>
                                 </Table.Table>
-                                <Ui.List.Pagination/>
                             </Ui.List.ApiContainer>
                         </Ui.Tabs.Tab>
 
