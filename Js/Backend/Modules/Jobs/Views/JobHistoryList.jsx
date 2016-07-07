@@ -32,7 +32,7 @@ JobHistoryList.defaultProps = {
                         <Ui.View.Body>
                             <Ui.Grid.Row>
                                 <Ui.Grid.Row>
-                                    <Ui.Grid.Col all={2} xsOffset={2}>
+                                    <Ui.Grid.Col all={4}>
                                         <Ui.Tile.Tile>
                                             <Ui.Tile.Header title="# of executions"/>
                                             <Ui.Tile.Body>
@@ -40,7 +40,7 @@ JobHistoryList.defaultProps = {
                                             </Ui.Tile.Body>
                                         </Ui.Tile.Tile>
                                     </Ui.Grid.Col>
-                                    <Ui.Grid.Col all={2}>
+                                    <Ui.Grid.Col all={4}>
                                         <Ui.Tile.Tile>
                                             <Ui.Tile.Header title="Success ratio"/>
                                             <Ui.Tile.Body>
