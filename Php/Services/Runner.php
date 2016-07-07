@@ -37,7 +37,7 @@ class Runner extends AbstractService
     private function issueJob(Job $job)
     {
         // fork the cron request into separate process
-        $url = $this->wConfig()->get('Application.ApiPath') . '/services/cron-manager/runner/run-job/' . $job->getId();
+        $url = $this->wConfig()->get('Application.ApiPath') . '/services/cron-manager/runner/run-job/' . $job->id;
 
         $cmd = "curl -X GET " . $url . " > /dev/null 2>&1 &";
         exec($cmd);
