@@ -31,8 +31,7 @@ JobHistoryList.defaultProps = {
                                 {jobData => (
                                     <Ui.View.List>
                                         <Ui.View.Header title={'Cron Job History: ' + _.get(jobData, 'name')}>
-                                            <Ui.Link type="default" align="right" route="CronManager.Jobs">Back to Job
-                                                List</Ui.Link>
+                                            <Ui.Link type="default" align="right" route="CronManager.Jobs">Back to Job List</Ui.Link>
                                         </Ui.View.Header>
                                         <Ui.View.Body>
                                             <Ui.Grid.Row>
@@ -76,11 +75,11 @@ JobHistoryList.defaultProps = {
                                                                 <Table.Field name="responseCode" align="left"
                                                                              label="Response Code" sort="responseCode"/>
                                                                 <Table.Field align="right">
-                                                                    {() => (
+                                                                    {data => (
                                                                         <Ui.Button
                                                                             type="default"
                                                                             label="Show Details"
-                                                                            onClick={showView('historyModalView')}/>
+                                                                            onClick={() => showView('historyModalView')(data)}/>
                                                                     )}
                                                                 </Table.Field>
                                                             </Table.Row>
