@@ -43,7 +43,6 @@ class RunJobModal extends Webiny.Ui.ModalComponent {
             <Ui.Modal.Dialog ref="dialog">
                 <Ui.Modal.Header title={'Running ' + this.props.data.name}/>
                 <Ui.Modal.Body>
-
                     <Ui.Alert type={this.state.status}>{this.state.message}</Ui.Alert>
 
                     {this.state.jobRunning && (
@@ -58,8 +57,12 @@ class RunJobModal extends Webiny.Ui.ModalComponent {
 
                     {!this.state.jobRunning && (
                         <center>
-                            <Ui.Button route="CronManager.Job.History" params={{'id': this.state.cronId}}>Cron
-                                History</Ui.Button>
+                            <Ui.Link
+                                type="default"
+                                route="CronManager.Job.History"
+                                params={{'id': this.state.cronId}}>
+                                Cron History
+                            </Ui.Link>
                         </center>
                     )}
 

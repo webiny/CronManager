@@ -22,7 +22,7 @@ JobList.defaultProps = {
             fields: 'name,url,frequency,enabled,createdOn,nextRunDate,status,timezone',
             connectToRouter: true,
             searchFields: 'name',
-            autoRefresh: 5
+            autoRefresh: 3
         };
 
         const statusProps = {
