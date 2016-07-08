@@ -58,8 +58,12 @@ class RunJobModal extends Webiny.Ui.ModalComponent {
 
                     {!this.state.jobRunning && (
                         <center>
-                            <Ui.Button route="CronManager.Job.History" params={{'id': this.state.cronId}}>Cron
-                                History</Ui.Button>
+                            <Ui.Link
+                                type="default"
+                                route="CronManager.Job.History"
+                                params={{'id': this.state.cronId}}>
+                                Cron History
+                            </Ui.Link>
                         </center>
                     )}
 
