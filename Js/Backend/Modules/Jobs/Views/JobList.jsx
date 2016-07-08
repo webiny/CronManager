@@ -22,7 +22,7 @@ JobList.defaultProps = {
             fields: 'name,url,frequency,enabled,createdOn,nextRunDate,status,timezone',
             connectToRouter: true,
             searchFields: 'name',
-            //autoRefresh: 5
+            autoRefresh: 5
         };
 
         const statusProps = {
@@ -73,8 +73,7 @@ JobList.defaultProps = {
                                                         </Ui.Select>
                                                     </Ui.Grid.Col>
                                                     <Ui.Grid.Col all={1}>
-                                                        <Ui.Button type="secondary" label="Reset"
-                                                                   onClick={resetFilters()}/>
+                                                        <Ui.Button type="secondary" label="Reset" onClick={resetFilters()}/>
                                                     </Ui.Grid.Col>
                                                 </Ui.Grid.Row>
                                             )}
@@ -104,17 +103,14 @@ JobList.defaultProps = {
                                                     <case value={2}>Scheduled</case>
                                                     <case value={3}>Running</case>
                                                 </Table.CaseField>
-                                                <Table.TimeAgoField name="createdOn" align="left" label="Created"
-                                                                    sort="createdOn"/>
+                                                <Table.TimeAgoField name="createdOn" align="left" label="Created" sort="createdOn"/>
 
                                                 <Table.ToggleField name="enabled" label="Enabled" align="center"/>
 
                                                 <Table.Actions>
                                                     <Table.EditAction route="CronManager.Job.Edit"/>
-                                                    <Table.RouteAction label="History" type="primary" align="right"
-                                                                       route="CronManager.Job.History"/>
-                                                    <Table.Action label="Run Job Now" type="primary" align="right"
-                                                                  onClick={showView('runJobView')}/>
+                                                    <Table.RouteAction label="History" type="primary" align="right" route="CronManager.Job.History"/>
+                                                    <Table.Action label="Run Job Now" type="primary" align="right" onClick={showView('runJobView')}/>
                                                     <Table.DeleteAction/>
                                                 </Table.Actions>
                                             </Table.Row>

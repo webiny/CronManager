@@ -18,7 +18,6 @@ class RunJobModal extends Webiny.Ui.ModalComponent {
     }
 
     runCron() {
-
         const api = new Webiny.Api.Endpoint('/services/cron-manager/runner');
         return api.get('run-job/' + this.props.data.id).then(ar => {
             if (ar.response.status !== 200) {
@@ -66,8 +65,7 @@ class RunJobModal extends Webiny.Ui.ModalComponent {
 
                 </Ui.Modal.Body>
                 <Ui.Modal.Footer>
-                    <Ui.Button type="secondary" label="Close" disabled={this.state.jobRunning && 'disabled'}
-                               onClick={this.hide}/>
+                    <Ui.Button type="secondary" label="Close" disabled={this.state.jobRunning && 'disabled'} onClick={this.hide}/>
                 </Ui.Modal.Footer>
             </Ui.Modal.Dialog>
         );

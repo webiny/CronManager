@@ -68,12 +68,21 @@ JobHistoryList.defaultProps = {
 
                                                         <Table.Table>
                                                             <Table.Row>
-                                                                <Table.TimeAgoField name="runDate" align="left"
-                                                                                    label="Run Date" sort="runDate"/>
-                                                                <Table.Field name="runTime" align="left"
-                                                                             label="Run Time" sort="runTime"/>
-                                                                <Table.Field name="responseCode" align="left"
-                                                                             label="Response Code" sort="responseCode"/>
+                                                                <Table.TimeAgoField
+                                                                    name="runDate"
+                                                                    align="left"
+                                                                    label="Run Date"
+                                                                    sort="runDate"/>
+                                                                <Table.Field
+                                                                    name="runTime"
+                                                                    align="left"
+                                                                    label="Run Time"
+                                                                    sort="runTime"/>
+                                                                <Table.Field
+                                                                    name="responseCode"
+                                                                    align="left"
+                                                                    label="Response Code"
+                                                                    sort="responseCode"/>
                                                                 <Table.Field align="right">
                                                                     {data => (
                                                                         <Ui.Button

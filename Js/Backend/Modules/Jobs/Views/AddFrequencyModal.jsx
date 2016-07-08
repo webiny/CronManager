@@ -43,8 +43,11 @@ class AddFrequencyModal extends Webiny.Ui.ModalComponent {
                                             <Ui.Input label="Name" name="name" validate="required"/>
                                         </Ui.Grid.Col>
                                         <Ui.Grid.Col all={12}>
-                                            <Ui.Input label="Mask" name="mask" validate="required,cronFrequency"
-                                                      description={this.getDescription}/>
+                                            <Ui.Input
+                                                label="Mask"
+                                                name="mask"
+                                                validate="required,cronFrequency"
+                                                description={this.getDescription}/>
                                         </Ui.Grid.Col>
                                     </Ui.Grid.Row>
                                 )}
