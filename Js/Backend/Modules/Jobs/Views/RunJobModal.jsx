@@ -38,9 +38,9 @@ class RunJobModal extends Webiny.Ui.ModalComponent {
         });
     }
 
-    render() {
+    renderDialog() {
         return (
-            <Ui.Modal.Dialog ref="dialog">
+            <Ui.Modal.Dialog>
                 <Ui.Modal.Header title={'Running ' + this.props.data.name}/>
                 <Ui.Modal.Body>
                     <Ui.Alert type={this.state.status}>{this.state.message}</Ui.Alert>

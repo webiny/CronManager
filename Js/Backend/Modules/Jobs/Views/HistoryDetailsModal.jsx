@@ -6,16 +6,14 @@ class HistoryDetailsModal extends Webiny.Ui.ModalComponent {
     constructor(props) {
         super(props);
 
-        console.log(this.props);
-
         this.state = {
             data: this.props.data
         };
     }
 
-    render() {
+    renderDialog() {
         return (
-            <Ui.Modal.Dialog ref="dialog">
+            <Ui.Modal.Dialog>
                 <Ui.Modal.Header title="History Details"/>
                 <Ui.Modal.Body>
                     <Ui.Tabs.Tabs ui="tabs">
