@@ -65,7 +65,6 @@ class AddFrequencyModal extends Webiny.Ui.ModalComponent {
                                             }}/>
                                         </Table.Actions>
                                     </Table.Row>
-                                    <Table.Empty/>
                                 </Table.Table>
                             </Ui.List.ApiContainer>
                         </Ui.Tabs.Tab>
