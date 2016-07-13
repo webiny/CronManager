@@ -12,7 +12,7 @@ JobHistoryList.defaultProps = {
     renderer() {
         const listProps = {
             api: '/entities/cron-manager/job-history',
-            defaultQuery: {job: Webiny.Router.getParams('id'), '_sort': '-runDate'},
+            query: {job: Webiny.Router.getParams('id'), '_sort': '-runDate'},
             fields: 'job,runDate,runTime,responseCode,successful,serverIp,debugLog,result',
             connectToRouter: true
         };
