@@ -3,9 +3,9 @@ const Ui = Webiny.Ui.Components;
 
 class HelpModal extends Webiny.Ui.ModalComponent {
 
-    render() {
+    renderDialog() {
         return (
-            <Ui.Modal.Dialog ref="dialog">
+            <Ui.Modal.Dialog>
                 <Ui.Modal.Header title="Help"/>
                 <Ui.Modal.Body>
                     <h3>About</h3>
@@ -17,13 +17,13 @@ class HelpModal extends Webiny.Ui.ModalComponent {
                         can easily track the execution of your cron jobs.
                         <br/>
                         The grid presented behind automatically refreshes and changes the status for each scheduled job.
-                        This way you can immediatelly know if a job is active, scheduled or currently running.
+                        This way you can immediately know if a job is active, scheduled or currently running.
                     </p>
                     <h3>Setup</h3>
                     <p>
                         On your server make sure you define the following cron job:
                     </p>
-                    <pre>* * * * * wget {window.location.origin}/api/services/cron-manager/runner/run >/dev/null 2>&1</pre>
+                    <Ui.Copy.Input value={`* * * * * wget ${webinyApiUrl}/services/cron-manager/runner/run >/dev/null 2>&1`}/>
                     <p>
                         This is the root job that's used to execute and schedule any other jobs created via Cron Manager.
                     </p>

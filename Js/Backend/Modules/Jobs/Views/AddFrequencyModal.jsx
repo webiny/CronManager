@@ -12,7 +12,7 @@ class AddFrequencyModal extends Webiny.Ui.ModalComponent {
         return '';
     }
 
-    render() {
+    renderDialog() {
         const formProps = {
             ui: 'addFrequencyForm',
             api: '/entities/cron-manager/job-frequency',
@@ -30,7 +30,7 @@ class AddFrequencyModal extends Webiny.Ui.ModalComponent {
         };
 
         return (
-            <Ui.Modal.Dialog ref="dialog">
+            <Ui.Modal.Dialog>
                 <Ui.Modal.Header title="Add Frequency"/>
                 <Ui.Modal.Body>
                     <Ui.Tabs.Tabs ui="myTabs" position="left">
@@ -65,7 +65,6 @@ class AddFrequencyModal extends Webiny.Ui.ModalComponent {
                                             }}/>
                                         </Table.Actions>
                                     </Table.Row>
-                                    <Table.Empty/>
                                 </Table.Table>
                             </Ui.List.ApiContainer>
                         </Ui.Tabs.Tab>

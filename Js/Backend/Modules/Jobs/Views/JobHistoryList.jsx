@@ -92,10 +92,7 @@ JobHistoryList.defaultProps = {
                                                                     )}
                                                                 </Table.Field>
                                                             </Table.Row>
-
-                                                            <Table.Empty/>
                                                         </Table.Table>
-
                                                         <Ui.List.Pagination/>
                                                     </Ui.List.ApiContainer>
                                                 </Ui.Grid.Col>

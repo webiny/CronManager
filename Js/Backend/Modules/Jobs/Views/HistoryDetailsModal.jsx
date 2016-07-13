@@ -3,17 +3,9 @@ const Ui = Webiny.Ui.Components;
 
 class HistoryDetailsModal extends Webiny.Ui.ModalComponent {
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            data: this.props.data
-        };
-    }
-
-    render() {
+    renderDialog() {
         return (
-            <Ui.Modal.Dialog ref="dialog">
+            <Ui.Modal.Dialog>
                 <Ui.Modal.Header title="History Details"/>
                 <Ui.Modal.Body>
                     <Ui.Tabs.Tabs ui="tabs">
@@ -40,10 +32,10 @@ class HistoryDetailsModal extends Webiny.Ui.ModalComponent {
                         </Ui.Tabs.Tab>
 
                         <Ui.Tabs.Tab label="Response">
-                            <Ui.Textarea readOnly={true} valueLink={this.bindTo('data.result')}/>
+                            <Ui.Textarea readOnly={true} value={this.props.data.result}/>
                         </Ui.Tabs.Tab>
                         <Ui.Tabs.Tab label="Debug Log">
-                            <Ui.Textarea readOnly={true} valueLink={this.bindTo('data.debugLog')}/>
+                            <Ui.Textarea readOnly={true} value={this.props.data.debugLog}/>
                         </Ui.Tabs.Tab>
 
                     </Ui.Tabs.Tabs>

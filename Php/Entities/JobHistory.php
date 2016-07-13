@@ -2,7 +2,7 @@
 namespace Apps\CronManager\Php\Entities;
 
 use Apps\Core\Php\DevTools\DevToolsTrait;
-use Apps\Core\Php\DevTools\Entity\EntityAbstract;
+use Apps\Core\Php\DevTools\Entity\AbstractEntity;
 
 /**
  * Class Jobs
@@ -20,7 +20,7 @@ use Apps\Core\Php\DevTools\Entity\EntityAbstract;
  * @package Apps\Core\Php\Entities
  *
  */
-class JobHistory extends EntityAbstract
+class JobHistory extends AbstractEntity
 {
     use DevToolsTrait;
 
