@@ -2,7 +2,7 @@
 namespace Apps\CronManager\Php\Entities;
 
 use Apps\Core\Php\DevTools\DevToolsTrait;
-use Apps\Core\Php\DevTools\Entity\EntityAbstract;
+use Apps\Core\Php\DevTools\Entity\AbstractEntity;
 use Webiny\Component\Entity\Attribute\Validation\ValidationException;
 
 /**
@@ -15,7 +15,7 @@ use Webiny\Component\Entity\Attribute\Validation\ValidationException;
  * @package Apps\Core\Php\Entities
  *
  */
-class JobFrequency extends EntityAbstract
+class JobFrequency extends AbstractEntity
 {
     use DevToolsTrait;
 
