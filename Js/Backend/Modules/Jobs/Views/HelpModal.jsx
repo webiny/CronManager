@@ -23,7 +23,7 @@ class HelpModal extends Webiny.Ui.ModalComponent {
                     <p>
                         On your server make sure you define the following cron job:
                     </p>
-                    <Ui.Copy.Input value={`* * * * * wget ${webinyApiUrl}/services/cron-manager/runner/run >/dev/null 2>&1`}/>
+                    <Ui.Copy.Input value={`* * * * * wget ${webinyApiPath}/services/cron-manager/runner/run >/dev/null 2>&1`}/>
                     <p>
                         This is the root job that's used to execute and schedule any other jobs created via Cron Manager.
                     </p>
