@@ -95,7 +95,11 @@ JobList.defaultProps = {
                                                         )}
                                                     </case>
                                                     <case value={false}>
-                                                        Not scheduled
+                                                        {data => (
+                                                            <div>
+                                                                {_.get(data, 'frequency.name')}
+                                                            </div>
+                                                        )}
                                                     </case>
                                                 </Table.CaseField>
                                                 <Table.CaseField name="status" label="Status" align="left">
