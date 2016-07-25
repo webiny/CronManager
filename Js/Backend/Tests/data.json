@@ -1,0 +1,7 @@
+{
+    "login": {
+        "username": "pavel@webiny.com",
+        "password": "dev",
+        "timeout": 5000
+    }
+}

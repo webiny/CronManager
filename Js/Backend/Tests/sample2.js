@@ -1,13 +1,21 @@
-import {TestSuite, By, until} from './../../../../Core/Js/Webiny/Modules/Core/TestLib/TestSuite';
+/* eslint-disable */
+import {TestSuite, By, until} from 'Webiny/TestSuite';
 var driver = TestSuite.getDriver();
+
+// Load optional test data
+var data = TestSuite.loadData(__dirname + '/data.json');
+
+// Prepare element selectors
+var emailSelector = By.css('input[type="text"]');
+var passwordSelector = By.css('input[type="password"]');
 
 describe('Login Page', function () {
     this.timeout(10000);
 
     it('should display the login form', function (done) {
         // open login page
-        driver.get('http://selecto.app:8001/admin/login').then(function () {
-            driver.wait(until.elementLocated({xpath: '/html/body/webiny-app/rad-placeholder/webiny-form-container/div/div/form/layout/div[3]/div/input'})).then(function () {
+        driver.get(TestSuite.getConfig('webPath') + '/admin/login').then(function () {
+            driver.wait(until.elementLocated(emailSelector)).then(function () {
                 done();
             });
         });
@@ -15,16 +23,16 @@ describe('Login Page', function () {
 
     it('should populate the login form with invalid data and it should show the alert', function (done) {
         // populate email input
-        var emailInput = driver.findElement({xpath: '/html/body/webiny-app/rad-placeholder/webiny-form-container/div/div/form/layout/div[3]/div/input'});
+        var emailInput = driver.findElement(emailSelector);
         emailInput.sendKeys('foobar@webiny.com');
 
         // populate password input
-        var passwordInput = driver.findElement({xpath: '/html/body/webiny-app/rad-placeholder/webiny-form-container/div/div/form/layout/div[4]/div/input'});
+        var passwordInput = driver.findElement(passwordSelector);
         passwordInput.sendKeys('dev-password-123');
 
         // submit form
         driver.findElement({className: 'btn btn-lg btn-primary'}).click().then(function () {
-            driver.wait(until.elementLocated({className: 'alert alert-danger alert-dismissable'})).then(function () {
+            driver.wait(until.elementLocated({className: 'alert alert-error'})).then(function () {
                 // reset the input fields
                 emailInput.clear();
                 passwordInput.clear();
@@ -36,12 +44,12 @@ describe('Login Page', function () {
 
     it('should populate the form with valid data, submit the form and should redirect to the dashboard', function (done) {
         // populate email input
-        var emailInput = driver.findElement({xpath: '/html/body/webiny-app/rad-placeholder/webiny-form-container/div/div/form/layout/div[3]/div/input'});
-        emailInput.sendKeys('pavel@webiny.com');
+        var emailInput = driver.findElement(emailSelector);
+        emailInput.sendKeys(data.login.username);
 
         // populate password input
-        var passwordInput = driver.findElement({xpath: '/html/body/webiny-app/rad-placeholder/webiny-form-container/div/div/form/layout/div[4]/div/input'});
-        passwordInput.sendKeys('dev');
+        var passwordInput = driver.findElement(passwordSelector);
+        passwordInput.sendKeys(data.login.password);
 
         // submit form
         driver.findElement({className: 'btn btn-lg btn-primary'}).click().then(function () {
