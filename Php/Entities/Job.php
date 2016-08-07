@@ -1,7 +1,7 @@
 <?php
 namespace Apps\CronManager\Php\Entities;
 
-use Apps\Core\Php\DevTools\DevToolsTrait;
+use Apps\Core\Php\DevTools\WebinyTrait;
 use Apps\Core\Php\DevTools\Entity\AbstractEntity;
 
 /**
@@ -26,7 +26,7 @@ use Apps\Core\Php\DevTools\Entity\AbstractEntity;
  */
 class Job extends AbstractEntity
 {
-    use DevToolsTrait;
+    use WebinyTrait;
 
     protected static $entityCollection = 'Jobs';
     protected static $entityMask = '{name}';

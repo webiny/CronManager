@@ -1,7 +1,7 @@
 <?php
 namespace Apps\CronManager\Php\Entities;
 
-use Apps\Core\Php\DevTools\DevToolsTrait;
+use Apps\Core\Php\DevTools\WebinyTrait;
 use Apps\Core\Php\DevTools\Entity\AbstractEntity;
 use Webiny\Component\Entity\Attribute\Validation\ValidationException;
 
@@ -17,7 +17,7 @@ use Webiny\Component\Entity\Attribute\Validation\ValidationException;
  */
 class JobFrequency extends AbstractEntity
 {
-    use DevToolsTrait;
+    use WebinyTrait;
 
     protected static $entityCollection = 'JobFrequency';
     protected static $entityMask = '{name}';
