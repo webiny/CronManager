@@ -3,12 +3,12 @@ namespace Apps\CronManager\Php\Services;
 
 set_time_limit(0);
 
+use Apps\Core\Php\DevTools\Interfaces\PublicApiInterface;
 use Apps\Core\Php\DevTools\Services\AbstractService;
 use Apps\CronManager\Php\Entities\Job;
 use Apps\CronManager\Php\Entities\JobHistory;
-use Apps\CronManager\Php\Entities\JobRun;
 
-class Runner extends AbstractService
+class Runner extends AbstractService implements PublicApiInterface
 {
     function __construct()
     {
@@ -26,6 +26,7 @@ class Runner extends AbstractService
         // get all active cron jobs
         $jobs = Job::find(['enabled' => true]);
 
+        /* @var Job $j */
         foreach ($jobs as $j) {
             if ($j->shouldJobRunNow()) {
                 $this->issueJob($j);
