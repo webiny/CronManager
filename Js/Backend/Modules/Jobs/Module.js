@@ -9,7 +9,7 @@ class Module extends Webiny.Module {
         this.registerMenus(
             new Menu('DevTools', [
                 new Menu('Cron Manager', 'CronManager.Jobs')
-            ], 'icon-calendar-o')
+            ], 'icon-tools')
         );
 
         this.registerRoutes(
