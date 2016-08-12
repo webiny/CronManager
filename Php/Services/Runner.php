@@ -52,10 +52,11 @@ class Runner extends AbstractService implements PublicApiInterface
         $job->save();
 
         // create the job url
-        $url = $job->url;
-        if (strpos($url, 'http') !== 0) {
-            $url = rtrim($this->wConfig()->get('Application.WebPath'), '/') . '/' . ltrim($job->url, '/');
-        }
+        $url = $this->str($job->url)
+                    ->replace('{apiUrl}', $this->wConfig()->get('Application.ApiPath'))
+                    ->replace('{webUrl}', $this->wConfig()->get('Application.WebPath'))
+                    ->replace('//', '/')
+                    ->val();
 
         // issue request for the job
         $debugWrapper = fopen('php://temp', 'r+');
@@ -106,6 +107,7 @@ class Runner extends AbstractService implements PublicApiInterface
 
         // set the date for the next run
         $job->scheduleNextRunDate();
+        $job->cleanupRunHistory();
         $job->save();
     }
 }

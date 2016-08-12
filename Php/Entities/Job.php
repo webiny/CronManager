@@ -18,6 +18,7 @@ use Apps\Core\Php\DevTools\Entity\AbstractEntity;
  * @property array  $notifyEmails
  * @property bool   $enabled
  * @property int    $nextRunDate
+ * @property int    $runHistory
  * @property string $status
  * @property array  $stats
  *
@@ -42,6 +43,7 @@ class Job extends AbstractEntity
         $this->attr('description')->char()->setToArrayDefault();
         $this->attr('url')->char()->setValidators('required')->setToArrayDefault();
         $this->attr('timeout')->integer()->setToArrayDefault();
+        $this->attr('runHistory')->integer()->setToArrayDefault();
         $this->attr('timezone')->char()->setValidators('required')->setToArrayDefault();
 
         $this->attr('notifyOn')->arr()->setToArrayDefault();
@@ -120,10 +122,25 @@ class Job extends AbstractEntity
         $timezone_identifiers = \DateTimeZone::listIdentifiers();
 
         $result = [];
-        foreach($timezone_identifiers as $ti){
+        foreach ($timezone_identifiers as $ti) {
             $result[] = str_replace('_', ' ', $ti);
         }
 
         return $result;
+    }
+
+    public function cleanupRunHistory()
+    {
+        if ($this->runHistory == '0') {
+            return;
+        }
+
+        // get total number of records
+        $totalNumber = JobHistory::find(['job' => $this->id], ['id'])->totalCount();
+
+        // delete the records over the runHistory limit
+        if ($totalNumber > $this->runHistory) {
+            JobHistory::find(['job' => $this->id], ['id'], ($totalNumber - $this->runHistory))->delete();
+        }
     }
 }

@@ -5,6 +5,30 @@ import HistoryDetailsModal from './HistoryDetailsModal';
 
 class JobHistoryList extends Webiny.Ui.View {
 
+    constructor(props) {
+        super(props);
+
+        this.bindMethods('getSuccessRatio, getAvgResponseTime');
+    }
+
+    getSuccessRatio(jobData) {
+        let successRatio = 100;
+        if (_.get(jobData, 'stats.numberOfRuns', 0) > 0) {
+            successRatio = _.round(((_.get(jobData, 'stats.successfulRuns') / _.get(jobData, 'stats.numberOfRuns')) * 100), 2);
+        }
+
+        return successRatio + '%';
+    }
+
+    getAvgResponseTime(jobData) {
+        let avgResponseTime = 0;
+        if (_.get(jobData, 'stats.numberOfRuns', 0) > 0) {
+            avgResponseTime = _.round(_.get(jobData, 'stats.totalExecTime') / _.get(jobData, 'stats.numberOfRuns'), 5);
+        }
+
+        return avgResponseTime+'sec';
+    }
+
 }
 
 JobHistoryList.defaultProps = {
@@ -21,6 +45,7 @@ JobHistoryList.defaultProps = {
             api: '/entities/cron-manager/job',
             url: '/' + Webiny.Router.getParams('id')
         };
+
 
         return (
             <Ui.ViewSwitcher.Container>
@@ -48,7 +73,7 @@ JobHistoryList.defaultProps = {
                                                         <Ui.Tile.Tile>
                                                             <Ui.Tile.Header title="Success ratio"/>
                                                             <Ui.Tile.Body>
-                                                                <h1>{_.round(((_.get(jobData, 'stats.successfulRuns') / _.get(jobData, 'stats.numberOfRuns')) * 100), 2)}%</h1>
+                                                                <h1>{this.getSuccessRatio(jobData)}</h1>
                                                             </Ui.Tile.Body>
                                                         </Ui.Tile.Tile>
                                                     </Ui.Grid.Col>
@@ -56,8 +81,7 @@ JobHistoryList.defaultProps = {
                                                         <Ui.Tile.Tile>
                                                             <Ui.Tile.Header title="Avg. response time"/>
                                                             <Ui.Tile.Body>
-                                                                <h1>{_.round(_.get(jobData, 'stats.totalExecTime') / _.get(jobData, 'stats.numberOfRuns'), 5)}
-                                                                    sec</h1>
+                                                                <h1>{this.getAvgResponseTime(jobData)}</h1>
                                                             </Ui.Tile.Body>
                                                         </Ui.Tile.Tile>
                                                     </Ui.Grid.Col>

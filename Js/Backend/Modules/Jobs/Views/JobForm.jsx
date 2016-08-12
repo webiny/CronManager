@@ -53,6 +53,7 @@ JobForm.defaultProps = {
             validate: 'required'
         };
 
+        /*
         const notificationEmails = (
             <Ui.Dynamic.Fieldset name="notifyEmails">
                 <Ui.Dynamic.Row>
@@ -84,8 +85,9 @@ JobForm.defaultProps = {
                 </Ui.Dynamic.Empty>
             </Ui.Dynamic.Fieldset>
         );
+       */
 
-        const urlDescription = 'If your url doesn\'t start with http, the current domain name will automatically be prepended';
+        const urlDescription = 'You can user variables like {apiUrl} and {domainUrl} in the URL which will be replaced with your config variables before the job is run.';
 
         return (
             <Ui.Form.Container ui="myForm" {...formProps}>
@@ -101,7 +103,18 @@ JobForm.defaultProps = {
                                         <Ui.Input label="Name" name="name" validate="required"/>
                                         <Ui.Input label="Url" name="url" validate="required" description={urlDescription}/>
                                         <Ui.Textarea label="Description" name="description"/>
-                                        <Ui.Form.Fieldset title="Notifications"/>
+                                        <Ui.Select
+                                            label="Run History"
+                                            placeholder="Run History"
+                                            name="runHistory"
+                                            description="How many records should the system keep in the run history for this job.">
+                                            <option value="0">All</option>
+                                            <option value="10">10</option>
+                                            <option value="100">100</option>
+                                            <option value="1000">1000</option>
+                                        </Ui.Select>
+
+                                        {/*<Ui.Form.Fieldset title="Notifications"/>
                                         <Ui.Grid.Row>
                                             <Ui.Grid.Col all={12}>
                                                 <Ui.CheckboxGroup label="Notify on" name="notifyOn" grid={12}>
@@ -116,7 +129,7 @@ JobForm.defaultProps = {
                                                 <label>Notification emails</label>
                                                 {notificationEmails}
                                             </Ui.Grid.Col>
-                                        </Ui.Grid.Row>
+                                        </Ui.Grid.Row>*/}
 
                                     </Ui.Grid.Col>
 
