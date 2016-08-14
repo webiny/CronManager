@@ -105,7 +105,10 @@ class Runner extends AbstractService implements PublicApiInterface
         $job->status = 2; // scheduled
 
         // set the date for the next run
-        $job->scheduleNextRunDate();
+        // check if job is active before we schedule the next run
+        if ($job->enabled) {
+            $job->scheduleNextRunDate();
+        }
         $job->cleanupRunHistory();
         $job->save();
     }
