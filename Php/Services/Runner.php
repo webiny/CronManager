@@ -55,7 +55,6 @@ class Runner extends AbstractService implements PublicApiInterface
         $url = $this->str($job->url)
                     ->replace('{apiPath}', $this->wConfig()->get('Application.ApiPath'))
                     ->replace('{webPath}', $this->wConfig()->get('Application.WebPath'))
-                    ->replace('//', '/')
                     ->val();
 
         // issue request for the job
