@@ -26,7 +26,7 @@ class JobHistoryList extends Webiny.Ui.View {
             avgResponseTime = _.round(_.get(jobData, 'stats.totalExecTime') / _.get(jobData, 'stats.numberOfRuns'), 5);
         }
 
-        return avgResponseTime+'sec';
+        return avgResponseTime + 'sec';
     }
 
 }
