@@ -26,6 +26,7 @@ JobForm.defaultProps = {
             fields: '*',
             label: 'Frequency',
             name: 'frequency',
+            query: {_sort: 'name'},
             placeholder: 'Select frequency',
             allowClear: true,
             textAttr: 'name',
