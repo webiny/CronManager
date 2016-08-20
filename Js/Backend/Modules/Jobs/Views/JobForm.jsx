@@ -115,7 +115,7 @@ JobForm.defaultProps = {
                                             <option value="1000">1000</option>
                                         </Ui.Select>
 
-                                        {/*<Ui.Form.Fieldset title="Notifications"/>
+                                        {/* <Ui.Form.Fieldset title="Notifications"/>
                                         <Ui.Grid.Row>
                                             <Ui.Grid.Col all={12}>
                                                 <Ui.CheckboxGroup label="Notify on" name="notifyOn" grid={12}>
@@ -130,7 +130,7 @@ JobForm.defaultProps = {
                                                 <label>Notification emails</label>
                                                 {notificationEmails}
                                             </Ui.Grid.Col>
-                                        </Ui.Grid.Row>*/}
+                                        </Ui.Grid.Row> */}
 
                                     </Ui.Grid.Col>
 

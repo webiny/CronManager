@@ -112,10 +112,18 @@ JobList.defaultProps = {
                                                 <Table.ToggleField name="enabled" label="Enabled" align="center"/>
 
                                                 <Table.Actions>
-                                                    <Table.RouteAction label="View History" icon="fa-history" type="primary" align="right"
-                                                                       route="CronManager.Job.History"/>
-                                                    <Table.Action label="Run Job Now" icon="fa-reply-all" type="primary" align="right"
-                                                                  onClick={showView('runJobView')}/>
+                                                    <Table.RouteAction
+                                                        label="View History"
+                                                        icon="fa-history"
+                                                        type="primary"
+                                                        align="right"
+                                                        route="CronManager.Job.History"/>
+                                                    <Table.Action
+                                                        label="Run Job Now"
+                                                        icon="fa-reply-all"
+                                                        type="primary"
+                                                        align="right"
+                                                        onClick={showView('runJobView')}/>
                                                     <Ui.Dropdown.Divider/>
                                                     <Table.EditAction route="CronManager.Job.Edit"/>
                                                     <Table.DeleteAction/>
