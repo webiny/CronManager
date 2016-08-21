@@ -163,9 +163,9 @@ JobForm.defaultProps = {
                                     </Ui.Grid.Col>
                                 </Ui.Grid.Row>
                             </Ui.View.Body>
-                            <Ui.View.Footer align="right">
-                                <Ui.Button type="default" onClick={container.cancel} label="Cancel"/>
-                                <Ui.Button type="primary" onClick={container.submit} label="Submit"/>
+                            <Ui.View.Footer>
+                                <Ui.Button align="left" type="default" onClick={container.cancel} label="Cancel"/>
+                                <Ui.Button align="right" type="primary" onClick={container.submit} label="Submit"/>
                             </Ui.View.Footer>
                         </Ui.View.Form>
                     );
