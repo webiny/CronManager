@@ -20,7 +20,7 @@ class Module extends Webiny.Module {
         );
 
         // register the cronFrequency validator
-        Webiny.Tools.Validator.addValidator('cronFrequency', (val) => {
+        Webiny.Validator.addValidator('cronFrequency', (val) => {
             const api = new Webiny.Api.Endpoint('/entities/cron-manager/job-frequency');
             return api.post('validate', {mask: val}).then(ar => {
                 if (!ar.getData().status) {
