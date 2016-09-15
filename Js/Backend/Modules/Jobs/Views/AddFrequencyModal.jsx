@@ -60,8 +60,8 @@ class AddFrequencyModal extends Webiny.Ui.ModalComponent {
                                         <Table.Field name="name" align="left" label="Name" sort="name"/>
                                         <Table.Field name="mask" align="left" label="Mask" sort="mask"/>
                                         <Table.Actions>
-                                            <Table.Action label="Delete" onClick={(data, $this) => {
-                                                $this.props.actions.delete(data.id);
+                                            <Table.Action label="Delete" onClick={(data, actions) => {
+                                                actions.delete(data.id);
                                             }}/>
                                         </Table.Actions>
                                     </Table.Row>

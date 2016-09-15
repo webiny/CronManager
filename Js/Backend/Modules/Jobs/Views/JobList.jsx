@@ -81,7 +81,7 @@ JobList.defaultProps = {
 
                                         <Table.Table>
                                             <Table.Row>
-                                                <Table.Field name="name" align="left" label="Name" sort="name"/>
+                                                <Table.Field name="name" align="left" label="Name" sort="name" route="CronManager.Job.Edit"/>
                                                 <Table.Field name="url" align="left" label="Url" sort="url"/>
                                                 <Table.CaseField name="enabled" label="Frequency" align="left">
                                                     <case value={true}>

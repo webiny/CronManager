@@ -27,14 +27,18 @@ class JobFrequency extends AbstractEntity
         parent::__construct();
 
         $maskValidator = function ($mask) {
-            $frequency = $this->getFrequency($mask);
-            if (!$frequency) {
+            $message = $this->getFrequency($mask);
+            if (!$message) {
                 throw new ValidationException('Invalid cron job pattern');
             }
         };
 
         $this->attr('name')->char()->setValidators('required')->setToArrayDefault();
-        $this->attr('mask')->char()->setValidators(['required', $maskValidator])->setToArrayDefault();
+        $this->attr('mask')
+             ->char()
+             ->setValidators(['required', $maskValidator, 'unique'])
+             ->setToArrayDefault()
+             ->setValidationMessages(['unique' => 'A frequency with this mask already exists!']);
 
         /**
          * @api.name Validate
@@ -43,11 +47,17 @@ class JobFrequency extends AbstractEntity
          */
         $this->api('POST', 'validate', function () {
             $data = $this->wRequest()->getRequestData();
+            $mask = trim($data['mask']);
 
-            $frequency = $this->getFrequency($data['mask']);
+            $frequency = $this->getFrequency($mask);
             $status = true;
             if (!$frequency) {
                 $status = false;
+            } else {
+                if (static::findOne(['mask' => $mask])) {
+                    $status = false;
+                    $frequency = 'A frequency with this mask already exists!';
+                }
             }
 
             return [
@@ -57,7 +67,7 @@ class JobFrequency extends AbstractEntity
         })->setBodyValidators(['mask' => 'required']);
     }
 
-    private function getFrequency($mask, $clientOffset)
+    private function getFrequency($mask)
     {
         try {
             $cronRunner = \Cron\CronExpression::factory($mask);

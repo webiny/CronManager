@@ -1,0 +1,8 @@
+[
+    {
+        "name": "Cron job manager",
+        "slug": "cron-manager",
+        "description": "This role allows user to manage all system cron jobs",
+        "permissions": ["cron-manager-manage-all"]
+    }
+]

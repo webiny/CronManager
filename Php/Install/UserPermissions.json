@@ -1,0 +1,35 @@
+[
+    {
+        "name": "Manage cron jobs",
+        "slug": "cron-manager-manage-all",
+        "description": "Allows user to perform all actions on Cron Job app",
+        "permissions": {
+            "entities": {
+                "Apps\\CronManager\\Php\\Entities\\Job": {
+                    "crudCreate": true,
+                    "crudUpdate": true,
+                    "crudDelete": true,
+                    "crudRead": true,
+                    "list-timezones": {
+                        "get": true
+                    }
+                },
+                "Apps\\CronManager\\Php\\Entities\\JobFrequency": {
+                    "crudCreate": true,
+                    "crudUpdate": true,
+                    "crudDelete": true,
+                    "crudRead": true,
+                    "validate": {
+                        "post": true
+                    }
+                },
+                "Apps\\CronManager\\Php\\Entities\\JobHistory": {
+                    "crudCreate": true,
+                    "crudRead": true,
+                    "crudUpdate": true,
+                    "crudDelete": true
+                }
+            }
+        }
+    }
+]
