@@ -19,7 +19,7 @@ class JobFrequency extends AbstractEntity
 {
     use WebinyTrait;
 
-    protected static $entityCollection = 'JobFrequency';
+    protected static $entityCollection = 'CronManagerJobFrequency';
     protected static $entityMask = '{name}';
 
     public function __construct()

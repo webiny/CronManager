@@ -29,7 +29,7 @@ class Job extends AbstractEntity
 {
     use WebinyTrait;
 
-    protected static $entityCollection = 'Jobs';
+    protected static $entityCollection = 'CronManagerJobs';
     protected static $entityMask = '{name}';
 
     public function __construct()
