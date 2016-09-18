@@ -3,15 +3,16 @@ namespace Apps\CronManager\Php\Services;
 
 set_time_limit(0);
 
-use Apps\Core\Php\DevTools\Interfaces\PublicApiInterface;
+use Apps\Core\Php\DevTools\Interfaces\NoAuthorizationInterface;
 use Apps\Core\Php\DevTools\Services\AbstractService;
 use Apps\CronManager\Php\Entities\Job;
 use Apps\CronManager\Php\Entities\JobHistory;
 
-class Runner extends AbstractService implements PublicApiInterface
+class Runner extends AbstractService implements NoAuthorizationInterface
 {
     function __construct()
     {
+        parent::__construct();
         $this->api('get', 'run', function () {
             return $this->run();
         });
