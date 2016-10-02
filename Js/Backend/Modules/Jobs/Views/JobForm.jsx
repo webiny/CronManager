@@ -91,7 +91,7 @@ JobForm.defaultProps = {
         const urlDescription = 'You can user variables like {apiPath} and {webPath} in the URL which will be replaced with your config variables before the job is run.';
 
         return (
-            <Ui.Form.Container ui="myForm" {...formProps}>
+            <Ui.Form ui="myForm" {...formProps}>
                 {(data, container) => {
                     return (
                         <Ui.View.Form>
@@ -170,7 +170,7 @@ JobForm.defaultProps = {
                         </Ui.View.Form>
                     );
                 }}
-            </Ui.Form.Container>
+            </Ui.Form>
         );
     }
 };

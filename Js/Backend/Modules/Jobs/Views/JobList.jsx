@@ -58,7 +58,7 @@ JobList.defaultProps = {
                                 </Ui.View.Header>
 
                                 <Ui.View.Body>
-                                    <Ui.List.ApiContainer ui="myList" {...listProps}>
+                                    <Ui.List ui="myList" {...listProps}>
 
                                         <Ui.List.FormFilters>
                                             {(applyFilters, resetFilters) => (
@@ -79,7 +79,7 @@ JobList.defaultProps = {
                                             )}
                                         </Ui.List.FormFilters>
 
-                                        <Table.Table>
+                                        <Table>
                                             <Table.Row>
                                                 <Table.Field name="name" align="left" label="Name" sort="name" route="CronManager.Job.Edit"/>
                                                 <Table.Field name="url" align="left" label="Url" sort="url"/>
@@ -129,9 +129,9 @@ JobList.defaultProps = {
                                                     <Table.DeleteAction/>
                                                 </Table.Actions>
                                             </Table.Row>
-                                        </Table.Table>
+                                        </Table>
                                         <Ui.List.Pagination/>
-                                    </Ui.List.ApiContainer>
+                                    </Ui.List>
                                 </Ui.View.Body>
                             </Ui.View.List>
                         </view>

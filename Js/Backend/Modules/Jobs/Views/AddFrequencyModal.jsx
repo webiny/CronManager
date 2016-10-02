@@ -33,10 +33,10 @@ class AddFrequencyModal extends Webiny.Ui.ModalComponent {
             <Ui.Modal.Dialog>
                 <Ui.Modal.Header title="Add Frequency"/>
                 <Ui.Modal.Body>
-                    <Ui.Tabs.Tabs ui="myTabs" position="left">
+                    <Ui.Tabs ui="myTabs" position="left">
                         <Ui.Tabs.Tab label="Create New">
 
-                            <Ui.Form.Container {...formProps}>
+                            <Ui.Form {...formProps}>
                                 {() => (
                                     <Ui.Grid.Row>
                                         <Ui.Grid.Col all={12}>
@@ -51,11 +51,11 @@ class AddFrequencyModal extends Webiny.Ui.ModalComponent {
                                         </Ui.Grid.Col>
                                     </Ui.Grid.Row>
                                 )}
-                            </Ui.Form.Container>
+                            </Ui.Form>
                         </Ui.Tabs.Tab>
                         <Ui.Tabs.Tab label="Manage Existing">
-                            <Ui.List.ApiContainer ui="maskList" {...listProps}>
-                                <Table.Table>
+                            <Ui.List ui="maskList" {...listProps}>
+                                <Table>
                                     <Table.Row>
                                         <Table.Field name="name" align="left" label="Name" sort="name"/>
                                         <Table.Field name="mask" align="left" label="Mask" sort="mask"/>
@@ -65,11 +65,11 @@ class AddFrequencyModal extends Webiny.Ui.ModalComponent {
                                             }}/>
                                         </Table.Actions>
                                     </Table.Row>
-                                </Table.Table>
-                            </Ui.List.ApiContainer>
+                                </Table>
+                            </Ui.List>
                         </Ui.Tabs.Tab>
 
-                    </Ui.Tabs.Tabs>
+                    </Ui.Tabs>
                 </Ui.Modal.Body>
                 <Ui.Modal.Footer>
                     <Ui.Button type="secondary" label="Cancel" onClick={this.ui('addFrequencyModal:hide')}/>

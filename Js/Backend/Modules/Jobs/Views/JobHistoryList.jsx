@@ -88,9 +88,9 @@ JobHistoryList.defaultProps = {
                                                 </Ui.Grid.Row>
                                                 <Ui.Grid.Col all={12}>
                                                     <br/>
-                                                    <Ui.List.ApiContainer ui="historyList" {...listProps}>
+                                                    <Ui.List ui="historyList" {...listProps}>
 
-                                                        <Table.Table>
+                                                        <Table>
                                                             <Table.Row>
                                                                 <Table.TimeAgoField
                                                                     name="runDate"
@@ -116,9 +116,9 @@ JobHistoryList.defaultProps = {
                                                                     )}
                                                                 </Table.Field>
                                                             </Table.Row>
-                                                        </Table.Table>
+                                                        </Table>
                                                         <Ui.List.Pagination/>
-                                                    </Ui.List.ApiContainer>
+                                                    </Ui.List>
                                                 </Ui.Grid.Col>
                                             </Ui.Grid.Row>
                                         </Ui.View.Body>

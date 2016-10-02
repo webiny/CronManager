@@ -8,7 +8,7 @@ class HistoryDetailsModal extends Webiny.Ui.ModalComponent {
             <Ui.Modal.Dialog>
                 <Ui.Modal.Header title="History Details"/>
                 <Ui.Modal.Body>
-                    <Ui.Tabs.Tabs ui="tabs">
+                    <Ui.Tabs ui="tabs">
                         <Ui.Tabs.Tab label="Details">
                             <dl className="dl-horizontal">
                                 <dt>Job Name</dt>
@@ -38,7 +38,7 @@ class HistoryDetailsModal extends Webiny.Ui.ModalComponent {
                             <Ui.Textarea readOnly={true} value={this.props.data.debugLog}/>
                         </Ui.Tabs.Tab>
 
-                    </Ui.Tabs.Tabs>
+                    </Ui.Tabs>
 
                 </Ui.Modal.Body>
                 <Ui.Modal.Footer>
