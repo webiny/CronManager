@@ -18,7 +18,7 @@ class AddFrequencyModal extends Webiny.Ui.ModalComponent {
             api: '/entities/cron-manager/job-frequency',
             fields: 'id,name,mask',
             onSubmitSuccess: () => {
-                this.ui('frequencySelect').prepareOptions();
+                this.ui('frequencySelect').loadOptions();
                 this.hide();
             }
         };
