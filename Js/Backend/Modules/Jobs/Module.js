@@ -8,7 +8,7 @@ class Module extends Webiny.Module {
         const role = 'cron-manager';
 
         this.registerMenus(
-            new Menu('DevTools', [
+            new Menu('System', [
                 new Menu('Cron Manager', 'CronManager.Jobs').setRole(role)
             ], 'icon-tools')
         );
