@@ -19,7 +19,7 @@ class RunJobModal extends Webiny.Ui.ModalComponent {
 
     runCron() {
         const api = new Webiny.Api.Endpoint('/services/cron-manager/runner');
-        return api.get('run-job/' + this.props.data.id).then(ar => {
+        return api.get('run/' + this.props.data.id).then(ar => {
             if (ar.response.status !== 200) {
                 this.setState({
                     status: 'error',

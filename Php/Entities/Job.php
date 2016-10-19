@@ -20,6 +20,9 @@ use Apps\Core\Php\DevTools\Entity\AbstractEntity;
  * @property int    $nextRunDate
  * @property int    $runHistory
  * @property string $status
+ * @property bool   $isInactive
+ * @property bool   $isScheduled
+ * @property bool   $isRunning
  * @property array  $stats
  *
  * @package Apps\Core\Php\Entities
@@ -28,6 +31,10 @@ use Apps\Core\Php\DevTools\Entity\AbstractEntity;
 class Job extends AbstractEntity
 {
     use WebinyTrait;
+
+    const STATUS_INACTIVE = 'inactive';
+    const STATUS_SCHEDULED = 'scheduled';
+    const STATUS_RUNNING = 'running';
 
     protected static $entityCollection = 'CronManagerJobs';
     protected static $entityMask = '{name}';
@@ -52,10 +59,10 @@ class Job extends AbstractEntity
         $this->attr('enabled')->boolean()->setDefaultValue(true)->setToArrayDefault()->onSet(function ($enabled) {
             // in case we create a new cron job, or in case if we re-enable a disabled cron job, we need to set the next run date
             if ($enabled) {
-                $this->scheduleNextRunDate($this);
-                $this->status = 2;
+                $this->scheduleNextRunDate();
+                $this->status = self::STATUS_SCHEDULED;
             } else {
-                $this->status = 1;
+                $this->status = self::STATUS_INACTIVE;
             }
 
             return $enabled;
@@ -70,18 +77,30 @@ class Job extends AbstractEntity
          * 2 - scheduled
          * 3 - running
          */
-        $this->attr('status')->integer()->setDefaultValue(0);
+        $this->attr('status')->integer()->setDefaultValue(self::STATUS_INACTIVE)->setValidators('in:inactive:scheduled:running');
+
+        $this->attr('isInactive')->dynamic(function () {
+            return $this->status === self::STATUS_INACTIVE;
+        });
+
+        $this->attr('isScheduled')->dynamic(function () {
+            return $this->status === self::STATUS_SCHEDULED;
+        });
+
+        $this->attr('isRunning')->dynamic(function () {
+            return $this->status === self::STATUS_RUNNING;
+        });
+
         $this->attr('stats')->object()->setDefaultValue([
             'totalExecTime'  => 0,
             'numberOfRuns'   => 0,
             'successfulRuns' => 0
         ])->setToArrayDefault();
 
-        $this->api('GET', 'list-timezones', function () {
+        $this->api('GET', 'timezones', function () {
             return $this->listTimezones();
         });
     }
-
 
     public function scheduleNextRunDate()
     {
@@ -99,22 +118,27 @@ class Job extends AbstractEntity
         $this->nextRunDate = $runDate->format('c');
     }
 
+    /**
+     * This determines if this job can be triggered when Runner is triggered
+     * Job can be triggered if following conditions are met:
+     *  - current time has passed job's execution time
+     *  - current job is not already in 'running' state (can happen if cron job takes a bit longer to run)
+     * @return bool
+     */
     public function shouldJobRunNow()
     {
+        if (!$this->enabled || $this->isRunning) {
+            return false;
+        }
+
         $tz = date_default_timezone_get();
         date_default_timezone_set(str_replace(' ', '_', $this->timezone));
 
-        // get the timestamp of the job
+        // Get the timestamp of the job
         $jobTs = $this->datetime($this->nextRunDate)->format('U');
-
-
         date_default_timezone_set($tz);
-        // job should run if the time diff is less than 60 seconds
-        if ((time() - $jobTs) < 60 && (time() - $jobTs) > 0) {
-            return true;
-        }
 
-        return false;
+        return time() > $jobTs;
     }
 
     public function listTimezones()

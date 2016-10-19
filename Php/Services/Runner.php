@@ -13,11 +13,20 @@ class Runner extends AbstractService implements NoAuthorizationInterface
     function __construct()
     {
         parent::__construct();
+
+        /**
+         * @api.name        Run all cron jobs
+         * @api.description Runs all available cron jobs
+         */
         $this->api('get', 'run', function () {
             return $this->run();
         });
 
-        $this->api('get', 'run-job/{job}', function (Job $job) {
+        /**
+         * @api.name        Run single cron job
+         * @api.description Runs single cron job by given ID
+         */
+        $this->api('get', 'run/{job}', function (Job $job) {
             return $this->runJob($job);
         });
     }
@@ -31,7 +40,6 @@ class Runner extends AbstractService implements NoAuthorizationInterface
         foreach ($jobs as $j) {
             if ($j->shouldJobRunNow()) {
                 $this->issueJob($j);
-
             }
         }
     }
@@ -39,7 +47,7 @@ class Runner extends AbstractService implements NoAuthorizationInterface
     private function issueJob(Job $job)
     {
         // fork the cron request into separate process
-        $url = $this->wConfig()->get('Application.ApiPath') . '/services/cron-manager/runner/run-job/' . $job->id;
+        $url = $this->wConfig()->get('Application.ApiPath') . '/services/cron-manager/runner/run/' . $job->id;
 
         $cmd = "curl -X GET " . $url . " > /dev/null 2>&1 &";
         exec($cmd);
@@ -49,7 +57,7 @@ class Runner extends AbstractService implements NoAuthorizationInterface
     private function runJob(Job $job)
     {
         // update job status to running
-        $job->status = 3; // running
+        $job->status = Job::STATUS_RUNNING;
         $job->save();
 
         // create the job url
@@ -103,7 +111,7 @@ class Runner extends AbstractService implements NoAuthorizationInterface
         $jobHistory->save();
 
         // set status to scheduled
-        $job->status = 2; // scheduled
+        $job->status = Job::STATUS_SCHEDULED;
 
         // set the date for the next run
         // check if job is active before we schedule the next run
