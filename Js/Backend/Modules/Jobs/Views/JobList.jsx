@@ -103,9 +103,9 @@ JobList.defaultProps = {
                                                     </case>
                                                 </Table.CaseField>
                                                 <Table.CaseField name="status" label="Status" align="left">
-                                                    <case value={1}>In-active</case>
-                                                    <case value={2}>Scheduled</case>
-                                                    <case value={3}>Running</case>
+                                                    <case value="inactive">In-active</case>
+                                                    <case value="scheduled">Scheduled</case>
+                                                    <case value="running">Running</case>
                                                 </Table.CaseField>
                                                 <Table.TimeAgoField name="createdOn" align="left" label="Created" sort="createdOn"/>
 

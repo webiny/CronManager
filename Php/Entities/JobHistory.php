@@ -37,7 +37,7 @@ class JobHistory extends AbstractEntity
         $this->attr('successful')->boolean();
         $this->attr('result')->char();
         $this->attr('serverIp')->char();
-        $this->attr('debugLog')->char();
+        $this->attr('debugLog')->object();
         $this->attr('responseCode')->integer();
     }
 }

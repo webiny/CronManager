@@ -10,7 +10,7 @@
                     "crudUpdate": true,
                     "crudDelete": true,
                     "crudRead": true,
-                    "list-timezones": {
+                    "timezones": {
                         "get": true
                     }
                 },

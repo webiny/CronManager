@@ -50,7 +50,7 @@ JobForm.defaultProps = {
             name: 'timezone',
             placeholder: 'Select a timezone',
             allowClear: true,
-            api: '/entities/cron-manager/jobs/list-timezones',
+            api: '/entities/cron-manager/jobs/timezones',
             validate: 'required'
         };
 
