@@ -32,7 +32,7 @@ class AddFrequencyModal extends Webiny.Ui.ModalComponent {
         return (
             <Ui.Modal.Dialog>
                 <Ui.Modal.Header title="Add Frequency"/>
-                <Ui.Modal.Body>
+                <Ui.Modal.Body noPadding>
                     <Ui.Tabs ui="myTabs" position="left">
                         <Ui.Tabs.Tab label="Create New">
 
