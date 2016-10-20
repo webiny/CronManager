@@ -1,6 +1,7 @@
 <?php
 namespace Apps\CronManager\Php\Entities;
 
+use Apps\Core\Php\DevTools\Exceptions\AppException;
 use Apps\Core\Php\DevTools\WebinyTrait;
 use Apps\Core\Php\DevTools\Entity\AbstractEntity;
 
@@ -13,6 +14,8 @@ use Apps\Core\Php\DevTools\Entity\AbstractEntity;
  * @property string $url
  * @property string $frequency
  * @property string $timezone
+ * @property string $targetType
+ * @property string $target
  * @property int    $timeout
  * @property array  $notifyOn
  * @property array  $notifyEmails
@@ -35,6 +38,9 @@ class Job extends AbstractEntity
     const STATUS_INACTIVE = 'inactive';
     const STATUS_SCHEDULED = 'scheduled';
     const STATUS_RUNNING = 'running';
+
+    const TARGET_URL = 'url';
+    const TARGET_CLASS = 'class';
 
     protected static $entityCollection = 'CronManagerJobs';
     protected static $entityMask = '{name}';
@@ -68,16 +74,13 @@ class Job extends AbstractEntity
             return $enabled;
         })->setAfterPopulate();
 
-        $frequency = '\Apps\CronManager\Php\Entities\JobFrequency';
-        $this->attr('frequency')->many2one('Frequency')->setEntity($frequency);
+        $this->attr('target')->char()->setToArrayDefault()->setValidators('required');
+        $this->attr('targetType')->char()->setToArrayDefault()->setValidators('required,in:url:class');
+
+        $this->attr('frequency')->many2one('Frequency')->setEntity('\Apps\CronManager\Php\Entities\JobFrequency');
         $this->attr('nextRunDate')->char()->setToArrayDefault();
 
-        /**
-         * 1 - inactive
-         * 2 - scheduled
-         * 3 - running
-         */
-        $this->attr('status')->integer()->setDefaultValue(self::STATUS_INACTIVE)->setValidators('in:inactive:scheduled:running');
+        $this->attr('status')->char()->setDefaultValue(self::STATUS_INACTIVE)->setValidators('in:inactive:scheduled:running');
 
         $this->attr('isInactive')->dynamic(function () {
             return $this->status === self::STATUS_INACTIVE;
@@ -100,6 +103,46 @@ class Job extends AbstractEntity
         $this->api('GET', 'timezones', function () {
             return $this->listTimezones();
         });
+
+        $this->api('POST', 'validators/targets/class-names', function () {
+            $className = $this->wRequest()->getRequestData()['className'];
+            self::validateClassTarget($className);
+        })->setBodyValidators(['className' => 'required']);
+    }
+
+    /**
+     * Returns if given class name is a valid cron job target class
+     *
+     * @param $className
+     *
+     * @throws AppException
+     */
+    public static function validateClassTarget($className)
+    {
+        // Working example - Apps\TestApp\Php\Services\Crons\UpdateStats
+        $re = '/Apps\\\\(.*)\\\\Php\\\\(.*)/';
+        preg_match_all($re, $className, $matches);
+
+        if (empty($matches[0])) {
+            throw new AppException('Invalid namespace.');
+        }
+
+        $className = self::wRequest()->getRequestData()['className'];
+
+        $parts = self::str($className)->explode('\\')->filter()->values()->val();
+        $classFile = self::wConfig()->get('Application.AbsolutePath') . join('/', $parts) . '.php';
+        if (!file_exists($classFile)) {
+            throw new AppException('Namespace is valid, but file does not exist.');
+        }
+
+        if (!class_exists($className)) {
+            throw new AppException('Namespace is valid, file exists but class does not.');
+        }
+
+        $classInterfaces = class_implements($className);
+        if (!isset($classInterfaces['Apps\CronManager\Php\Interfaces\CronJobInterface'])) {
+            throw new AppException('Class does not implement CronJobInterface interface.');
+        }
     }
 
     public function scheduleNextRunDate()
@@ -167,4 +210,5 @@ class Job extends AbstractEntity
             JobHistory::find(['job' => $this->id], ['id'], ($totalNumber - $this->runHistory))->delete();
         }
     }
+
 }
