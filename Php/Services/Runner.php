@@ -142,7 +142,7 @@ class Runner extends AbstractService implements NoAuthorizationInterface
             // Populate history data
             $jobHistory = new JobHistory();
             $jobHistory->job = $job;
-            $jobHistory->debugLog = $debugLog;
+            $jobHistory->debugLog = ['message' => $debugLog];
             $jobHistory->runDate = $this->datetime()->getMongoDate();
             $jobHistory->serverIp = $curlInfo['primary_ip'];
             $jobHistory->runTime = $curlInfo['total_time'];
