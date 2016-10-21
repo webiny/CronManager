@@ -11,7 +11,6 @@ use Apps\Core\Php\DevTools\Entity\AbstractEntity;
  * @property string $id
  * @property string $name
  * @property string $description
- * @property string $url
  * @property string $frequency
  * @property string $timezone
  * @property string $targetType
@@ -54,7 +53,6 @@ class Job extends AbstractEntity
         ])->setToArrayDefault();
 
         $this->attr('description')->char()->setToArrayDefault();
-        $this->attr('url')->char()->setValidators('required')->setToArrayDefault();
         $this->attr('timeout')->integer()->setToArrayDefault();
         $this->attr('runHistory')->integer()->setToArrayDefault();
         $this->attr('timezone')->char()->setValidators('required')->setToArrayDefault();

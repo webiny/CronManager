@@ -51,8 +51,8 @@ class Runner extends AbstractService implements NoAuthorizationInterface
         $httpAuthentication = '';
         $settings = Setting::load('cron-manager');
         if ($settings) {
-            $username = $settings->settings->key('authentication.http.username');
-            $password = $settings->settings->key('authentication.http.password');
+            $username = $settings->settings->keyNested('authentication.http.username');
+            $password = $settings->settings->keyNested('authentication.http.password');
             if ($username && $password) {
                 $httpAuthentication = '-u ' . $username . ':' . $password;
             }
@@ -124,8 +124,8 @@ class Runner extends AbstractService implements NoAuthorizationInterface
 
             $settings = Setting::load('cron-manager');
             if ($settings) {
-                $username = $settings->settings->key('authentication.http.username');
-                $password = $settings->settings->key('authentication.http.password');
+                $username = $settings->settings->keyNested('authentication.http.username');
+                $password = $settings->settings->keyNested('authentication.http.password');
                 if ($username && $password) {
                     curl_setopt($ch, CURLOPT_USERPWD, $username . ':' . $password);
                 }
