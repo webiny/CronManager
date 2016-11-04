@@ -14,10 +14,10 @@ class Module extends Webiny.Module {
         );
 
         this.registerRoutes(
-            new Webiny.Route('CronManager.Jobs', '/cron-manager', Views.JobList, 'Cron Manager - Jobs').setRole(role),
-            new Webiny.Route('CronManager.Job.Create', '/cron-manager/job', Views.JobForm, 'Cron Manager - New Job').setRole(role),
-            new Webiny.Route('CronManager.Job.Edit', '/cron-manager/job/:id', Views.JobForm, 'Cron Manager - Edit Job').setRole(role),
-            new Webiny.Route('CronManager.Job.History', '/cron-manager/job/history/:id', Views.JobHistoryList, 'Cron Manager - Job History').setRole(role)
+            new Webiny.Route('CronManager.Job.History', '/cron-manager/jobs/:id/history', Views.JobHistoryList, 'Cron Manager - Job History').setRole(role),
+            new Webiny.Route('CronManager.Job.Create', '/cron-manager/jobs/create', Views.JobForm, 'Cron Manager - New Job').setRole(role),
+            new Webiny.Route('CronManager.Job.Edit', '/cron-manager/jobs/:id', Views.JobForm, 'Cron Manager - Edit Job').setRole(role),
+            new Webiny.Route('CronManager.Jobs', '/cron-manager/jobs', Views.JobList, 'Cron Manager - Jobs').setRole(role)
         );
 
         // register the cronFrequency validator
@@ -30,6 +30,15 @@ class Module extends Webiny.Module {
                 }
 
                 return data.frequency;
+            });
+        });
+
+        Webiny.Validator.addValidator('className', value => {
+            const api = new Webiny.Api.Endpoint('/entities/cron-manager/jobs/validators/targets');
+            return api.post('/class-names', {className: value}).then(response => {
+                if (response.isError()) {
+                    throw new Error(response.getMessage());
+                }
             });
         });
     }

@@ -5,6 +5,28 @@ import AddFrequencyModal from './AddFrequencyModal';
 
 class JobForm extends Webiny.Ui.View {
 
+    renderTargetInput(model) {
+        const urlDescription = 'You can user variables like {apiPath} and {webPath} in the URL which will be replaced with your config variables before the job is run.';
+        const classDescription = 'Provide a class name with full namespace, and Cron Manager can use it directly.';
+
+        let targetProps = {
+            label: 'Url',
+            name: 'target',
+            validate: 'required',
+            description: urlDescription
+        };
+
+        if (model.targetType === 'class') {
+            targetProps = {
+                label: 'Class',
+                name: 'target',
+                placeholder: 'eg. Apps\\TestApp\\Php\\Services\\Crons\\DailyEmails',
+                validate: 'required,className',
+                description: classDescription
+            };
+        }
+        return <Ui.Input {...targetProps}/>
+    }
 }
 
 JobForm.defaultProps = {
@@ -26,10 +48,8 @@ JobForm.defaultProps = {
             fields: '*',
             label: 'Frequency',
             name: 'frequency',
-            query: {_sort: 'name'},
+            sort: 'name',
             placeholder: 'Select frequency',
-            allowClear: true,
-            textAttr: 'name',
             validate: 'required',
             optionRenderer: option => {
                 return (
@@ -54,55 +74,23 @@ JobForm.defaultProps = {
             validate: 'required'
         };
 
-        /*
-        const notificationEmails = (
-            <Ui.Dynamic.Fieldset name="notifyEmails">
-                <Ui.Dynamic.Row>
-                    {(record, index, actions) => (
-                        <Ui.Grid.Row>
-                            <Ui.Grid.Col all={9}>
-                                <Ui.Input placeholder="Email address" name="email" validate="required, email"/>
-                            </Ui.Grid.Col>
-                            <Ui.Grid.Col all={3}>
-                                <div className="btn-group">
-                                    <Ui.Button type="primary" label="Add" onClick={actions.add(index)}/>
-                                    <Ui.Button type="secondary" onClick={actions.remove(index)}>
-                                        <Ui.Icon icon="icon-cancel"/>
-                                    </Ui.Button>
-                                </div>
-                            </Ui.Grid.Col>
-                        </Ui.Grid.Row>
-                    )}
-                </Ui.Dynamic.Row>
-                <Ui.Dynamic.Empty>
-                    {actions => (
-                        <Ui.Grid.Row>
-                            <Ui.Grid.Col all={12}>
-                                <h5>You don't have any notification emails set.</h5>
-                                <Ui.Button type="primary" label="Add email" onClick={actions.add(0)}/>
-                            </Ui.Grid.Col>
-                        </Ui.Grid.Row>
-                    )}
-                </Ui.Dynamic.Empty>
-            </Ui.Dynamic.Fieldset>
-        );
-       */
-
-        const urlDescription = 'You can user variables like {apiPath} and {webPath} in the URL which will be replaced with your config variables before the job is run.';
-
         return (
             <Ui.Form ui="myForm" {...formProps}>
-                {(data, container) => {
+                {(model, form) => {
                     return (
                         <Ui.View.Form>
                             <Ui.View.Header title="Cron Job"/>
                             <Ui.View.Body>
                                 <Ui.Grid.Row>
-                                    <Ui.Form.Error container={container}/>
+                                    <Ui.Form.Error form={form}/>
                                     <Ui.Grid.Col all={6}>
                                         <Ui.Form.Fieldset title="About"/>
                                         <Ui.Input label="Name" name="name" validate="required"/>
-                                        <Ui.Input label="Url" name="url" validate="required" description={urlDescription}/>
+                                        <Ui.RadioGroup label={this.i18n('Target Type')} name="targetType">
+                                            <option value="url">{this.i18n('URL')}</option>
+                                            <option value="class">{this.i18n('Class')}</option>
+                                        </Ui.RadioGroup>
+                                        {this.renderTargetInput(model)}
                                         <Ui.Textarea label="Description" name="description"/>
                                         <Ui.Select
                                             label="Run History"
@@ -114,31 +102,15 @@ JobForm.defaultProps = {
                                             <option value="100">100</option>
                                             <option value="1000">1000</option>
                                         </Ui.Select>
-
-                                        {/* <Ui.Form.Fieldset title="Notifications"/>
-                                        <Ui.Grid.Row>
-                                            <Ui.Grid.Col all={12}>
-                                                <Ui.CheckboxGroup label="Notify on" name="notifyOn" grid={12}>
-                                                    <option value="Error">Failed run</option>
-                                                    <option value="Success">Successful run</option>
-                                                </Ui.CheckboxGroup>
-                                            </Ui.Grid.Col>
-                                        </Ui.Grid.Row>
-
-                                        <Ui.Grid.Row>
-                                            <Ui.Grid.Col all={12}>
-                                                <label>Notification emails</label>
-                                                {notificationEmails}
-                                            </Ui.Grid.Col>
-                                        </Ui.Grid.Row> */}
-
                                     </Ui.Grid.Col>
 
                                     <Ui.Grid.Col all={6}>
                                         <Ui.Form.Fieldset title="Run Settings">
-                                            <Ui.Button size="small" label="Add new" onClick={this.ui('addFrequencyModal:show')}>Add
-                                                New
-                                                Frequency</Ui.Button>
+                                            <Ui.Button
+                                                size="small"
+                                                label="Add new"
+                                                onClick={this.ui('addFrequencyModal:show')}
+                                                label="Add New Frequency"/>
                                         </Ui.Form.Fieldset>
                                         <Ui.Grid.Col all={12}>
                                             <Ui.Select {...frequencySelect}/>
@@ -164,8 +136,8 @@ JobForm.defaultProps = {
                                 </Ui.Grid.Row>
                             </Ui.View.Body>
                             <Ui.View.Footer>
-                                <Ui.Button align="left" type="default" onClick={container.cancel} label="Cancel"/>
-                                <Ui.Button align="right" type="primary" onClick={container.submit} label="Submit"/>
+                                <Ui.Button align="left" type="default" onClick={form.cancel} label="Cancel"/>
+                                <Ui.Button align="right" type="primary" onClick={form.submit} label="Submit"/>
                             </Ui.View.Footer>
                         </Ui.View.Form>
                     );

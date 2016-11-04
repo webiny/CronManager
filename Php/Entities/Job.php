@@ -75,7 +75,7 @@ class Job extends AbstractEntity
         $this->attr('target')->char()->setToArrayDefault()->setValidators('required');
         $this->attr('targetType')->char()->setToArrayDefault()->setValidators('required,in:url:class');
 
-        $this->attr('frequency')->many2one('Frequency')->setEntity('\Apps\CronManager\Php\Entities\JobFrequency');
+        $this->attr('frequency')->many2one()->setEntity('\Apps\CronManager\Php\Entities\JobFrequency');
         $this->attr('nextRunDate')->char()->setToArrayDefault();
 
         $this->attr('status')->char()->setDefaultValue(self::STATUS_INACTIVE)->setValidators('in:inactive:scheduled:running');
@@ -102,45 +102,21 @@ class Job extends AbstractEntity
             return $this->listTimezones();
         });
 
+        $this->api('GET', '{id}/history', function () {
+            $params = [
+                ['job' => $this->id] + $this->wRequest()->getFilters(),
+                $this->wRequest()->getSortFields(),
+                $this->wRequest()->getPerPage(),
+                $this->wRequest()->getPage()
+            ];
+            
+            return $this->apiFormatList(JobHistory::find(...$params), $this->wRequest()->getFields());
+        });
+
         $this->api('POST', 'validators/targets/class-names', function () {
             $className = $this->wRequest()->getRequestData()['className'];
-            self::validateClassTarget($className);
+            $this->validateClassTarget($className);
         })->setBodyValidators(['className' => 'required']);
-    }
-
-    /**
-     * Returns if given class name is a valid cron job target class
-     *
-     * @param $className
-     *
-     * @throws AppException
-     */
-    public static function validateClassTarget($className)
-    {
-        // Working example - Apps\TestApp\Php\Services\Crons\UpdateStats
-        $re = '/Apps\\\\(.*)\\\\Php\\\\(.*)/';
-        preg_match_all($re, $className, $matches);
-
-        if (empty($matches[0])) {
-            throw new AppException('Invalid namespace.');
-        }
-
-        $className = self::wRequest()->getRequestData()['className'];
-
-        $parts = self::str($className)->explode('\\')->filter()->values()->val();
-        $classFile = self::wConfig()->get('Application.AbsolutePath') . join('/', $parts) . '.php';
-        if (!file_exists($classFile)) {
-            throw new AppException('Namespace is valid, but file does not exist.');
-        }
-
-        if (!class_exists($className)) {
-            throw new AppException('Namespace is valid, file exists but class does not.');
-        }
-
-        $classInterfaces = class_implements($className);
-        if (!isset($classInterfaces['Apps\CronManager\Php\Interfaces\CronJobInterface'])) {
-            throw new AppException('Class does not implement CronJobInterface interface.');
-        }
     }
 
     public function scheduleNextRunDate()
@@ -209,4 +185,38 @@ class Job extends AbstractEntity
         }
     }
 
+    /**
+     * Returns if given class name is a valid cron job target class
+     *
+     * @param $className
+     *
+     * @throws AppException
+     */
+    private function validateClassTarget($className)
+    {
+        // Working example - Apps\TestApp\Php\Services\Crons\UpdateStats
+        $re = '/Apps\\\\(.*)\\\\Php\\\\(.*)/';
+        preg_match_all($re, $className, $matches);
+
+        if (empty($matches[0])) {
+            throw new AppException('Invalid namespace.');
+        }
+
+        $className = $this->wRequest()->getRequestData()['className'];
+
+        $parts = $this->str($className)->explode('\\')->filter()->values()->val();
+        $classFile = $this->wConfig()->get('Application.AbsolutePath') . join('/', $parts) . '.php';
+        if (!file_exists($classFile)) {
+            throw new AppException('Namespace is valid but file does not exist.');
+        }
+
+        if (!class_exists($className)) {
+            throw new AppException('Namespace is valid but given class was not found in the file.');
+        }
+
+        $classInterfaces = class_implements($className);
+        if (!isset($classInterfaces['Apps\CronManager\Php\Interfaces\CronJobInterface'])) {
+            throw new AppException('Class must implement CronJobInterface.');
+        }
+    }
 }
