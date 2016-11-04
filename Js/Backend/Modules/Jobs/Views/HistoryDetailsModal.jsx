@@ -14,8 +14,8 @@ class HistoryDetailsModal extends Webiny.Ui.ModalComponent {
                                 <dt>Job Name</dt>
                                 <dd>{this.props.data.job.name}</dd>
 
-                                <dt>Job Url</dt>
-                                <dd>{this.props.data.job.url}</dd>
+                                <dt>Job Target</dt>
+                                <dd>{this.props.data.job.target}</dd>
 
                                 <dt>Server IP</dt>
                                 <dd>{this.props.data.serverIp}</dd>
@@ -35,7 +35,7 @@ class HistoryDetailsModal extends Webiny.Ui.ModalComponent {
                             <Ui.Textarea readOnly={true} value={this.props.data.result}/>
                         </Ui.Tabs.Tab>
                         <Ui.Tabs.Tab label="Debug Log">
-                            <Ui.Textarea readOnly={true} value={this.props.data.debugLog}/>
+                            <Ui.Textarea readOnly={true} value={this.props.data.debugLog.message}/>
                         </Ui.Tabs.Tab>
 
                     </Ui.Tabs>
