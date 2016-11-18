@@ -10,8 +10,14 @@
                     "crudUpdate": true,
                     "crudDelete": true,
                     "crudRead": true,
-                    "timezones": {
-                        "get": true
+                    "{id}/history" : {
+                        "get" : true
+                    },
+                    "timezones" : {
+                        "get" : true
+                    },
+                    "validators/targets/class-names" : {
+                        "post" : true
                     }
                 },
                 "Apps\\CronManager\\Php\\Entities\\JobFrequency": {
