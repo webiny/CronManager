@@ -42,7 +42,7 @@ class HistoryDetailsModal extends Webiny.Ui.ModalComponent {
 
                 </Ui.Modal.Body>
                 <Ui.Modal.Footer>
-                    <Ui.Button type="secondary" label="Close" onClick={this.hide}/>
+                    <Ui.Button label="Close" onClick={this.hide}/>
                 </Ui.Modal.Footer>
             </Ui.Modal.Dialog>
         );

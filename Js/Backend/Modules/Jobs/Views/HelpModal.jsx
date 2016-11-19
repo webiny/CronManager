@@ -29,7 +29,7 @@ class HelpModal extends Webiny.Ui.ModalComponent {
                     </p>
                 </Ui.Modal.Body>
                 <Ui.Modal.Footer>
-                    <Ui.Button type="secondary" label="Close" onClick={this.hide}/>
+                    <Ui.Button label="Close" onClick={this.hide}/>
                 </Ui.Modal.Footer>
             </Ui.Modal.Dialog>
         );
