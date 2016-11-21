@@ -2,11 +2,11 @@
 namespace Apps\CronManager\Php\Entities;
 
 /**
- * Class Setting
+ * Class Settings
  *
  * @package Apps\CronManager\Php\Entities
  */
-class Setting extends \Apps\Core\Php\Entities\Setting
+class Settings extends \Apps\Core\Php\Entities\Settings
 {
     protected static $key = 'cron-manager';
 }

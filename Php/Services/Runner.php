@@ -7,7 +7,7 @@ use Apps\Core\Php\DevTools\Interfaces\NoAuthorizationInterface;
 use Apps\Core\Php\DevTools\Services\AbstractService;
 use Apps\CronManager\Php\Entities\Job;
 use Apps\CronManager\Php\Entities\JobHistory;
-use Apps\CronManager\Php\Entities\Setting;
+use Apps\CronManager\Php\Entities\Settings;
 use Apps\CronManager\Php\Interfaces\CronJobInterface;
 
 class Runner extends AbstractService implements NoAuthorizationInterface
@@ -49,7 +49,7 @@ class Runner extends AbstractService implements NoAuthorizationInterface
         $url = $this->wConfig()->get('Application.ApiPath') . '/services/cron-manager/runner/run/' . $job->id;
 
         $httpAuthentication = '';
-        $settings = Setting::load();
+        $settings = Settings::load();
         if ($settings) {
             $username = $settings->keyNested('authentication.http.username');
             $password = $settings->keyNested('authentication.http.password');
@@ -126,7 +126,7 @@ class Runner extends AbstractService implements NoAuthorizationInterface
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-            $settings = Setting::load();
+            $settings = Settings::load();
             if ($settings) {
                 $username = $settings->keyNested('authentication.http.username');
                 $password = $settings->keyNested('authentication.http.password');
