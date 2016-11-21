@@ -3,6 +3,7 @@ namespace Apps\CronManager\Php\Entities;
 
 use Apps\Core\Php\DevTools\WebinyTrait;
 use Apps\Core\Php\DevTools\Entity\AbstractEntity;
+use Webiny\Component\Mongo\Index\SingleIndex;
 
 /**
  * Class Jobs
@@ -30,6 +31,7 @@ class JobHistory extends AbstractEntity
     public function __construct()
     {
         parent::__construct();
+        $this->index(new SingleIndex('job', 'job'));
         $this->attr('job')->many2one()->setEntity('\Apps\CronManager\Php\Entities\Job');
         $this->attr('runDate')->datetime();
         $this->attr('runTime')->float();
