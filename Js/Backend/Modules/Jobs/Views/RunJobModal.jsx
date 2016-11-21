@@ -68,7 +68,7 @@ class RunJobModal extends Webiny.Ui.ModalComponent {
 
                 </Ui.Modal.Body>
                 <Ui.Modal.Footer>
-                    <Ui.Button type="secondary" label="Close" disabled={this.state.jobRunning && 'disabled'} onClick={this.hide}/>
+                    <Ui.Button label="Close" disabled={this.state.jobRunning && 'disabled'} onClick={this.hide}/>
                 </Ui.Modal.Footer>
             </Ui.Modal.Dialog>
         );

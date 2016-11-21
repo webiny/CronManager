@@ -72,7 +72,7 @@ class AddFrequencyModal extends Webiny.Ui.ModalComponent {
                     </Ui.Tabs>
                 </Ui.Modal.Body>
                 <Ui.Modal.Footer>
-                    <Ui.Button type="secondary" label="Cancel" onClick={this.ui('addFrequencyModal:hide')}/>
+                    <Ui.Button label="Cancel" onClick={this.ui('addFrequencyModal:hide')}/>
                     <Ui.Button type="primary" label="Add frequency" onClick={this.ui('addFrequencyForm:submit')}/>
                 </Ui.Modal.Footer>
             </Ui.Modal.Dialog>
