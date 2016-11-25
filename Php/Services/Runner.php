@@ -3,14 +3,13 @@ namespace Apps\CronManager\Php\Services;
 
 set_time_limit(0);
 
-use Apps\Core\Php\DevTools\Interfaces\NoAuthorizationInterface;
 use Apps\Core\Php\DevTools\Services\AbstractService;
 use Apps\CronManager\Php\Entities\Job;
 use Apps\CronManager\Php\Entities\JobHistory;
 use Apps\CronManager\Php\Entities\Settings;
 use Apps\CronManager\Php\Interfaces\CronJobInterface;
 
-class Runner extends AbstractService implements NoAuthorizationInterface
+class Runner extends AbstractService
 {
     function __construct()
     {
