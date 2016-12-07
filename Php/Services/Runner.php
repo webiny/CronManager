@@ -72,6 +72,7 @@ class Runner extends AbstractService
     {
         // update job status to running
         $job->status = Job::STATUS_RUNNING;
+        $job->lastRunDate = $this->datetime()->getMongoDate();
         $job->save();
 
         if ($job->targetType === Job::TARGET_CLASS) {

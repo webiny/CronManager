@@ -19,6 +19,7 @@ use Apps\Core\Php\DevTools\Entity\AbstractEntity;
  * @property array  $notifyOn
  * @property array  $notifyEmails
  * @property bool   $enabled
+ * @property int    $lastRunDate
  * @property int    $nextRunDate
  * @property int    $runHistory
  * @property string $status
@@ -62,8 +63,8 @@ class Job extends AbstractEntity
 
         $this->attr('enabled')->boolean()->setDefaultValue(true)->setToArrayDefault()->onSet(function ($enabled) {
             // in case we create a new cron job, or in case if we re-enable a disabled cron job, we need to set the next run date
+            $this->scheduleNextRunDate();
             if ($enabled) {
-                $this->scheduleNextRunDate();
                 $this->status = self::STATUS_SCHEDULED;
             } else {
                 $this->status = self::STATUS_INACTIVE;
@@ -77,6 +78,7 @@ class Job extends AbstractEntity
 
         $this->attr('frequency')->many2one()->setEntity('\Apps\CronManager\Php\Entities\JobFrequency');
         $this->attr('nextRunDate')->char()->setToArrayDefault();
+        $this->attr('lastRunDate')->datetime();
 
         $this->attr('status')->char()->setDefaultValue(self::STATUS_INACTIVE)->setValidators('in:inactive:scheduled:running');
 
@@ -109,7 +111,7 @@ class Job extends AbstractEntity
                 $this->wRequest()->getPerPage(),
                 $this->wRequest()->getPage()
             ];
-            
+
             return $this->apiFormatList(JobHistory::find(...$params), $this->wRequest()->getFields());
         });
 
@@ -144,8 +146,15 @@ class Job extends AbstractEntity
      */
     public function shouldJobRunNow()
     {
-        if (!$this->enabled || $this->isRunning) {
+        if (!$this->enabled) {
             return false;
+        }
+
+        // check if job is hanging, if so, let's run it again
+        if ($this->isRunning) {
+            if (time() > ($this->timeout + strtotime($this->lastRunDate))) {
+                return true;
+            }
         }
 
         $tz = date_default_timezone_get();
