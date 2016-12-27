@@ -38,7 +38,7 @@ JobList.defaultProps = {
         };
 
         return (
-            <Ui.ViewSwitcher.Container>
+            <Ui.ViewSwitcher>
                 <Ui.ViewSwitcher.View view="jobListView" defaultView>
                     {showView => (
                         <view>
@@ -143,7 +143,7 @@ JobList.defaultProps = {
                 </Ui.ViewSwitcher.View>
 
 
-            </Ui.ViewSwitcher.Container>
+            </Ui.ViewSwitcher>
         );
     }
 };
