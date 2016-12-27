@@ -57,7 +57,7 @@ class Runner extends AbstractService
             }
         }
 
-        $token = '--header "X-Webiny-Api-Token: ' . urlencode($this->wConfig()->get('Application.Acl.Token')) . '"';
+        $token = '--header "X-Webiny-Authorization: ' . urlencode($this->wConfig()->get('Application.Acl.Token')) . '"';
 
         $cmd = 'curl ' . $httpAuthentication . ' ' . $token . ' --insecure -X GET ' . $url . ' > /dev/null 2>&1 &';
         exec($cmd);
@@ -119,7 +119,7 @@ class Runner extends AbstractService
             curl_setopt($ch, CURLOPT_VERBOSE, true);
             curl_setopt($ch, CURLOPT_STDERR, $debugWrapper);
             curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Webiny-Api-Token: ' . $token));
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Webiny-Authorization: ' . $token));
             curl_setopt($ch, CURLOPT_FRESH_CONNECT, true);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $job->timeout);

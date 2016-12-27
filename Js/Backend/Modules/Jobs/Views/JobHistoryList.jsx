@@ -63,28 +63,28 @@ JobHistoryList.defaultProps = {
                                             <Ui.Grid.Row>
                                                 <Ui.Grid.Row>
                                                     <Ui.Grid.Col all={4}>
-                                                        <Ui.Tile.Tile>
+                                                        <Ui.Tile>
                                                             <Ui.Tile.Header title="# of executions"/>
                                                             <Ui.Tile.Body>
                                                                 <h1>{_.get(jobData, 'stats.numberOfRuns')}</h1>
                                                             </Ui.Tile.Body>
-                                                        </Ui.Tile.Tile>
+                                                        </Ui.Tile>
                                                     </Ui.Grid.Col>
                                                     <Ui.Grid.Col all={4}>
-                                                        <Ui.Tile.Tile>
+                                                        <Ui.Tile>
                                                             <Ui.Tile.Header title="Success ratio"/>
                                                             <Ui.Tile.Body>
                                                                 <h1>{this.getSuccessRatio(jobData)}</h1>
                                                             </Ui.Tile.Body>
-                                                        </Ui.Tile.Tile>
+                                                        </Ui.Tile>
                                                     </Ui.Grid.Col>
                                                     <Ui.Grid.Col all={4}>
-                                                        <Ui.Tile.Tile>
+                                                        <Ui.Tile>
                                                             <Ui.Tile.Header title="Avg. response time"/>
                                                             <Ui.Tile.Body>
                                                                 <h1>{this.getAvgResponseTime(jobData)}</h1>
                                                             </Ui.Tile.Body>
-                                                        </Ui.Tile.Tile>
+                                                        </Ui.Tile>
                                                     </Ui.Grid.Col>
                                                 </Ui.Grid.Row>
                                                 <Ui.Grid.Col all={12}>
@@ -102,6 +102,7 @@ JobHistoryList.defaultProps = {
                                                                     name="runTime"
                                                                     align="left"
                                                                     label="Run Time"
+                                                                    headerRenderer={() => (<th>{list.multiActionsElement}</th>)}
                                                                     sort="runTime"/>
                                                                 <Table.Field
                                                                     name="responseCode"
