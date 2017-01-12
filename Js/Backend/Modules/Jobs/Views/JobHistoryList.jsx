@@ -102,11 +102,10 @@ JobHistoryList.defaultProps = {
                                                                     name="runTime"
                                                                     align="left"
                                                                     label="Run Time"
-                                                                    headerRenderer={() => (<th>{list.multiActionsElement}</th>)}
                                                                     sort="runTime"/>
                                                                 <Table.Field
                                                                     name="responseCode"
-                                                                    align="left"
+                                                                    align="center"
                                                                     label="Response Code"
                                                                     sort="responseCode"/>
                                                                 <Table.Field align="right">
