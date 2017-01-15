@@ -25,7 +25,7 @@ class JobForm extends Webiny.Ui.View {
                 description: classDescription
             };
         }
-        return <Ui.Input {...targetProps}/>
+        return (<Ui.Input {...targetProps}/>);
     }
 }
 
