@@ -6,7 +6,7 @@ import AddFrequencyModal from './AddFrequencyModal';
 class JobForm extends Webiny.Ui.View {
 
     renderTargetInput(model) {
-        const urlDescription = 'You can user variables like {apiPath} and {webPath} in the URL which will be replaced with your config variables before the job is run.';
+        const urlDescription = 'You can use variables like {apiPath} and {webPath} in the URL which will be replaced with your config variables before the job runs.';
         const classDescription = 'Provide a class name with full namespace, and Cron Manager can use it directly.';
 
         let targetProps = {
@@ -96,7 +96,7 @@ JobForm.defaultProps = {
                                             label="Run History"
                                             placeholder="Run History"
                                             name="runHistory"
-                                            description="How many records should the system keep in the run history for this job.">
+                                            description="How many records should the system keep in log history for this job.">
                                             <option value="0">All</option>
                                             <option value="10">10</option>
                                             <option value="100">100</option>
