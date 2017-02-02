@@ -61,10 +61,10 @@ JobHistoryList.defaultProps = {
                                         </Ui.View.Header>
                                         <Ui.View.Body>
                                             <Ui.Grid.Row>
-                                                <Ui.Grid.Row>
+                                                <Ui.Grid.Row className="text-center">
                                                     <Ui.Grid.Col all={4}>
                                                         <Ui.Tile>
-                                                            <Ui.Tile.Header title="# of executions"/>
+                                                            <Ui.Tile.Header className="text-center" title="# of executions"/>
                                                             <Ui.Tile.Body>
                                                                 <h1>{_.get(jobData, 'stats.numberOfRuns')}</h1>
                                                             </Ui.Tile.Body>
@@ -102,11 +102,10 @@ JobHistoryList.defaultProps = {
                                                                     name="runTime"
                                                                     align="left"
                                                                     label="Run Time"
-                                                                    headerRenderer={() => (<th>{list.multiActionsElement}</th>)}
                                                                     sort="runTime"/>
                                                                 <Table.Field
                                                                     name="responseCode"
-                                                                    align="left"
+                                                                    align="center"
                                                                     label="Response Code"
                                                                     sort="responseCode"/>
                                                                 <Table.Field align="right">

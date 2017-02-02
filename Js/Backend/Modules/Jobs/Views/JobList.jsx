@@ -19,7 +19,7 @@ JobList.defaultProps = {
     renderer() {
         const listProps = {
             api: '/entities/cron-manager/jobs',
-            fields: 'name,url,frequency,enabled,createdOn,nextRunDate,status,timezone',
+            fields: 'name,url,frequency,enabled,createdOn,nextRunDate,status,timezone,target',
             connectToRouter: true,
             searchFields: 'name',
             autoRefresh: 3
@@ -82,7 +82,7 @@ JobList.defaultProps = {
                                         <Table>
                                             <Table.Row>
                                                 <Table.Field name="name" align="left" label="Name" sort="name" route="CronManager.Job.Edit"/>
-                                                <Table.Field name="url" align="left" label="Url" sort="url"/>
+                                                <Table.Field name="target" align="left" label="Target" sort="target"/>
                                                 <Table.CaseField name="enabled" label="Frequency" align="left">
                                                     <case value={true}>
                                                         {data => (

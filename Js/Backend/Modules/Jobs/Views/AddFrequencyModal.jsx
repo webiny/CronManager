@@ -35,7 +35,6 @@ class AddFrequencyModal extends Webiny.Ui.ModalComponent {
                 <Ui.Modal.Body noPadding>
                     <Ui.Tabs ui="myTabs" position="left">
                         <Ui.Tabs.Tab label="Create New">
-
                             <Ui.Form {...formProps}>
                                 {() => (
                                     <Ui.Grid.Row>
