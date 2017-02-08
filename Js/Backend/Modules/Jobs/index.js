@@ -1,7 +1,7 @@
 import Webiny from 'Webiny';
 import Views from './Views/Views';
 
-class Module extends Webiny.Module {
+class Jobs extends Webiny.Module {
 
     init() {
         const Menu = Webiny.Ui.Menu;
@@ -44,4 +44,4 @@ class Module extends Webiny.Module {
     }
 }
 
-export default Module;
+export default Jobs;
