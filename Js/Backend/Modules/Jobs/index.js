@@ -4,6 +4,7 @@ import Views from './Views/Views';
 class Jobs extends Webiny.Module {
 
     init() {
+        this.name = 'Jobs';
         const Menu = Webiny.Ui.Menu;
         const role = 'cron-manager';
 
