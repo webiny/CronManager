@@ -1,9 +1,10 @@
 import Webiny from 'Webiny';
 import Views from './Views/Views';
 
-class Module extends Webiny.Module {
+class Jobs extends Webiny.Module {
 
     init() {
+        this.name = 'Jobs';
         const Menu = Webiny.Ui.Menu;
         const role = 'cron-manager';
 
@@ -44,4 +45,4 @@ class Module extends Webiny.Module {
     }
 }
 
-export default Module;
+export default Jobs;
