@@ -74,7 +74,10 @@ class Job extends AbstractEntity
             return $enabled;
         })->setAfterPopulate();
 
-        $this->attr('target')->char()->setToArrayDefault()->setValidators('required');
+        $this->attr('target')->char()->onSet(function ($value) {
+            return trim($value);
+        })->setToArrayDefault()->setValidators('required');
+
         $this->attr('targetType')->char()->setToArrayDefault()->setValidators('required,in:url:class');
 
         $this->attr('frequency')->many2one()->setEntity('\Apps\CronManager\Php\Entities\JobFrequency');
