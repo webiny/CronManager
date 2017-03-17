@@ -87,7 +87,7 @@ JobForm.defaultProps = {
                                             <Ui.Grid.Row>
                                                 <Ui.Form.Error form={form}/>
                                                 <Ui.Grid.Col all={6}>
-                                                    <Ui.Form.Fieldset title="About"/>
+                                                    <Ui.Form.Section title="About"/>
                                                     <Ui.Input label="Name" name="name" validate="required"/>
                                                     <Ui.RadioGroup label={this.i18n('Target Type')} name="targetType">
                                                         <option value="url">{this.i18n('URL')}</option>
@@ -108,13 +108,13 @@ JobForm.defaultProps = {
                                                 </Ui.Grid.Col>
 
                                                 <Ui.Grid.Col all={6}>
-                                                    <Ui.Form.Fieldset title="Run Settings">
+                                                    <Ui.Form.Section title="Run Settings">
                                                         <Ui.Button
                                                             size="small"
                                                             label="Add new"
                                                             onClick={this.ui('addFrequencyModal:show')}
                                                             label="Add New Frequency"/>
-                                                    </Ui.Form.Fieldset>
+                                                    </Ui.Form.Section>
                                                     <Ui.Grid.Col all={12}>
                                                         <Ui.Select {...frequencySelect}/>
                                                     </Ui.Grid.Col>
