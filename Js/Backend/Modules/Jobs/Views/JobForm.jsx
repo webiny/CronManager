@@ -111,7 +111,6 @@ JobForm.defaultProps = {
                                                     <Ui.Form.Section title="Run Settings">
                                                         <Ui.Button
                                                             size="small"
-                                                            label="Add new"
                                                             onClick={this.ui('addFrequencyModal:show')}
                                                             label="Add New Frequency"/>
                                                     </Ui.Form.Section>
