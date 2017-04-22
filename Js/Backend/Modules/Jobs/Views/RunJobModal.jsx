@@ -1,5 +1,4 @@
 import Webiny from 'Webiny';
-const Ui = Webiny.Ui.Components;
 
 class RunJobModal extends Webiny.Ui.ModalComponent {
 
@@ -39,17 +38,18 @@ class RunJobModal extends Webiny.Ui.ModalComponent {
     }
 
     renderDialog() {
+        const {Modal, Alert, Link, Button} = this.props;
         return (
-            <Ui.Modal.Dialog>
-                <Ui.Modal.Header title={'Running ' + this.props.data.name}/>
-                <Ui.Modal.Body>
-                    <Ui.Alert type={this.state.status}>{this.state.message}</Ui.Alert>
+            <Modal.Dialog>
+                <Modal.Header title={'Running ' + this.props.data.name}/>
+                <Modal.Body>
+                    <Alert type={this.state.status}>{this.state.message}</Alert>
 
                     {this.state.jobRunning && (
                         <div style={{position: 'relative'}}>
                             <div className="loading-overlay">
                                 <div className="loading-overlay__icon-wrapper">
-                                    <div className="loading-overlay__icon"></div>
+                                    <div className="loading-overlay__icon"/>
                                 </div>
                             </div>
                         </div>
@@ -57,22 +57,22 @@ class RunJobModal extends Webiny.Ui.ModalComponent {
 
                     {!this.state.jobRunning && (
                         <center>
-                            <Ui.Link
+                            <Link
                                 type="default"
                                 route="CronManager.Job.History"
                                 params={{'id': this.state.cronId}}>
                                 Cron History
-                            </Ui.Link>
+                            </Link>
                         </center>
                     )}
 
-                </Ui.Modal.Body>
-                <Ui.Modal.Footer>
-                    <Ui.Button label="Close" disabled={this.state.jobRunning && 'disabled'} onClick={this.hide}/>
-                </Ui.Modal.Footer>
-            </Ui.Modal.Dialog>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button label="Close" disabled={this.state.jobRunning && 'disabled'} onClick={this.hide}/>
+                </Modal.Footer>
+            </Modal.Dialog>
         );
     }
 }
 
-export default RunJobModal;
+export default Webiny.createComponent(RunJobModal, {modules: ['Modal', 'Alert', 'Link', 'Button']});
