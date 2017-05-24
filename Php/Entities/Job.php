@@ -1,9 +1,9 @@
 <?php
 namespace Apps\CronManager\Php\Entities;
 
-use Apps\Core\Php\DevTools\Exceptions\AppException;
-use Apps\Core\Php\DevTools\WebinyTrait;
-use Apps\Core\Php\DevTools\Entity\AbstractEntity;
+use Apps\Webiny\Php\DevTools\Exceptions\AppException;
+use Apps\Webiny\Php\DevTools\WebinyTrait;
+use Apps\Webiny\Php\DevTools\Entity\AbstractEntity;
 
 /**
  * Class Jobs
@@ -28,7 +28,7 @@ use Apps\Core\Php\DevTools\Entity\AbstractEntity;
  * @property bool   $isRunning
  * @property array  $stats
  *
- * @package Apps\Core\Php\Entities
+ * @package Apps\Webiny\Php\Entities
  *
  */
 class Job extends AbstractEntity
