@@ -1,8 +1,8 @@
 <?php
 namespace Apps\CronManager\Php\Entities;
 
-use Apps\Core\Php\DevTools\WebinyTrait;
-use Apps\Core\Php\DevTools\Entity\AbstractEntity;
+use Apps\Webiny\Php\DevTools\WebinyTrait;
+use Apps\Webiny\Php\DevTools\Entity\AbstractEntity;
 use Webiny\Component\Mongo\Index\SingleIndex;
 
 /**
@@ -18,7 +18,7 @@ use Webiny\Component\Mongo\Index\SingleIndex;
  * @property string $debugLog
  * @property string $responseCode
  *
- * @package Apps\Core\Php\Entities
+ * @package Apps\Webiny\Php\Entities
  *
  */
 class JobHistory extends AbstractEntity

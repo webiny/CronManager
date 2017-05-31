@@ -1,6 +1,4 @@
 import Webiny from 'Webiny';
-const Ui = Webiny.Ui.Components;
-const Table = Ui.List.Table;
 
 class AddFrequencyModal extends Webiny.Ui.ModalComponent {
 
@@ -29,31 +27,34 @@ class AddFrequencyModal extends Webiny.Ui.ModalComponent {
             perPage: 1000
         };
 
+        const {Modal, Tabs, Form, Grid, Input, List, Button} = this.props;
+        const Table = List.Table;
+
         return (
-            <Ui.Modal.Dialog>
-                <Ui.Modal.Header title="Add Frequency"/>
-                <Ui.Modal.Body noPadding>
-                    <Ui.Tabs ui="myTabs" position="left">
-                        <Ui.Tabs.Tab label="Create New">
-                            <Ui.Form {...formProps}>
+            <Modal.Dialog>
+                <Modal.Header title="Add Frequency"/>
+                <Modal.Body noPadding>
+                    <Tabs ui="myTabs" position="left">
+                        <Tabs.Tab label="Create New">
+                            <Form {...formProps}>
                                 {() => (
-                                    <Ui.Grid.Row>
-                                        <Ui.Grid.Col all={12}>
-                                            <Ui.Input label="Name" name="name" validate="required"/>
-                                        </Ui.Grid.Col>
-                                        <Ui.Grid.Col all={12}>
-                                            <Ui.Input
+                                    <Grid.Row>
+                                        <Grid.Col all={12}>
+                                            <Input label="Name" name="name" validate="required"/>
+                                        </Grid.Col>
+                                        <Grid.Col all={12}>
+                                            <Input
                                                 label="Mask"
                                                 name="mask"
                                                 validate="required,cronFrequency"
                                                 description={this.getDescription}/>
-                                        </Ui.Grid.Col>
-                                    </Ui.Grid.Row>
+                                        </Grid.Col>
+                                    </Grid.Row>
                                 )}
-                            </Ui.Form>
-                        </Ui.Tabs.Tab>
-                        <Ui.Tabs.Tab label="Manage Existing">
-                            <Ui.List ui="maskList" {...listProps}>
+                            </Form>
+                        </Tabs.Tab>
+                        <Tabs.Tab label="Manage Existing">
+                            <List ui="maskList" {...listProps}>
                                 <Table>
                                     <Table.Row>
                                         <Table.Field name="name" align="left" label="Name" sort="name"/>
@@ -65,18 +66,18 @@ class AddFrequencyModal extends Webiny.Ui.ModalComponent {
                                         </Table.Actions>
                                     </Table.Row>
                                 </Table>
-                            </Ui.List>
-                        </Ui.Tabs.Tab>
+                            </List>
+                        </Tabs.Tab>
 
-                    </Ui.Tabs>
-                </Ui.Modal.Body>
-                <Ui.Modal.Footer>
-                    <Ui.Button label="Cancel" onClick={this.ui('addFrequencyModal:hide')}/>
-                    <Ui.Button type="primary" label="Add frequency" onClick={this.ui('addFrequencyForm:submit')}/>
-                </Ui.Modal.Footer>
-            </Ui.Modal.Dialog>
+                    </Tabs>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button label="Cancel" onClick={this.ui('addFrequencyModal:hide')}/>
+                    <Button type="primary" label="Add frequency" onClick={this.ui('addFrequencyForm:submit')}/>
+                </Modal.Footer>
+            </Modal.Dialog>
         );
     }
 }
 
-export default AddFrequencyModal;
+export default Webiny.createComponent(AddFrequencyModal, {modules: ['Modal', 'Tabs', 'Form', 'Grid', 'Input', 'List', 'Button']});

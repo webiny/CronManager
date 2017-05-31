@@ -1,15 +1,15 @@
 import Webiny from 'Webiny';
-const Ui = Webiny.Ui.Components;
 
 class HistoryDetailsModal extends Webiny.Ui.ModalComponent {
 
     renderDialog() {
+        const {Modal, Tabs, Textarea, Button} = this.props;
         return (
-            <Ui.Modal.Dialog>
-                <Ui.Modal.Header title="History Details"/>
-                <Ui.Modal.Body>
-                    <Ui.Tabs ui="tabs">
-                        <Ui.Tabs.Tab label="Details">
+            <Modal.Dialog>
+                <Modal.Header title="History Details"/>
+                <Modal.Body>
+                    <Tabs ui="tabs">
+                        <Tabs.Tab label="Details">
                             <dl className="dl-horizontal">
                                 <dt>Job Name</dt>
                                 <dd>{this.props.data.job.name}</dd>
@@ -29,24 +29,22 @@ class HistoryDetailsModal extends Webiny.Ui.ModalComponent {
                                 <dt>Response Code</dt>
                                 <dd>{this.props.data.responseCode}</dd>
                             </dl>
-                        </Ui.Tabs.Tab>
+                        </Tabs.Tab>
 
-                        <Ui.Tabs.Tab label="Response">
-                            <Ui.Textarea readOnly={true} value={this.props.data.result}/>
-                        </Ui.Tabs.Tab>
-                        <Ui.Tabs.Tab label="Debug Log">
-                            <Ui.Textarea readOnly={true} value={this.props.data.debugLog.message}/>
-                        </Ui.Tabs.Tab>
-
-                    </Ui.Tabs>
-
-                </Ui.Modal.Body>
-                <Ui.Modal.Footer>
-                    <Ui.Button label="Close" onClick={this.hide}/>
-                </Ui.Modal.Footer>
-            </Ui.Modal.Dialog>
+                        <Tabs.Tab label="Response">
+                            <Textarea readOnly={true} value={this.props.data.result}/>
+                        </Tabs.Tab>
+                        <Tabs.Tab label="Debug Log">
+                            <Textarea readOnly={true} value={this.props.data.debugLog.message}/>
+                        </Tabs.Tab>
+                    </Tabs>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button label="Close" onClick={this.hide}/>
+                </Modal.Footer>
+            </Modal.Dialog>
         );
     }
 }
 
-export default HistoryDetailsModal;
+export default Webiny.createComponent(HistoryDetailsModal, {modules: ['Modal', 'Tabs', 'Textarea', 'Button']});

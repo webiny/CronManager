@@ -3,7 +3,7 @@ namespace Apps\CronManager\Php\Services;
 
 set_time_limit(0);
 
-use Apps\Core\Php\DevTools\Services\AbstractService;
+use Apps\Webiny\Php\DevTools\Services\AbstractService;
 use Apps\CronManager\Php\Entities\Job;
 use Apps\CronManager\Php\Entities\JobHistory;
 use Apps\CronManager\Php\Entities\Settings;

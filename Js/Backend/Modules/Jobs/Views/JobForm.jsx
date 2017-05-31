@@ -1,6 +1,4 @@
 import Webiny from 'Webiny';
-const Ui = Webiny.Ui.Components;
-
 import AddFrequencyModal from './AddFrequencyModal';
 
 class JobForm extends Webiny.Ui.View {
@@ -25,7 +23,8 @@ class JobForm extends Webiny.Ui.View {
                 description: classDescription
             };
         }
-        return (<Ui.Input {...targetProps}/>);
+        const {Input} = this.props;
+        return <Input {...targetProps}/>;
     }
 }
 
@@ -74,28 +73,30 @@ JobForm.defaultProps = {
             validate: 'required'
         };
 
+        const {ViewSwitcher, View, Form, Grid, Input, RadioGroup, Section, Select, Textarea, Button, Switch} = this.props;
+
         return (
-            <Ui.ViewSwitcher>
-                <Ui.ViewSwitcher.View view="jobListView" defaultView>
+            <ViewSwitcher>
+                <ViewSwitcher.View view="jobListView" defaultView>
                     {showView => (
-                        <Ui.Form {...formProps}>
+                        <Form {...formProps}>
                             {(model, form) => {
                                 return (
-                                    <Ui.View.Form>
-                                        <Ui.View.Header title="Cron Job"/>
-                                        <Ui.View.Body>
-                                            <Ui.Grid.Row>
-                                                <Ui.Form.Error form={form}/>
-                                                <Ui.Grid.Col all={6}>
-                                                    <Ui.Form.Section title="About"/>
-                                                    <Ui.Input label="Name" name="name" validate="required"/>
-                                                    <Ui.RadioGroup label={this.i18n('Target Type')} name="targetType">
+                                    <View.Form>
+                                        <View.Header title="Cron Job"/>
+                                        <View.Body>
+                                            <Grid.Row>
+                                                <Form.Error/>
+                                                <Grid.Col all={6}>
+                                                    <Section title="About"/>
+                                                    <Input label="Name" name="name" validate="required"/>
+                                                    <RadioGroup label={this.i18n('Target Type')} name="targetType">
                                                         <option value="url">{this.i18n('URL')}</option>
                                                         <option value="class">{this.i18n('Class')}</option>
-                                                    </Ui.RadioGroup>
+                                                    </RadioGroup>
                                                     {this.renderTargetInput(model)}
-                                                    <Ui.Textarea label="Description" name="description"/>
-                                                    <Ui.Select
+                                                    <Textarea label="Description" name="description"/>
+                                                    <Select
                                                         label="Run History"
                                                         placeholder="Run History"
                                                         name="runHistory"
@@ -104,53 +105,55 @@ JobForm.defaultProps = {
                                                         <option value="10">10</option>
                                                         <option value="100">100</option>
                                                         <option value="1000">1000</option>
-                                                    </Ui.Select>
-                                                </Ui.Grid.Col>
+                                                    </Select>
+                                                </Grid.Col>
 
-                                                <Ui.Grid.Col all={6}>
-                                                    <Ui.Form.Section title="Run Settings">
-                                                        <Ui.Button
+                                                <Grid.Col all={6}>
+                                                    <Section title="Run Settings">
+                                                        <Button
                                                             size="small"
                                                             onClick={this.ui('addFrequencyModal:show')}
                                                             label="Add New Frequency"/>
-                                                    </Ui.Form.Section>
-                                                    <Ui.Grid.Col all={12}>
-                                                        <Ui.Select {...frequencySelect}/>
-                                                    </Ui.Grid.Col>
+                                                    </Section>
+                                                    <Grid.Col all={12}>
+                                                        <Select {...frequencySelect}/>
+                                                    </Grid.Col>
                                                     <AddFrequencyModal ui="addFrequencyModal"/>
 
-                                                    <Ui.Grid.Col all={12}>
-                                                        <Ui.Select {...tzSelect}/>
-                                                    </Ui.Grid.Col>
+                                                    <Grid.Col all={12}>
+                                                        <Select {...tzSelect}/>
+                                                    </Grid.Col>
 
-                                                    <Ui.Grid.Col all={12}>
-                                                        <Ui.Input
+                                                    <Grid.Col all={12}>
+                                                        <Input
                                                             label="Timeout"
                                                             name="timeout"
                                                             validate="required,number"
                                                             description="Timeout in seconds"/>
-                                                    </Ui.Grid.Col>
+                                                    </Grid.Col>
 
-                                                    <Ui.Grid.Col all={12}>
-                                                        <Ui.Switch label="Enabled" name="enabled"/>
-                                                    </Ui.Grid.Col>
-                                                </Ui.Grid.Col>
-                                            </Ui.Grid.Row>
-                                        </Ui.View.Body>
-                                        <Ui.View.Footer>
-                                            <Ui.Button align="left" type="default" onClick={form.cancel} label="Cancel"/>
-                                            <Ui.Button align="right" type="primary" onClick={form.submit} label="Submit"/>
-                                        </Ui.View.Footer>
-                                    </Ui.View.Form>
+                                                    <Grid.Col all={12}>
+                                                        <Switch label="Enabled" name="enabled"/>
+                                                    </Grid.Col>
+                                                </Grid.Col>
+                                            </Grid.Row>
+                                        </View.Body>
+                                        <View.Footer>
+                                            <Button align="left" type="default" onClick={form.cancel} label="Cancel"/>
+                                            <Button align="right" type="primary" onClick={form.submit} label="Submit"/>
+                                        </View.Footer>
+                                    </View.Form>
                                 );
                             }}
-                        </Ui.Form>
+                        </Form>
                     )}
-                </Ui.ViewSwitcher.View>
-            </Ui.ViewSwitcher>
+                </ViewSwitcher.View>
+            </ViewSwitcher>
         );
     }
 };
 
 
-export default JobForm;
+export default Webiny.createComponent(JobForm, {
+    modules: ['ViewSwitcher', 'View', 'Form', 'Grid', 'Input', 'RadioGroup', 'Section', 'Select', 'Textarea', 'Button', 'Switch']
+});

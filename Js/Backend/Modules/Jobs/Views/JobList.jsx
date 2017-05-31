@@ -1,8 +1,6 @@
 import Webiny from 'Webiny';
 import HelpModal from './HelpModal';
 import RunJobModal from './RunJobModal';
-const Ui = Webiny.Ui.Components;
-const Table = Ui.List.Table;
 
 class JobList extends Webiny.Ui.View {
     constructor(props) {
@@ -37,48 +35,46 @@ JobList.defaultProps = {
             name: '_searchQuery'
         };
 
+        const {ViewSwitcher, Link, Icon, List, Grid, View, Input, Button, Select, Dropdown} = this.props;
+        const Table = List.Table;
+
         return (
-            <Ui.ViewSwitcher>
-                <Ui.ViewSwitcher.View view="jobListView" defaultView>
+            <ViewSwitcher>
+                <ViewSwitcher.View view="jobListView" defaultView>
                     {showView => (
                         <view>
-                            <Ui.View.List>
-                                <Ui.View.Header title="Cron Jobs">
-                                    <Ui.Link type="primary" align="right" route="CronManager.Job.Create">
-                                        <Ui.Icon icon="icon-plus-circled"/>
+                            <View.List>
+                                <View.Header title="Cron Jobs">
+                                    <Link type="primary" align="right" route="CronManager.Job.Create">
+                                        <Icon icon="icon-plus-circled"/>
                                         Create new job
-                                    </Ui.Link>
-
-                                    <Ui.Link type="default" align="right" onClick={this.ui('helpModal:show')}>
-                                        <Ui.Icon icon="icon-info-circle"/>
+                                    </Link>
+                                    <Link type="default" align="right" onClick={this.ui('helpModal:show')}>
+                                        <Icon icon="icon-info-circle"/>
                                         Help
-                                    </Ui.Link>
-
+                                    </Link>
                                     <HelpModal ui="helpModal"/>
-                                </Ui.View.Header>
-
-                                <Ui.View.Body>
-                                    <Ui.List ui="myList" {...listProps}>
-
-                                        <Ui.List.FormFilters>
+                                </View.Header>
+                                <View.Body>
+                                    <List ui="myList" {...listProps}>
+                                        <List.FormFilters>
                                             {(applyFilters, resetFilters) => (
-                                                <Ui.Grid.Row>
-                                                    <Ui.Grid.Col all={6}>
-                                                        <Ui.Input {...searchProps} onEnter={applyFilters()}/>
-                                                    </Ui.Grid.Col>
-                                                    <Ui.Grid.Col all={5}>
-                                                        <Ui.Select {...statusProps} onChange={applyFilters()}>
+                                                <Grid.Row>
+                                                    <Grid.Col all={6}>
+                                                        <Input {...searchProps} onEnter={applyFilters()}/>
+                                                    </Grid.Col>
+                                                    <Grid.Col all={5}>
+                                                        <Select {...statusProps} onChange={applyFilters()}>
                                                             <option value="true">Enabled</option>
                                                             <option value="false">Disabled</option>
-                                                        </Ui.Select>
-                                                    </Ui.Grid.Col>
-                                                    <Ui.Grid.Col all={1}>
-                                                        <Ui.Button type="secondary" label="Reset" onClick={resetFilters()}/>
-                                                    </Ui.Grid.Col>
-                                                </Ui.Grid.Row>
+                                                        </Select>
+                                                    </Grid.Col>
+                                                    <Grid.Col all={1}>
+                                                        <Button type="secondary" label="Reset" onClick={resetFilters()}/>
+                                                    </Grid.Col>
+                                                </Grid.Row>
                                             )}
-                                        </Ui.List.FormFilters>
-
+                                        </List.FormFilters>
                                         <Table>
                                             <Table.Row>
                                                 <Table.Field name="name" align="left" label="Name" sort="name" route="CronManager.Job.Edit"/>
@@ -108,9 +104,7 @@ JobList.defaultProps = {
                                                     <case value="running">Running</case>
                                                 </Table.CaseField>
                                                 <Table.TimeAgoField name="createdOn" align="left" label="Created" sort="createdOn"/>
-
                                                 <Table.ToggleField name="enabled" label="Enabled" align="center"/>
-
                                                 <Table.Actions>
                                                     <Table.RouteAction
                                                         label="View History"
@@ -124,28 +118,27 @@ JobList.defaultProps = {
                                                         type="primary"
                                                         align="right"
                                                         onClick={showView('runJobView')}/>
-                                                    <Ui.Dropdown.Divider/>
+                                                    <Dropdown.Divider/>
                                                     <Table.EditAction route="CronManager.Job.Edit"/>
                                                     <Table.DeleteAction/>
                                                 </Table.Actions>
                                             </Table.Row>
                                         </Table>
-                                        <Ui.List.Pagination/>
-                                    </Ui.List>
-                                </Ui.View.Body>
-                            </Ui.View.List>
+                                        <List.Pagination/>
+                                    </List>
+                                </View.Body>
+                            </View.List>
                         </view>
                     )}
-                </Ui.ViewSwitcher.View>
-
-                <Ui.ViewSwitcher.View view="runJobView" modal>
+                </ViewSwitcher.View>
+                <ViewSwitcher.View view="runJobView" modal>
                     {(showView, data) => <RunJobModal ui="runJobModal" {...{showView, data}} />}
-                </Ui.ViewSwitcher.View>
-
-
-            </Ui.ViewSwitcher>
+                </ViewSwitcher.View>
+            </ViewSwitcher>
         );
     }
 };
 
-export default JobList;
+export default Webiny.createComponent(JobList, {
+    modules: ['ViewSwitcher', 'Link', 'Icon', 'List', 'Grid', 'View', 'Input', 'Button', 'Select', 'Dropdown']
+});

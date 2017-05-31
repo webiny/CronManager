@@ -1,6 +1,4 @@
 import Webiny from 'Webiny';
-const Ui = Webiny.Ui.Components;
-const Table = Ui.List.Table;
 import HistoryDetailsModal from './HistoryDetailsModal';
 
 class JobHistoryList extends Webiny.Ui.View {
@@ -47,50 +45,51 @@ JobHistoryList.defaultProps = {
             url: '/' + Webiny.Router.getParams('id')
         };
 
+        const {ViewSwitcher, View, Data, Link, Grid, Tile, List, Button} = this.props;
+        const Table = List.Table;
 
         return (
-            <Ui.ViewSwitcher>
-                <Ui.ViewSwitcher.View view="jobListView" defaultView>
+            <ViewSwitcher>
+                <ViewSwitcher.View view="jobListView" defaultView>
                     {showView => (
                         <view>
-                            <Ui.Data ui="stats" {...statProps}>
+                            <Data ui="stats" {...statProps}>
                                 {jobData => (
-                                    <Ui.View.List>
-                                        <Ui.View.Header title={'Cron Job History: ' + _.get(jobData, 'name')}>
-                                            <Ui.Link type="default" align="right" route="CronManager.Jobs">Back to Job List</Ui.Link>
-                                        </Ui.View.Header>
-                                        <Ui.View.Body>
-                                            <Ui.Grid.Row>
-                                                <Ui.Grid.Row className="text-center">
-                                                    <Ui.Grid.Col all={4}>
-                                                        <Ui.Tile>
-                                                            <Ui.Tile.Header className="text-center" title="# of executions"/>
-                                                            <Ui.Tile.Body>
+                                    <View.List>
+                                        <View.Header title={'Cron Job History: ' + _.get(jobData, 'name')}>
+                                            <Link type="default" align="right" route="CronManager.Jobs">Back to Job List</Link>
+                                        </View.Header>
+                                        <View.Body>
+                                            <Grid.Row>
+                                                <Grid.Row className="text-center">
+                                                    <Grid.Col all={4}>
+                                                        <Tile>
+                                                            <Tile.Header className="text-center" title="# of executions"/>
+                                                            <Tile.Body>
                                                                 <h1>{_.get(jobData, 'stats.numberOfRuns')}</h1>
-                                                            </Ui.Tile.Body>
-                                                        </Ui.Tile>
-                                                    </Ui.Grid.Col>
-                                                    <Ui.Grid.Col all={4}>
-                                                        <Ui.Tile>
-                                                            <Ui.Tile.Header title="Success ratio"/>
-                                                            <Ui.Tile.Body>
+                                                            </Tile.Body>
+                                                        </Tile>
+                                                    </Grid.Col>
+                                                    <Grid.Col all={4}>
+                                                        <Tile>
+                                                            <Tile.Header title="Success ratio"/>
+                                                            <Tile.Body>
                                                                 <h1>{this.getSuccessRatio(jobData)}</h1>
-                                                            </Ui.Tile.Body>
-                                                        </Ui.Tile>
-                                                    </Ui.Grid.Col>
-                                                    <Ui.Grid.Col all={4}>
-                                                        <Ui.Tile>
-                                                            <Ui.Tile.Header title="Avg. response time"/>
-                                                            <Ui.Tile.Body>
+                                                            </Tile.Body>
+                                                        </Tile>
+                                                    </Grid.Col>
+                                                    <Grid.Col all={4}>
+                                                        <Tile>
+                                                            <Tile.Header title="Avg. response time"/>
+                                                            <Tile.Body>
                                                                 <h1>{this.getAvgResponseTime(jobData)}</h1>
-                                                            </Ui.Tile.Body>
-                                                        </Ui.Tile>
-                                                    </Ui.Grid.Col>
-                                                </Ui.Grid.Row>
-                                                <Ui.Grid.Col all={12}>
+                                                            </Tile.Body>
+                                                        </Tile>
+                                                    </Grid.Col>
+                                                </Grid.Row>
+                                                <Grid.Col all={12}>
                                                     <br/>
-                                                    <Ui.List ui="historyList" {...listProps}>
-
+                                                    <List ui="historyList" {...listProps}>
                                                         <Table>
                                                             <Table.Row>
                                                                 <Table.TimeAgoField
@@ -110,7 +109,7 @@ JobHistoryList.defaultProps = {
                                                                     sort="responseCode"/>
                                                                 <Table.Field align="right">
                                                                     {data => (
-                                                                        <Ui.Button
+                                                                        <Button
                                                                             type="default"
                                                                             label="Show Details"
                                                                             onClick={() => showView('historyModalView')(data)}/>
@@ -118,26 +117,23 @@ JobHistoryList.defaultProps = {
                                                                 </Table.Field>
                                                             </Table.Row>
                                                         </Table>
-                                                        <Ui.List.Pagination/>
-                                                    </Ui.List>
-                                                </Ui.Grid.Col>
-                                            </Ui.Grid.Row>
-                                        </Ui.View.Body>
-                                    </Ui.View.List>
+                                                        <List.Pagination/>
+                                                    </List>
+                                                </Grid.Col>
+                                            </Grid.Row>
+                                        </View.Body>
+                                    </View.List>
                                 )}
-                            </Ui.Data>
+                            </Data>
                         </view>
                     )}
-                </Ui.ViewSwitcher.View>
-
-                <Ui.ViewSwitcher.View view="historyModalView" modal>
+                </ViewSwitcher.View>
+                <ViewSwitcher.View view="historyModalView" modal>
                     {(showView, data) => <HistoryDetailsModal ui="historyModal" {...{showView, data}} />}
-                </Ui.ViewSwitcher.View>
-
-
-            </Ui.ViewSwitcher>
+                </ViewSwitcher.View>
+            </ViewSwitcher>
         );
     }
 };
 
-export default JobHistoryList;
+export default Webiny.createComponent(JobHistoryList, {modules: ['ViewSwitcher', 'View', 'Data', 'Link', 'Grid', 'Tile', 'List', 'Button']});
