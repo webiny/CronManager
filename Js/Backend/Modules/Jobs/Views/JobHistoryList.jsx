@@ -42,7 +42,8 @@ JobHistoryList.defaultProps = {
 
         const statProps = {
             api: '/entities/cron-manager/job',
-            url: '/' + Webiny.Router.getParams('id')
+            url: '/' + Webiny.Router.getParams('id'),
+            prepareLoadedData: data => data.entity
         };
 
         const {ViewSwitcher, View, Data, Link, Grid, Tile, List, Button} = this.props;
