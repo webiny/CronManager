@@ -43,7 +43,6 @@ class CronJobModal extends Webiny.Ui.ModalComponent {
         };
 
         const frequencySelect = {
-            ui: 'frequencySelect',
             api: '/entities/cron-manager/job-frequency',
             fields: '*',
             label: 'Frequency',

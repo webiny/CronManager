@@ -13,7 +13,6 @@ class JobList extends Webiny.Ui.View {
 }
 
 JobList.defaultProps = {
-
     renderer() {
         const listProps = {
             api: '/entities/cron-manager/jobs',
@@ -24,8 +23,7 @@ JobList.defaultProps = {
         };
 
         const statusProps = {
-            ui: 'statusFilter',
-            placeholder: Webiny.i18n('webiny.core.statusFilter.placeholder', 'Status'),
+            placeholder: this.i18n('Webiny.Core.StatusFilter.Placeholder', 'Status'),
             allowClear: true,
             name: 'enabled'
         };
@@ -49,14 +47,14 @@ JobList.defaultProps = {
                                         <Icon icon="icon-plus-circled"/>
                                         Create new job
                                     </Link>
-                                    <Link type="default" align="right" onClick={this.ui('helpModal:show')}>
+                                    <Link type="default" align="right" onClick={() => this.helpModal.show()}>
                                         <Icon icon="icon-info-circle"/>
                                         Help
                                     </Link>
-                                    <HelpModal ui="helpModal"/>
+                                    <HelpModal ref={ref => this.helpModal = ref}/>
                                 </View.Header>
                                 <View.Body>
-                                    <List ui="myList" {...listProps}>
+                                    <List {...listProps}>
                                         <List.FormFilters>
                                             {(applyFilters, resetFilters) => (
                                                 <Grid.Row>
@@ -132,7 +130,7 @@ JobList.defaultProps = {
                     )}
                 </ViewSwitcher.View>
                 <ViewSwitcher.View view="runJobView" modal>
-                    {(showView, data) => <RunJobModal ui="runJobModal" {...{showView, data}} />}
+                    {(showView, data) => <RunJobModal {...{showView, data}} />}
                 </ViewSwitcher.View>
             </ViewSwitcher>
         );

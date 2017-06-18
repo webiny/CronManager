@@ -54,7 +54,7 @@ JobHistoryList.defaultProps = {
                 <ViewSwitcher.View view="jobListView" defaultView>
                     {showView => (
                         <view>
-                            <Data ui="stats" {...statProps}>
+                            <Data {...statProps}>
                                 {jobData => (
                                     <View.List>
                                         <View.Header title={'Cron Job History: ' + _.get(jobData, 'name')}>
@@ -90,7 +90,7 @@ JobHistoryList.defaultProps = {
                                                 </Grid.Row>
                                                 <Grid.Col all={12}>
                                                     <br/>
-                                                    <List ui="historyList" {...listProps}>
+                                                    <List {...listProps}>
                                                         <Table>
                                                             <Table.Row>
                                                                 <Table.TimeAgoField
@@ -130,7 +130,7 @@ JobHistoryList.defaultProps = {
                     )}
                 </ViewSwitcher.View>
                 <ViewSwitcher.View view="historyModalView" modal>
-                    {(showView, data) => <HistoryDetailsModal ui="historyModal" {...{showView, data}} />}
+                    {(showView, data) => <HistoryDetailsModal {...{showView, data}} />}
                 </ViewSwitcher.View>
             </ViewSwitcher>
         );

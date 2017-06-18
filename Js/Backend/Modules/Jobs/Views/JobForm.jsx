@@ -42,7 +42,6 @@ JobForm.defaultProps = {
         };
 
         const frequencySelect = {
-            ui: 'frequencySelect',
             api: '/entities/cron-manager/job-frequency',
             fields: '*',
             label: 'Frequency',
@@ -64,7 +63,6 @@ JobForm.defaultProps = {
         };
 
         const tzSelect = {
-            ui: 'tzSelect',
             label: 'Timezone',
             name: 'timezone',
             placeholder: 'Select a timezone',
@@ -112,13 +110,15 @@ JobForm.defaultProps = {
                                                     <Section title="Run Settings">
                                                         <Button
                                                             size="small"
-                                                            onClick={this.ui('addFrequencyModal:show')}
+                                                            onClick={() => this.addFrequencyModal.show()}
                                                             label="Add New Frequency"/>
                                                     </Section>
                                                     <Grid.Col all={12}>
-                                                        <Select {...frequencySelect}/>
+                                                        <Select {...frequencySelect} ref={ref => this.frequencySelect = ref}/>
                                                     </Grid.Col>
-                                                    <AddFrequencyModal ui="addFrequencyModal"/>
+                                                    <AddFrequencyModal
+                                                        ref={ref => this.addFrequencyModal = ref}
+                                                        loadFrequencies={() => this.frequencySelect.loadOptions()}/>
 
                                                     <Grid.Col all={12}>
                                                         <Select {...tzSelect}/>

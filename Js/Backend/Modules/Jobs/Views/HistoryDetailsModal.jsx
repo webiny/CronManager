@@ -8,7 +8,7 @@ class HistoryDetailsModal extends Webiny.Ui.ModalComponent {
             <Modal.Dialog>
                 <Modal.Header title="History Details"/>
                 <Modal.Body>
-                    <Tabs ui="tabs">
+                    <Tabs>
                         <Tabs.Tab label="Details">
                             <dl className="dl-horizontal">
                                 <dt>Job Name</dt>
