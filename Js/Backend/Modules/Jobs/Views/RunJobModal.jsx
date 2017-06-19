@@ -41,35 +41,36 @@ class RunJobModal extends Webiny.Ui.ModalComponent {
         const {Modal, Alert, Link, Button} = this.props;
         return (
             <Modal.Dialog>
-                <Modal.Header title={'Running ' + this.props.data.name}/>
-                <Modal.Body>
-                    <Alert type={this.state.status}>{this.state.message}</Alert>
+                <Modal.Content>
+                    <Modal.Header title={'Running ' + this.props.data.name}/>
+                    <Modal.Body>
+                        <Alert type={this.state.status}>{this.state.message}</Alert>
 
-                    {this.state.jobRunning && (
-                        <div style={{position: 'relative'}}>
-                            <div className="loading-overlay">
-                                <div className="loading-overlay__icon-wrapper">
-                                    <div className="loading-overlay__icon"/>
+                        {this.state.jobRunning && (
+                            <div style={{position: 'relative'}}>
+                                <div className="loading-overlay">
+                                    <div className="loading-overlay__icon-wrapper">
+                                        <div className="loading-overlay__icon"/>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    )}
+                        )}
 
-                    {!this.state.jobRunning && (
-                        <center>
-                            <Link
-                                type="default"
-                                route="CronManager.Job.History"
-                                params={{'id': this.state.cronId}}>
-                                Cron History
-                            </Link>
-                        </center>
-                    )}
-
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button label="Close" disabled={this.state.jobRunning && 'disabled'} onClick={this.hide}/>
-                </Modal.Footer>
+                        {!this.state.jobRunning && (
+                            <center>
+                                <Link
+                                    type="default"
+                                    route="CronManager.Job.History"
+                                    params={{'id': this.state.cronId}}>
+                                    Cron History
+                                </Link>
+                            </center>
+                        )}
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button label="Close" disabled={this.state.jobRunning && 'disabled'} onClick={this.hide}/>
+                    </Modal.Footer>
+                </Modal.Content>
             </Modal.Dialog>
         );
     }

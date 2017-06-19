@@ -36,7 +36,7 @@ AddFrequencyModal.defaultProps = _.merge({}, Webiny.Ui.ModalComponent.defaultPro
                 {dialog => (
                     <Form {...formProps}>
                         {(model, form) => (
-                            <wrapper>
+                            <Modal.Content>
                                 <Modal.Header title="Add Frequency"/>
                                 <Modal.Body noPadding>
                                     <Tabs position="left">
@@ -78,7 +78,7 @@ AddFrequencyModal.defaultProps = _.merge({}, Webiny.Ui.ModalComponent.defaultPro
                                     <Button label="Cancel" onClick={dialog.hide}/>
                                     <Button type="primary" label="Add frequency" onClick={form.submit}/>
                                 </Modal.Footer>
-                            </wrapper>
+                            </Modal.Content>
                         )}
                     </Form>
                 )}

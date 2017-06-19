@@ -80,7 +80,7 @@ class CronJobModal extends Webiny.Ui.ModalComponent {
                 {dialog => (
                     <Form {...formProps}>
                         {(model, form) => (
-                            <modal>
+                            <Modal.Content>
                                 <Form.Loader/>
                                 <Modal.Header title="Cron Job" onClose={dialog.hide}/>
                                 <Modal.Body>
@@ -125,7 +125,7 @@ class CronJobModal extends Webiny.Ui.ModalComponent {
                                     <Button label="Cancel" onClick={this.hide}/>
                                     <Button type="primary" label="Create Job" onClick={form.submit}/>
                                 </Modal.Footer>
-                            </modal>
+                            </Modal.Content>
                         )}
                     </Form>
                 )}
