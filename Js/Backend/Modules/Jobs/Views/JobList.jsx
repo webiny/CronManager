@@ -23,7 +23,7 @@ JobList.defaultProps = {
         };
 
         const statusProps = {
-            placeholder: this.i18n('Webiny.Core.StatusFilter.Placeholder', 'Status'),
+            placeholder: 'Status',
             allowClear: true,
             name: 'enabled'
         };

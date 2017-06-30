@@ -2,7 +2,7 @@ import Webiny from 'Webiny';
 import Views from './Views/Views';
 // import CronJobInstaller from './Components/CronJobInstaller';
 
-class Jobs extends Webiny.Module {
+class Jobs extends Webiny.App.Module {
 
     init() {
         this.name = 'Jobs';
