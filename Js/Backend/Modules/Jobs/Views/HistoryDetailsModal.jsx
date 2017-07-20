@@ -1,3 +1,4 @@
+import React from 'react';
 import Webiny from 'Webiny';
 
 class HistoryDetailsModal extends Webiny.Ui.ModalComponent {
