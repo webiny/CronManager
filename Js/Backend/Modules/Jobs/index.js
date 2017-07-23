@@ -1,6 +1,5 @@
 import Webiny from 'Webiny';
 import Views from './Views/Views';
-// import CronJobInstaller from './Components/CronJobInstaller';
 
 class Jobs extends Webiny.App.Module {
 
@@ -44,7 +43,9 @@ class Jobs extends Webiny.App.Module {
             });
         });
 
-        // Webiny.Injector.register('CronJobInstaller', CronJobInstaller, ['cron-job']);
+        /*Webiny.registerModule(
+            new Webiny.Module('CronJobInstaller', () => import('./Components/CronJobInstaller')).setContext('cron-job')
+        );*/
     }
 }
 
