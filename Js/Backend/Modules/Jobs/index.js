@@ -1,4 +1,4 @@
-import Webiny from 'Webiny';
+import Webiny from 'webiny';
 import Views from './Views/Views';
 
 class Jobs extends Webiny.App.Module {

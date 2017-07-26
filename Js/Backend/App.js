@@ -1,4 +1,4 @@
-import Webiny from 'Webiny';
+import Webiny from 'webiny';
 import Jobs from './Modules/Jobs'
 
 class CronManager extends Webiny.App {
