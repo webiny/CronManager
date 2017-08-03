@@ -1,3 +1,4 @@
+import React from 'react';
 import Webiny from 'webiny';
 import Views from './Views/Views';
 
@@ -5,13 +6,12 @@ class Jobs extends Webiny.App.Module {
 
     init() {
         this.name = 'Jobs';
-        const Menu = Webiny.Ui.Menu;
         const role = 'cron-manager';
 
         this.registerMenus(
-            new Menu('System', [
-                new Menu('Cron Manager', 'CronManager.Jobs').setRole(role)
-            ], 'icon-tools')
+            <Webiny.Ui.Menu label="System" icon="icon-tools">
+                <Webiny.Ui.Menu label="Cron Manager" route="CronManager.Jobs" role={role}/>
+            </Webiny.Ui.Menu>
         );
 
         this.registerRoutes(
@@ -44,8 +44,8 @@ class Jobs extends Webiny.App.Module {
         });
 
         /*Webiny.registerModule(
-            new Webiny.Module('CronJobInstaller', () => import('./Components/CronJobInstaller')).setContext('cron-job')
-        );*/
+         new Webiny.Module('CronJobInstaller', () => import('./Components/CronJobInstaller')).setContext('cron-job')
+         );*/
     }
 }
 
