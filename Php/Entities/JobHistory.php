@@ -32,6 +32,8 @@ class JobHistory extends AbstractEntity
     {
         parent::__construct();
         $this->index(new SingleIndex('job', 'job'));
+        $this->index(new SingleIndex('createdOn', 'createdOn', false, false, false, 2592000)); // expire after 30 days
+
         $this->attr('job')->many2one()->setEntity('\Apps\CronManager\Php\Entities\Job');
         $this->attr('runDate')->datetime();
         $this->attr('runTime')->float();

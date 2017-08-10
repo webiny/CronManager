@@ -95,16 +95,6 @@ JobForm.defaultProps = {
                                                     </RadioGroup>
                                                     {this.renderTargetInput(model)}
                                                     <Textarea label="Description" name="description"/>
-                                                    <Select
-                                                        label="Run History"
-                                                        placeholder="Run History"
-                                                        name="runHistory"
-                                                        description="How many records should the system keep in log history for this job.">
-                                                        <option value="0">All</option>
-                                                        <option value="10">10</option>
-                                                        <option value="100">100</option>
-                                                        <option value="1000">1000</option>
-                                                    </Select>
                                                 </Grid.Col>
 
                                                 <Grid.Col all={6}>

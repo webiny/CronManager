@@ -179,7 +179,6 @@ class Runner extends AbstractService
             $job->scheduleNextRunDate();
         }
 
-        $job->cleanupRunHistory();
         $job->save();
     }
 }
