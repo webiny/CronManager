@@ -15,7 +15,7 @@ class HelpModal extends Webiny.Ui.ModalComponent {
                             Cron Manager is a tool used to schedule and execute cron jobs using a simple interface.
                         </p>
                         <p>
-                            For each cron job the app automatically saves execution data and all responses. This way you
+                            For each cron job the app automatically saves execution data and all responses for last 30 days. This way you
                             can easily track the execution of your cron jobs.
                             <br/>
                             The grid presented behind automatically refreshes and changes the status for each scheduled job.
