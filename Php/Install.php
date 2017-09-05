@@ -2,7 +2,7 @@
 
 namespace Apps\CronManager\Php;
 
-use Apps\Webiny\Php\PackageManager\App;
+use Apps\Webiny\Php\AppManager\App;
 
 class Install extends \Apps\Webiny\Php\DevTools\LifeCycle\Install
 {
