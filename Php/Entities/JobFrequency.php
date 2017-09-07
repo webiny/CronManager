@@ -1,6 +1,8 @@
 <?php
+
 namespace Apps\CronManager\Php\Entities;
 
+use Apps\Webiny\Php\Lib\Api\ApiContainer;
 use Apps\Webiny\Php\Lib\WebinyTrait;
 use Apps\Webiny\Php\Lib\Entity\AbstractEntity;
 use Webiny\Component\Entity\Attribute\Validation\ValidationException;
@@ -39,13 +41,18 @@ class JobFrequency extends AbstractEntity
              ->setValidators(['required', $maskValidator, 'unique'])
              ->setToArrayDefault()
              ->setValidationMessages(['unique' => 'A frequency with this mask already exists!']);
+    }
+
+    protected function entityApi(ApiContainer $api)
+    {
+        parent::entityApi($api);
 
         /**
          * @api.name Validate
          * @api.url /validate
          * @api.body.mask string Cron job mask that will be validated
          */
-        $this->api('POST', 'validate', function () {
+        $api->post('validate', function () {
             $data = $this->wRequest()->getRequestData();
             $mask = trim($data['mask']);
 
@@ -66,6 +73,7 @@ class JobFrequency extends AbstractEntity
             ];
         })->setBodyValidators(['mask' => 'required']);
     }
+
 
     private function getFrequency($mask)
     {

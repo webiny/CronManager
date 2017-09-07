@@ -3,6 +3,7 @@ namespace Apps\CronManager\Php\Services;
 
 set_time_limit(0);
 
+use Apps\Webiny\Php\Lib\Api\ApiContainer;
 use Apps\Webiny\Php\Lib\Services\AbstractService;
 use Apps\CronManager\Php\Entities\Job;
 use Apps\CronManager\Php\Entities\JobHistory;
@@ -11,15 +12,13 @@ use Apps\CronManager\Php\Interfaces\CronJobInterface;
 
 class Runner extends AbstractService
 {
-    function __construct()
+    protected function serviceApi(ApiContainer $api)
     {
-        parent::__construct();
-
         /**
          * @api.name        Run all cron jobs
          * @api.description Runs all available cron jobs
          */
-        $this->api('GET', 'run', function () {
+        $api->get('run', function () {
 
             // Get all active cron jobs
             $jobs = Job::find(['enabled' => true]);
@@ -36,10 +35,11 @@ class Runner extends AbstractService
          * @api.name        Run single cron job
          * @api.description Runs single cron job by given ID
          */
-        $this->api('GET', 'run/{job}', function (Job $job) {
+        $api->get('run/{job}', function (Job $job) {
             return $this->runJob($job);
         });
     }
+
 
     private function issueJob(Job $job)
     {

@@ -1,6 +1,7 @@
 <?php
 namespace Apps\CronManager\Php\Entities;
 
+use Apps\Webiny\Php\Lib\Api\ApiContainer;
 use Apps\Webiny\Php\Lib\Exceptions\AppException;
 use Apps\Webiny\Php\Lib\WebinyTrait;
 use Apps\Webiny\Php\Lib\Entity\AbstractEntity;
@@ -99,12 +100,17 @@ class Job extends AbstractEntity
             'numberOfRuns'   => 0,
             'successfulRuns' => 0
         ])->setToArrayDefault();
+    }
 
-        $this->api('GET', 'timezones', function () {
+    protected function entityApi(ApiContainer $api)
+    {
+        parent::entityApi($api);
+
+        $api->get('timezones', function () {
             return $this->listTimezones();
         });
 
-        $this->api('GET', '{id}/history', function () {
+        $api->get('{id}/history', function () {
             $params = [
                 ['job' => $this->id] + $this->wRequest()->getFilters(),
                 $this->wRequest()->getSortFields(),
@@ -115,11 +121,12 @@ class Job extends AbstractEntity
             return $this->apiFormatList(JobHistory::find(...$params), $this->wRequest()->getFields());
         });
 
-        $this->api('POST', 'validators/targets/class-names', function () {
+        $api->post('validators/targets/class-names', function () {
             $className = $this->wRequest()->getRequestData()['className'];
             $this->validateClassTarget($className);
         })->setBodyValidators(['className' => 'required']);
     }
+
 
     public function scheduleNextRunDate()
     {

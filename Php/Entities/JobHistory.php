@@ -1,6 +1,7 @@
 <?php
 namespace Apps\CronManager\Php\Entities;
 
+use Apps\Webiny\Php\Lib\Entity\Indexes\IndexContainer;
 use Apps\Webiny\Php\Lib\WebinyTrait;
 use Apps\Webiny\Php\Lib\Entity\AbstractEntity;
 use Webiny\Component\Mongo\Index\SingleIndex;
@@ -31,9 +32,6 @@ class JobHistory extends AbstractEntity
     public function __construct()
     {
         parent::__construct();
-        $this->index(new SingleIndex('job', 'job'));
-        $this->index(new SingleIndex('createdOn', 'createdOn', false, false, false, 2592000)); // expire after 30 days
-
         $this->attr('job')->many2one()->setEntity('\Apps\CronManager\Php\Entities\Job');
         $this->attr('runDate')->datetime();
         $this->attr('runTime')->float();
@@ -42,5 +40,13 @@ class JobHistory extends AbstractEntity
         $this->attr('serverIp')->char();
         $this->attr('debugLog')->object();
         $this->attr('responseCode')->integer();
+    }
+
+    protected static function entityIndexes(IndexContainer $indexes)
+    {
+        parent::entityIndexes($indexes);
+
+        $indexes->add(new SingleIndex('job', 'job'));
+        $indexes->add(new SingleIndex('createdOn', 'createdOn', false, false, false, 2592000)); // expire after 30 days
     }
 }
