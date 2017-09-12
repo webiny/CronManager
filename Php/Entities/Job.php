@@ -1,6 +1,8 @@
 <?php
+
 namespace Apps\CronManager\Php\Entities;
 
+use Apps\CronManager\Php\Interfaces\CronJobInterface;
 use Apps\Webiny\Php\Lib\Api\ApiContainer;
 use Apps\Webiny\Php\Lib\Exceptions\AppException;
 use Apps\Webiny\Php\Lib\WebinyTrait;
@@ -78,8 +80,7 @@ class Job extends AbstractEntity
         })->setToArrayDefault()->setValidators('required');
 
         $this->attr('targetType')->char()->setToArrayDefault()->setValidators('required,in:url:class');
-
-        $this->attr('frequency')->many2one()->setEntity('\Apps\CronManager\Php\Entities\JobFrequency');
+        $this->attr('frequency')->many2one()->setEntity(JobFrequency::class);
         $this->attr('nextRunDate')->char()->setToArrayDefault();
         $this->attr('lastRunDate')->datetime();
 
@@ -216,7 +217,7 @@ class Job extends AbstractEntity
         }
 
         $classInterfaces = class_implements($className);
-        if (!isset($classInterfaces['Apps\CronManager\Php\Interfaces\CronJobInterface'])) {
+        if (!isset($classInterfaces[CronJobInterface::class])) {
             throw new AppException('Class must implement CronJobInterface.');
         }
     }

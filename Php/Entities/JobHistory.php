@@ -32,7 +32,7 @@ class JobHistory extends AbstractEntity
     public function __construct()
     {
         parent::__construct();
-        $this->attr('job')->many2one()->setEntity('\Apps\CronManager\Php\Entities\Job');
+        $this->attr('job')->many2one()->setEntity(Job::class);
         $this->attr('runDate')->datetime();
         $this->attr('runTime')->float();
         $this->attr('successful')->boolean();
