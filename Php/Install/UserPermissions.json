@@ -4,37 +4,35 @@
         "slug": "cron-manager-manage-all",
         "description": "Allows user to perform all actions on Cron Job app",
         "permissions": {
-            "entities": {
-                "Apps\\CronManager\\Php\\Entities\\Job": {
-                    "crudCreate": true,
-                    "crudUpdate": true,
-                    "crudDelete": true,
-                    "crudRead": true,
-                    "{id}/history" : {
-                        "get" : true
-                    },
-                    "timezones" : {
-                        "get" : true
-                    },
-                    "validators/targets/class-names" : {
-                        "post" : true
-                    }
+            "CronManager.Entities.Job": {
+                "c": true,
+                "r": true,
+                "u": true,
+                "d": true,
+                "{id}/history": {
+                    "get": true
                 },
-                "Apps\\CronManager\\Php\\Entities\\JobFrequency": {
-                    "crudCreate": true,
-                    "crudUpdate": true,
-                    "crudDelete": true,
-                    "crudRead": true,
-                    "validate": {
-                        "post": true
-                    }
+                "timezones": {
+                    "get": true
                 },
-                "Apps\\CronManager\\Php\\Entities\\JobHistory": {
-                    "crudCreate": true,
-                    "crudRead": true,
-                    "crudUpdate": true,
-                    "crudDelete": true
+                "validators/targets/class-names": {
+                    "post": true
                 }
+            },
+            "CronManager.Entities.JobFrequency": {
+                "c": true,
+                "r": true,
+                "u": true,
+                "d": true,
+                "validate": {
+                    "post": true
+                }
+            },
+            "CronManager.Entities.JobHistory": {
+                "c": true,
+                "r": true,
+                "u": true,
+                "d": true
             }
         }
     }
