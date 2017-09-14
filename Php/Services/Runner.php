@@ -12,6 +12,8 @@ use Apps\CronManager\Php\Interfaces\CronJobInterface;
 
 class Runner extends AbstractService
 {
+    protected static $classId = 'CronManager.Services.Runner';
+
     protected function serviceApi(ApiContainer $api)
     {
         /**

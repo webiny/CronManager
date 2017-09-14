@@ -18,14 +18,10 @@ use Webiny\Component\Mongo\Index\SingleIndex;
  * @property string $serverIp
  * @property string $debugLog
  * @property string $responseCode
- *
- * @package Apps\Webiny\Php\Entities
- *
  */
 class JobHistory extends AbstractEntity
 {
-    use WebinyTrait;
-
+    protected static $classId = 'CronManager.Entities.JobHistory';
     protected static $entityCollection = 'CronManagerJobHistory';
     protected static $entityMask = '{job}';
 

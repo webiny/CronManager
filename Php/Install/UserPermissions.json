@@ -3,37 +3,46 @@
         "name": "Manage cron jobs",
         "slug": "cron-manager-manage-all",
         "description": "Allows user to perform all actions on Cron Job app",
-        "permissions": {
-            "CronManager.Entities.Job": {
-                "c": true,
-                "r": true,
-                "u": true,
-                "d": true,
-                "{id}/history": {
-                    "get": true
-                },
-                "timezones": {
-                    "get": true
-                },
-                "validators/targets/class-names": {
-                    "post": true
+        "permissions": [
+            {
+                "classId": "CronManager.Entities.Job",
+                "rules": {
+                    "c": true,
+                    "r": true,
+                    "u": true,
+                    "d": true,
+                    "{id}/history": {
+                        "get": true
+                    },
+                    "timezones": {
+                        "get": true
+                    },
+                    "validators/targets/class-names": {
+                        "post": true
+                    }
                 }
             },
-            "CronManager.Entities.JobFrequency": {
-                "c": true,
-                "r": true,
-                "u": true,
-                "d": true,
-                "validate": {
-                    "post": true
+            {
+                "classId": "CronManager.Entities.JobFrequency",
+                "rules": {
+                    "c": true,
+                    "r": true,
+                    "u": true,
+                    "d": true,
+                    "validate": {
+                        "post": true
+                    }
                 }
             },
-            "CronManager.Entities.JobHistory": {
-                "c": true,
-                "r": true,
-                "u": true,
-                "d": true
+            {
+                "classId": "CronManager.Entities.JobHistory",
+                "rules": {
+                    "c": true,
+                    "r": true,
+                    "u": true,
+                    "d": true
+                }
             }
-        }
+        ]
     }
 ]

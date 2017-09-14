@@ -5,7 +5,6 @@ namespace Apps\CronManager\Php\Entities;
 use Apps\CronManager\Php\Interfaces\CronJobInterface;
 use Apps\Webiny\Php\Lib\Api\ApiContainer;
 use Apps\Webiny\Php\Lib\Exceptions\AppException;
-use Apps\Webiny\Php\Lib\WebinyTrait;
 use Apps\Webiny\Php\Lib\Entity\AbstractEntity;
 
 /**
@@ -29,14 +28,9 @@ use Apps\Webiny\Php\Lib\Entity\AbstractEntity;
  * @property bool   $isScheduled
  * @property bool   $isRunning
  * @property array  $stats
- *
- * @package Apps\Webiny\Php\Entities
- *
  */
 class Job extends AbstractEntity
 {
-    use WebinyTrait;
-
     const STATUS_INACTIVE = 'inactive';
     const STATUS_SCHEDULED = 'scheduled';
     const STATUS_RUNNING = 'running';
@@ -44,6 +38,7 @@ class Job extends AbstractEntity
     const TARGET_URL = 'url';
     const TARGET_CLASS = 'class';
 
+    protected static $classId = 'CronManager.Entities.Job';
     protected static $entityCollection = 'CronManagerJobs';
     protected static $entityMask = '{name}';
 

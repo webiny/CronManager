@@ -96,7 +96,6 @@ JobForm.defaultProps = {
                                                     {this.renderTargetInput(model)}
                                                     <Textarea label="Description" name="description"/>
                                                 </Grid.Col>
-
                                                 <Grid.Col all={6}>
                                                     <Section title="Run Settings">
                                                         <Button
@@ -110,11 +109,9 @@ JobForm.defaultProps = {
                                                     <AddFrequencyModal
                                                         ref={ref => this.addFrequencyModal = ref}
                                                         loadFrequencies={() => this.frequencySelect.loadOptions()}/>
-
                                                     <Grid.Col all={12}>
                                                         <Select {...tzSelect}/>
                                                     </Grid.Col>
-
                                                     <Grid.Col all={12}>
                                                         <Input
                                                             label="Timeout"
@@ -122,7 +119,6 @@ JobForm.defaultProps = {
                                                             validate="required,number"
                                                             description="Timeout in seconds"/>
                                                     </Grid.Col>
-
                                                     <Grid.Col all={12}>
                                                         <Switch label="Enabled" name="enabled"/>
                                                     </Grid.Col>
