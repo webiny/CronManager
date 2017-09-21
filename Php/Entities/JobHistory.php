@@ -2,7 +2,6 @@
 namespace Apps\CronManager\Php\Entities;
 
 use Apps\Webiny\Php\Lib\Entity\Indexes\IndexContainer;
-use Apps\Webiny\Php\Lib\WebinyTrait;
 use Apps\Webiny\Php\Lib\Entity\AbstractEntity;
 use Webiny\Component\Mongo\Index\SingleIndex;
 
@@ -22,8 +21,8 @@ use Webiny\Component\Mongo\Index\SingleIndex;
 class JobHistory extends AbstractEntity
 {
     protected static $classId = 'CronManager.Entities.JobHistory';
-    protected static $entityCollection = 'CronManagerJobHistory';
-    protected static $entityMask = '{job}';
+    protected static $collection = 'CronManagerJobHistory';
+    protected static $mask = '{job}';
 
     public function __construct()
     {

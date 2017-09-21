@@ -39,8 +39,8 @@ class Job extends AbstractEntity
     const TARGET_CLASS = 'class';
 
     protected static $classId = 'CronManager.Entities.Job';
-    protected static $entityCollection = 'CronManagerJobs';
-    protected static $entityMask = '{name}';
+    protected static $collection = 'CronManagerJobs';
+    protected static $mask = '{name}';
 
     public function __construct()
     {

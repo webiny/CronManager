@@ -16,8 +16,8 @@ use Webiny\Component\Entity\Attribute\Validation\ValidationException;
 class JobFrequency extends AbstractEntity
 {
     protected static $classId = 'CronManager.Entities.JobFrequency';
-    protected static $entityCollection = 'CronManagerJobFrequency';
-    protected static $entityMask = '{name}';
+    protected static $collection = 'CronManagerJobFrequency';
+    protected static $mask = '{name}';
 
     public function __construct()
     {
