@@ -42,6 +42,14 @@
                     "u": true,
                     "d": true
                 }
+            },
+            {
+                "classId": "CronManager.Services.Runner",
+                "rules": {
+                    "run/{job}": {
+                        "get": true
+                    }
+                }
             }
         ]
     }
