@@ -47,7 +47,7 @@ class Runner extends AbstractService
     {
         // Fork the cron request into separate process
         // We will also check if we have HTTP Authentication credentials saved in config - we gotta prepend those into the URL if that's the case
-        $url = $this->wConfig()->get('Application.ApiPath') . '/services/cron-manager/runner/run/' . $job->id;
+        $url = $this->wConfig()->get('Webiny.ApiUrl') . '/services/cron-manager/runner/run/' . $job->id;
 
         $httpAuthentication = '';
         $settings = Settings::load();
@@ -59,7 +59,7 @@ class Runner extends AbstractService
             }
         }
 
-        $token = '--header "X-Webiny-Authorization: ' . urlencode($this->wConfig()->get('Application.Acl.Token')) . '"';
+        $token = '--header "X-Webiny-Authorization: ' . urlencode($this->wConfig()->get('Webiny.Acl.Token')) . '"';
 
         $cmd = 'curl ' . $httpAuthentication . ' ' . $token . ' --insecure -X GET ' . $url . ' > /dev/null 2>&1 &';
         exec($cmd);
@@ -110,13 +110,13 @@ class Runner extends AbstractService
 
             // create the job url
             $url = $this->str($job->target)
-                        ->replace('{apiPath}', $this->wConfig()->get('Application.ApiPath'))
-                        ->replace('{webPath}', $this->wConfig()->get('Application.WebPath'))
+                        ->replace('{apiPath}', $this->wConfig()->get('Webiny.ApiUrl'))
+                        ->replace('{webPath}', $this->wConfig()->get('Webiny.WebUrl'))
                         ->val();
 
             // issue request for the job
             $debugWrapper = fopen('php://temp', 'r+');
-            $token = $this->wConfig()->get('Application.Acl.Token');
+            $token = $this->wConfig()->get('Webiny.Acl.Token');
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_VERBOSE, true);
             curl_setopt($ch, CURLOPT_STDERR, $debugWrapper);

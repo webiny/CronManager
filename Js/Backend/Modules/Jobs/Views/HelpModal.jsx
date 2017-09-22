@@ -26,7 +26,7 @@ class HelpModal extends Webiny.Ui.ModalComponent {
                             On your server make sure you define the following cron job:
                         </p>
                         <Copy.Input
-                            value={`* * * * * wget ${Webiny.Config.ApiPath}/services/cron-manager/runner/run --no-check-certificate -O /dev/null`}/>
+                            value={`* * * * * wget ${Webiny.Config.ApiUrl}/services/cron-manager/runner/run --no-check-certificate -O /dev/null`}/>
                         <p>
                             This is the root job that's used to execute and schedule any other jobs created via Cron Manager.
                         </p>

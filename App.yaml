@@ -1,8 +1,8 @@
 Name: CronManager
 Version: 0.1.0
-Link: http://www.webiny.com/store/webiny/cron-manager/
-Description:
-
-AuthorName: Webiny LTD
-AuthorLink: http://www.webiny.com
-AuthorEmail: info@webiny.com
+Link: https://github.com/Webiny/CronManager
+Description: Manage your cron jobs using a user friendly UI
+Author:
+    Name: Webiny LTD
+    Email: info@webiny.com
+    Link: https://www.webiny.com

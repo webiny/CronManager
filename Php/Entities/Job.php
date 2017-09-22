@@ -202,7 +202,7 @@ class Job extends AbstractEntity
         $className = $this->wRequest()->getRequestData()['className'];
 
         $parts = $this->str($className)->explode('\\')->filter()->values()->val();
-        $classFile = $this->wConfig()->get('Application.AbsolutePath') . join('/', $parts) . '.php';
+        $classFile = $this->wConfig()->get('Webiny.AbsolutePath') . join('/', $parts) . '.php';
         if (!file_exists($classFile)) {
             throw new AppException('Namespace is valid but file does not exist.');
         }
