@@ -44,7 +44,7 @@ JobHistoryList.defaultProps = {
 
         const statProps = {
             api: '/entities/cron-manager/job',
-            url: '/' + Webiny.Router.getParams('id'),
+            url: Webiny.Router.getParams('id'),
             prepareLoadedData: data => data.entity
         };
 
@@ -54,12 +54,12 @@ JobHistoryList.defaultProps = {
         return (
             <ViewSwitcher>
                 <ViewSwitcher.View view="jobListView" defaultView>
-                    {showView => (
+                    {({showView}) => (
                         <view>
                             <Data {...statProps}>
-                                {jobData => (
+                                {({data}) => (
                                     <View.List>
-                                        <View.Header title={'Cron Job History: ' + _.get(jobData, 'name')}>
+                                        <View.Header title={'Cron Job History: ' + _.get(data, 'name')}>
                                             <Link type="default" align="right" route="CronManager.Jobs">Back to Job List</Link>
                                         </View.Header>
                                         <View.Body>
@@ -69,7 +69,7 @@ JobHistoryList.defaultProps = {
                                                         <Tile>
                                                             <Tile.Header className="text-center" title="# of executions"/>
                                                             <Tile.Body>
-                                                                <h1>{_.get(jobData, 'stats.numberOfRuns')}</h1>
+                                                                <h1>{_.get(data, 'stats.numberOfRuns')}</h1>
                                                             </Tile.Body>
                                                         </Tile>
                                                     </Grid.Col>
@@ -77,7 +77,7 @@ JobHistoryList.defaultProps = {
                                                         <Tile>
                                                             <Tile.Header title="Success ratio"/>
                                                             <Tile.Body>
-                                                                <h1>{this.getSuccessRatio(jobData)}</h1>
+                                                                <h1>{this.getSuccessRatio(data)}</h1>
                                                             </Tile.Body>
                                                         </Tile>
                                                     </Grid.Col>
@@ -85,7 +85,7 @@ JobHistoryList.defaultProps = {
                                                         <Tile>
                                                             <Tile.Header title="Avg. response time"/>
                                                             <Tile.Body>
-                                                                <h1>{this.getAvgResponseTime(jobData)}</h1>
+                                                                <h1>{this.getAvgResponseTime(data)}</h1>
                                                             </Tile.Body>
                                                         </Tile>
                                                     </Grid.Col>
@@ -111,7 +111,7 @@ JobHistoryList.defaultProps = {
                                                                     label="Response Code"
                                                                     sort="responseCode"/>
                                                                 <Table.Field align="right">
-                                                                    {data => (
+                                                                    {({data}) => (
                                                                         <Button
                                                                             type="default"
                                                                             label="Show Details"
@@ -132,7 +132,7 @@ JobHistoryList.defaultProps = {
                     )}
                 </ViewSwitcher.View>
                 <ViewSwitcher.View view="historyModalView" modal>
-                    {(showView, data) => <HistoryDetailsModal {...{showView, data}} />}
+                    {params => <HistoryDetailsModal {...params} />}
                 </ViewSwitcher.View>
             </ViewSwitcher>
         );

@@ -35,15 +35,14 @@ AddFrequencyModal.defaultProps = _.merge({}, Webiny.Ui.ModalComponent.defaultPro
 
         return (
             <Modal.Dialog>
-                {dialog => (
+                {({dialog}) => (
                     <Form {...formProps}>
-                        {(model, form) => (
+                        {({form}) => (
                             <Modal.Content>
                                 <Modal.Header title="Add Frequency"/>
                                 <Modal.Body noPadding>
                                     <Tabs position="left">
                                         <Tabs.Tab label="Create New">
-
                                             <Grid.Row>
                                                 <Grid.Col all={12}>
                                                     <Input label="Name" name="name" validate="required"/>
@@ -65,7 +64,7 @@ AddFrequencyModal.defaultProps = _.merge({}, Webiny.Ui.ModalComponent.defaultPro
                                                         <Table.Field name="name" align="left" label="Name" sort="name"/>
                                                         <Table.Field name="mask" align="left" label="Mask" sort="mask"/>
                                                         <Table.Actions>
-                                                            <Table.Action label="Delete" onClick={(data, actions) => {
+                                                            <Table.Action label="Delete" onClick={({data, actions}) => {
                                                                 actions.delete(data.id).then(() => this.props.loadFrequencies());
                                                             }}/>
                                                         </Table.Actions>

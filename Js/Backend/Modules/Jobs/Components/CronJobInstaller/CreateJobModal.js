@@ -65,7 +65,6 @@ class CronJobModal extends Webiny.Ui.ModalComponent {
         };
 
         const tzSelect = {
-            ui: 'tzSelect',
             label: 'Timezone',
             name: 'timezone',
             placeholder: 'Select a timezone',
@@ -78,39 +77,33 @@ class CronJobModal extends Webiny.Ui.ModalComponent {
 
         return (
             <Modal.Dialog>
-                {dialog => (
+                {({dialog}) => (
                     <Form {...formProps}>
-                        {(model, form) => (
+                        {({model, form}) => (
                             <Modal.Content>
                                 <Form.Loader/>
                                 <Modal.Header title="Cron Job" onClose={dialog.hide}/>
                                 <Modal.Body>
-                                    <Form {...formProps}>
-                                        {(model) => {
-                                            return (
-                                                <Grid.Row>
-                                                    <Form.Error/>
-                                                    <Grid.Col all={12}>
-                                                        <Input label="Name" name="name" validate="required"/>
-                                                        <RadioGroup label="Target Type" name="targetType">
-                                                            <option value="url">URL</option>
-                                                            <option value="class">Class</option>
-                                                        </RadioGroup>
-                                                        {this.renderTargetInput(model)}
-                                                        <Section title="Run Settings"/>
-                                                        <Select {...frequencySelect}/>
-                                                        <Select {...tzSelect}/>
-                                                        <Input
-                                                            label="Timeout"
-                                                            name="timeout"
-                                                            validate="required,number"
-                                                            description="Timeout in seconds"/>
-                                                        <Switch label="Enabled" name="enabled"/>
-                                                    </Grid.Col>
-                                                </Grid.Row>
-                                            );
-                                        }}
-                                    </Form>
+                                    <Grid.Row>
+                                        <Form.Error/>
+                                        <Grid.Col all={12}>
+                                            <Input label="Name" name="name" validate="required"/>
+                                            <RadioGroup label="Target Type" name="targetType">
+                                                <option value="url">URL</option>
+                                                <option value="class">Class</option>
+                                            </RadioGroup>
+                                            {this.renderTargetInput(model)}
+                                            <Section title="Run Settings"/>
+                                            <Select {...frequencySelect}/>
+                                            <Select {...tzSelect}/>
+                                            <Input
+                                                label="Timeout"
+                                                name="timeout"
+                                                validate="required,number"
+                                                description="Timeout in seconds"/>
+                                            <Switch label="Enabled" name="enabled"/>
+                                        </Grid.Col>
+                                    </Grid.Row>
                                 </Modal.Body>
                                 <Modal.Footer>
                                     <Button label="Cancel" onClick={this.hide}/>

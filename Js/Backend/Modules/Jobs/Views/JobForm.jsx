@@ -72,75 +72,69 @@ JobForm.defaultProps = {
             validate: 'required'
         };
 
-        const {ViewSwitcher, View, Form, Grid, Input, RadioGroup, Section, Select, Textarea, Button, Switch} = this.props;
+        const {View, Form, Grid, Input, RadioGroup, Section, Select, Textarea, Button, Switch} = this.props;
 
         return (
-            <ViewSwitcher>
-                <ViewSwitcher.View view="jobListView" defaultView>
-                    {showView => (
-                        <Form {...formProps}>
-                            {(model, form) => {
-                                return (
-                                    <View.Form>
-                                        <View.Header title="Cron Job"/>
-                                        <View.Body>
-                                            <Grid.Row>
-                                                <Form.Error/>
-                                                <Grid.Col all={6}>
-                                                    <Section title="About"/>
-                                                    <Input label="Name" name="name" validate="required"/>
-                                                    <RadioGroup label={this.i18n('Target Type')} name="targetType">
-                                                        <option value="url">{this.i18n('URL')}</option>
-                                                        <option value="class">{this.i18n('Class')}</option>
-                                                    </RadioGroup>
-                                                    {this.renderTargetInput(model)}
-                                                    <Textarea label="Description" name="description"/>
-                                                </Grid.Col>
-                                                <Grid.Col all={6}>
-                                                    <Section title="Run Settings">
-                                                        <Button
-                                                            size="small"
-                                                            onClick={() => this.addFrequencyModal.show()}
-                                                            label="Add New Frequency"/>
-                                                    </Section>
-                                                    <Grid.Col all={12}>
-                                                        <Select {...frequencySelect} ref={ref => this.frequencySelect = ref}/>
-                                                    </Grid.Col>
-                                                    <AddFrequencyModal
-                                                        ref={ref => this.addFrequencyModal = ref}
-                                                        loadFrequencies={() => this.frequencySelect.loadOptions()}/>
-                                                    <Grid.Col all={12}>
-                                                        <Select {...tzSelect}/>
-                                                    </Grid.Col>
-                                                    <Grid.Col all={12}>
-                                                        <Input
-                                                            label="Timeout"
-                                                            name="timeout"
-                                                            validate="required,number"
-                                                            description="Timeout in seconds"/>
-                                                    </Grid.Col>
-                                                    <Grid.Col all={12}>
-                                                        <Switch label="Enabled" name="enabled"/>
-                                                    </Grid.Col>
-                                                </Grid.Col>
-                                            </Grid.Row>
-                                        </View.Body>
-                                        <View.Footer>
-                                            <Button align="left" type="default" onClick={form.cancel} label="Cancel"/>
-                                            <Button align="right" type="primary" onClick={form.submit} label="Submit"/>
-                                        </View.Footer>
-                                    </View.Form>
-                                );
-                            }}
-                        </Form>
-                    )}
-                </ViewSwitcher.View>
-            </ViewSwitcher>
+            <Form {...formProps}>
+                {({model, form}) => {
+                    return (
+                        <View.Form>
+                            <View.Header title="Cron Job"/>
+                            <View.Body>
+                                <Grid.Row>
+                                    <Form.Error/>
+                                    <Grid.Col all={6}>
+                                        <Section title="About"/>
+                                        <Input label="Name" name="name" validate="required"/>
+                                        <RadioGroup label={this.i18n('Target Type')} name="targetType">
+                                            <option value="url">{this.i18n('URL')}</option>
+                                            <option value="class">{this.i18n('Class')}</option>
+                                        </RadioGroup>
+                                        {this.renderTargetInput(model)}
+                                        <Textarea label="Description" name="description"/>
+                                    </Grid.Col>
+                                    <Grid.Col all={6}>
+                                        <Section title="Run Settings">
+                                            <Button
+                                                size="small"
+                                                onClick={() => this.addFrequencyModal.show()}
+                                                label="Add New Frequency"/>
+                                        </Section>
+                                        <Grid.Col all={12}>
+                                            <Select {...frequencySelect} ref={ref => this.frequencySelect = ref}/>
+                                        </Grid.Col>
+                                        <AddFrequencyModal
+                                            ref={ref => this.addFrequencyModal = ref}
+                                            loadFrequencies={() => this.frequencySelect.loadOptions()}/>
+                                        <Grid.Col all={12}>
+                                            <Select {...tzSelect}/>
+                                        </Grid.Col>
+                                        <Grid.Col all={12}>
+                                            <Input
+                                                label="Timeout"
+                                                name="timeout"
+                                                validate="required,number"
+                                                description="Timeout in seconds"/>
+                                        </Grid.Col>
+                                        <Grid.Col all={12}>
+                                            <Switch label="Enabled" name="enabled"/>
+                                        </Grid.Col>
+                                    </Grid.Col>
+                                </Grid.Row>
+                            </View.Body>
+                            <View.Footer>
+                                <Button align="left" type="default" onClick={form.cancel} label="Cancel"/>
+                                <Button align="right" type="primary" onClick={form.submit} label="Submit"/>
+                            </View.Footer>
+                        </View.Form>
+                    );
+                }}
+            </Form>
         );
     }
 };
 
 
 export default Webiny.createComponent(JobForm, {
-    modules: ['ViewSwitcher', 'View', 'Form', 'Grid', 'Input', 'RadioGroup', 'Section', 'Select', 'Textarea', 'Button', 'Switch']
+    modules: ['View', 'Form', 'Grid', 'Input', 'RadioGroup', 'Section', 'Select', 'Textarea', 'Button', 'Switch']
 });

@@ -41,7 +41,7 @@ JobList.defaultProps = {
         return (
             <ViewSwitcher>
                 <ViewSwitcher.View view="jobListView" defaultView>
-                    {showView => (
+                    {({showView}) => (
                         <view>
                             <View.List>
                                 <View.Header title="Cron Jobs">
@@ -58,30 +58,30 @@ JobList.defaultProps = {
                                 <View.Body>
                                     <List {...listProps}>
                                         <List.FormFilters>
-                                            {(applyFilters, resetFilters) => (
+                                            {({apply, reset}) => (
                                                 <Grid.Row>
                                                     <Grid.Col all={6}>
-                                                        <Input {...searchProps} onEnter={applyFilters()}/>
+                                                        <Input {...searchProps} onEnter={apply()}/>
                                                     </Grid.Col>
                                                     <Grid.Col all={5}>
-                                                        <Select {...statusProps} onChange={applyFilters()}>
+                                                        <Select {...statusProps} onChange={apply()}>
                                                             <option value="true">Enabled</option>
                                                             <option value="false">Disabled</option>
                                                         </Select>
                                                     </Grid.Col>
                                                     <Grid.Col all={1}>
-                                                        <Button type="secondary" label="Reset" onClick={resetFilters()}/>
+                                                        <Button type="secondary" label="Reset" onClick={reset()}/>
                                                     </Grid.Col>
                                                 </Grid.Row>
                                             )}
                                         </List.FormFilters>
                                         <Table>
                                             <Table.Row>
-                                                <Table.Field name="name" align="left" label="Name" sort="name" route="CronManager.Job.Edit"/>
+                                                <Table.Field name="name" label="Name" sort="name" route="CronManager.Job.Edit"/>
                                                 <Table.Field name="target" align="left" label="Target" sort="target"/>
                                                 <Table.CaseField name="enabled" label="Frequency" align="left">
                                                     <case value={true}>
-                                                        {data => (
+                                                        {({data}) => (
                                                             <div>
                                                                 {_.get(data, 'frequency.name')}
                                                                 <br/>
@@ -91,7 +91,7 @@ JobList.defaultProps = {
                                                         )}
                                                     </case>
                                                     <case value={false}>
-                                                        {data => (
+                                                        {({data}) => (
                                                             <div>
                                                                 {_.get(data, 'frequency.name')}
                                                             </div>
@@ -132,7 +132,7 @@ JobList.defaultProps = {
                     )}
                 </ViewSwitcher.View>
                 <ViewSwitcher.View view="runJobView" modal>
-                    {(showView, data) => <RunJobModal {...{showView, data}} />}
+                    {({showView, data: {data}}) => <RunJobModal {...{showView, data}}/>}
                 </ViewSwitcher.View>
             </ViewSwitcher>
         );
