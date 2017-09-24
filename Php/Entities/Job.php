@@ -4,8 +4,10 @@ namespace Apps\CronManager\Php\Entities;
 
 use Apps\CronManager\Php\Interfaces\CronJobInterface;
 use Apps\Webiny\Php\Lib\Api\ApiContainer;
+use Apps\Webiny\Php\Lib\Entity\Indexes\IndexContainer;
 use Apps\Webiny\Php\Lib\Exceptions\AppException;
 use Apps\Webiny\Php\Lib\Entity\AbstractEntity;
+use Webiny\Component\Mongo\Index\CompoundIndex;
 
 /**
  * Class Jobs
@@ -123,6 +125,11 @@ class Job extends AbstractEntity
         })->setBodyValidators(['className' => 'required']);
     }
 
+    protected static function entityIndexes(IndexContainer $indexes)
+    {
+        parent::entityIndexes($indexes);
+        $indexes->add(new CompoundIndex('name', ['name', 'deletedOn'], false, true));
+    }
 
     public function scheduleNextRunDate()
     {

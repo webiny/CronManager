@@ -4,7 +4,9 @@ namespace Apps\CronManager\Php\Entities;
 
 use Apps\Webiny\Php\Lib\Api\ApiContainer;
 use Apps\Webiny\Php\Lib\Entity\AbstractEntity;
+use Apps\Webiny\Php\Lib\Entity\Indexes\IndexContainer;
 use Webiny\Component\Entity\Attribute\Validation\ValidationException;
+use Webiny\Component\Mongo\Index\CompoundIndex;
 
 /**
  * Class Jobs
@@ -69,6 +71,11 @@ class JobFrequency extends AbstractEntity
         })->setBodyValidators(['mask' => 'required']);
     }
 
+    protected static function entityIndexes(IndexContainer $indexes)
+    {
+        parent::entityIndexes($indexes);
+        $indexes->add(new CompoundIndex('mask', ['mask', 'deletedOn'], false, true));
+    }
 
     private function getFrequency($mask)
     {
