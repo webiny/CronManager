@@ -39,6 +39,8 @@ AddFrequencyModal.defaultProps = _.merge({}, Webiny.Ui.ModalComponent.defaultPro
                     <Form {...formProps}>
                         {({form}) => (
                             <Modal.Content>
+                                <Form.Loader/>
+                                <Form.Error/>
                                 <Modal.Header title="Add Frequency"/>
                                 <Modal.Body noPadding>
                                     <Tabs position="left">
@@ -64,7 +66,7 @@ AddFrequencyModal.defaultProps = _.merge({}, Webiny.Ui.ModalComponent.defaultPro
                                                         <Table.Field name="name" align="left" label="Name" sort="name"/>
                                                         <Table.Field name="mask" align="left" label="Mask" sort="mask"/>
                                                         <Table.Actions>
-                                                            <Table.Action label="Delete" onClick={({data, actions}) => {
+                                                            <Table.Action icon="icon-cancel" label="Delete" onClick={({data, actions}) => {
                                                                 actions.delete(data.id).then(() => this.props.loadFrequencies());
                                                             }}/>
                                                         </Table.Actions>
