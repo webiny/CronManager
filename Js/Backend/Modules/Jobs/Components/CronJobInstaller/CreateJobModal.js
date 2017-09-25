@@ -51,7 +51,7 @@ class CronJobModal extends Webiny.Ui.ModalComponent {
             sort: 'name',
             placeholder: 'Select frequency',
             validate: 'required',
-            optionRenderer: option => {
+            optionRenderer: ({option}) => {
                 return (
                     <div>
                         <strong>{option.data.name}</strong><br/>
@@ -59,7 +59,7 @@ class CronJobModal extends Webiny.Ui.ModalComponent {
                     </div>
                 );
             },
-            selectedRenderer: option => {
+            selectedRenderer: ({option}) => {
                 return option.data.name;
             }
         };

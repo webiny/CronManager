@@ -50,7 +50,7 @@ JobForm.defaultProps = {
             sort: 'name',
             placeholder: 'Select frequency',
             validate: 'required',
-            optionRenderer: option => {
+            optionRenderer: ({option}) => {
                 return (
                     <div>
                         <strong>{option.data.name}</strong><br/>
@@ -58,7 +58,7 @@ JobForm.defaultProps = {
                     </div>
                 );
             },
-            selectedRenderer: option => {
+            selectedRenderer: ({option}) => {
                 return option.data.name;
             }
         };
