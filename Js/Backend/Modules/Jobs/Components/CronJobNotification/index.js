@@ -2,6 +2,9 @@ import Webiny from 'webiny';
 import React from 'react';
 import CronJobNotificationModal from './Details';
 
+/**
+ * @i18n.namespace CronManager.Backend.Jobs.CronJobNotification
+ */
 class CronJobNotification extends Webiny.Ui.Component {
     constructor(props) {
         super(props);
@@ -22,7 +25,7 @@ CronJobNotification.defaultProps = {
             <div onClick={this.onClick}>
                 <span>
                     {!notification.read && (
-                        <Label type="success">New</Label>
+                        <Label type="success">{this.i18n('New')}</Label>
                     )}
                     <strong>{notification.subject}</strong>
                 </span><br/>

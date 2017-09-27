@@ -2,6 +2,9 @@ import React from 'react';
 import _ from 'lodash';
 import Webiny from 'webiny';
 
+/**
+ * @i18n.namespace CronManager.Backend.Jobs.AddFrequencyModal
+ */
 class AddFrequencyModal extends Webiny.Ui.ModalComponent {
 
     getDescription(cmp) {
@@ -41,17 +44,17 @@ AddFrequencyModal.defaultProps = _.merge({}, Webiny.Ui.ModalComponent.defaultPro
                             <Modal.Content>
                                 <Form.Loader/>
                                 <Form.Error/>
-                                <Modal.Header title="Add Frequency"/>
+                                <Modal.Header title={this.i18n('Add Frequency')}/>
                                 <Modal.Body noPadding>
                                     <Tabs position="left">
-                                        <Tabs.Tab label="Create New">
+                                        <Tabs.Tab label={this.i18n('Create New')}>
                                             <Grid.Row>
                                                 <Grid.Col all={12}>
-                                                    <Input label="Name" name="name" validate="required"/>
+                                                    <Input label={this.i18n('Name')} name="name" validate="required"/>
                                                 </Grid.Col>
                                                 <Grid.Col all={12}>
                                                     <Input
-                                                        label="Mask"
+                                                        label={this.i18n('Mask')}
                                                         name="mask"
                                                         validate="required,cronFrequency"
                                                         description={this.getDescription}/>
@@ -59,14 +62,14 @@ AddFrequencyModal.defaultProps = _.merge({}, Webiny.Ui.ModalComponent.defaultPro
                                             </Grid.Row>
 
                                         </Tabs.Tab>
-                                        <Tabs.Tab label="Manage Existing">
+                                        <Tabs.Tab label={this.i18n('Manage Existing')}>
                                             <List {...listProps}>
                                                 <Table>
                                                     <Table.Row>
-                                                        <Table.Field name="name" align="left" label="Name" sort="name"/>
-                                                        <Table.Field name="mask" align="left" label="Mask" sort="mask"/>
+                                                        <Table.Field name="name" align="left" label={this.i18n('Name')} sort="name"/>
+                                                        <Table.Field name="mask" align="left" label={this.i18n('Mask')} sort="mask"/>
                                                         <Table.Actions>
-                                                            <Table.Action icon="icon-cancel" label="Delete" onClick={({data, actions}) => {
+                                                            <Table.Action icon="icon-cancel" label={this.i18n('Delete')} onClick={({data, actions}) => {
                                                                 actions.delete(data.id).then(() => this.props.loadFrequencies());
                                                             }}/>
                                                         </Table.Actions>
@@ -78,8 +81,8 @@ AddFrequencyModal.defaultProps = _.merge({}, Webiny.Ui.ModalComponent.defaultPro
                                     </Tabs>
                                 </Modal.Body>
                                 <Modal.Footer>
-                                    <Button label="Cancel" onClick={dialog.hide}/>
-                                    <Button type="primary" label="Add frequency" onClick={form.submit}/>
+                                    <Button label={this.i18n('Cancel')} onClick={dialog.hide}/>
+                                    <Button type="primary" label={this.i18n('Add frequency')} onClick={form.submit}/>
                                 </Modal.Footer>
                             </Modal.Content>
                         )}

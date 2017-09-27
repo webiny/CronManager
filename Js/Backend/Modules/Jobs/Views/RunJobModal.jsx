@@ -1,6 +1,9 @@
 import React from 'react';
 import Webiny from 'webiny';
 
+/**
+ * @i18n.namespace CronManager.Backend.Jobs.RunJobModal
+ */
 class RunJobModal extends Webiny.Ui.ModalComponent {
 
     constructor(props) {
@@ -9,7 +12,7 @@ class RunJobModal extends Webiny.Ui.ModalComponent {
         this.state = {
             jobRunning: true,
             status: 'info',
-            message: 'Cron job is running ... please wait',
+            message: this.i18n('Cron job is running ... please wait'),
             cronId: this.props.data.id
         };
 
@@ -23,7 +26,7 @@ class RunJobModal extends Webiny.Ui.ModalComponent {
             if (ar.response.status !== 200) {
                 this.setState({
                     status: 'error',
-                    message: 'Oopss..something went wrong',
+                    message: this.i18n('Oopss..something went wrong'),
                     jobRunning: false
                 });
 
@@ -32,7 +35,7 @@ class RunJobModal extends Webiny.Ui.ModalComponent {
 
             this.setState({
                 status: 'success',
-                message: 'Cron was executed, please check the cron history for more details',
+                message: this.i18n('Cron was executed, please check the cron history for more details'),
                 jobRunning: false
             });
         });
@@ -63,13 +66,13 @@ class RunJobModal extends Webiny.Ui.ModalComponent {
                                     type="default"
                                     route="CronManager.Job.History"
                                     params={{'id': this.state.cronId}}>
-                                    Cron History
+                                    {this.i18n('Cron History')}
                                 </Link>
                             </center>
                         )}
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button label="Close" disabled={this.state.jobRunning && 'disabled'} onClick={this.hide}/>
+                        <Button label={this.i18n('Close')} disabled={this.state.jobRunning && 'disabled'} onClick={this.hide}/>
                     </Modal.Footer>
                 </Modal.Content>
             </Modal.Dialog>

@@ -2,14 +2,17 @@ import React from 'react';
 import Webiny from 'webiny';
 import AddFrequencyModal from './AddFrequencyModal';
 
+/**
+ * @i18n.namespace CronManager.Backend.Jobs.JobForm
+ */
 class JobForm extends Webiny.Ui.View {
 
     renderTargetInput(model) {
-        const urlDescription = 'You can use variables like {apiPath} and {webPath} in the URL which will be replaced with your config variables before the job runs.';
-        const classDescription = 'Provide a class name with full namespace, and Cron Manager can use it directly.';
+        const urlDescription = this.i18n('You can use variables like {apiPath} and {webPath} in the URL which will be replaced with your config variables before the job runs.');
+        const classDescription = this.i18n('Provide a class name with full namespace, and Cron Manager can use it directly.');
 
         let targetProps = {
-            label: 'Url',
+            label: this.i18n('Url'),
             name: 'target',
             validate: 'required',
             description: urlDescription
@@ -17,7 +20,7 @@ class JobForm extends Webiny.Ui.View {
 
         if (model.targetType === 'class') {
             targetProps = {
-                label: 'Class',
+                label: this.i18n('Class'),
                 name: 'target',
                 placeholder: 'eg. Apps\\TestApp\\Php\\Services\\Crons\\DailyEmails',
                 validate: 'required,className',
@@ -38,14 +41,14 @@ JobForm.defaultProps = {
             onSubmitSuccess: 'CronManager.Jobs',
             onCancel: 'CronManager.Jobs',
             onSuccessMessage({model}) {
-                return <span>Cron job <strong>{model.name}</strong> saved!</span>;
+                return <span>{this.i18n('Cron job {name} saved!', {name: model.name})}</span>;
             }
         };
 
         const frequencySelect = {
             api: '/entities/cron-manager/job-frequency',
             fields: '*',
-            label: 'Frequency',
+            label: this.i18n('Frequency'),
             name: 'frequency',
             sort: 'name',
             placeholder: 'Select frequency',
@@ -64,7 +67,7 @@ JobForm.defaultProps = {
         };
 
         const tzSelect = {
-            label: 'Timezone',
+            label: this.i18n('Timezone'),
             name: 'timezone',
             placeholder: 'Select a timezone',
             allowClear: true,
@@ -79,26 +82,26 @@ JobForm.defaultProps = {
                 {({model, form}) => {
                     return (
                         <View.Form>
-                            <View.Header title="Cron Job"/>
+                            <View.Header title={this.i18n('Cron Job')}/>
                             <View.Body>
                                 <Grid.Row>
                                     <Form.Error/>
                                     <Grid.Col all={6}>
-                                        <Section title="About"/>
-                                        <Input label="Name" name="name" validate="required"/>
-                                        <RadioGroup label="Target Type" name="targetType">
-                                            <option value="url">URL</option>
-                                            <option value="class">Class</option>
+                                        <Section title={this.i18n('About')}/>
+                                        <Input label={this.i18n('Name')} name="name" validate="required"/>
+                                        <RadioGroup label={this.i18n('Target Type')} name="targetType">
+                                            <option value="url">{this.i18n('URL')}</option>
+                                            <option value="class">{this.i18n('Class')}</option>
                                         </RadioGroup>
                                         {this.renderTargetInput(model)}
-                                        <Textarea label="Description" name="description"/>
+                                        <Textarea label={this.i18n('Description')} name="description"/>
                                     </Grid.Col>
                                     <Grid.Col all={6}>
-                                        <Section title="Run Settings">
+                                        <Section title={this.i18n('Run Settings')}>
                                             <Button
                                                 size="small"
                                                 onClick={() => this.addFrequencyModal.show()}
-                                                label="Add New Frequency"/>
+                                                label={this.i18n('Add New Frequency')}/>
                                         </Section>
                                         <Grid.Col all={12}>
                                             <Select {...frequencySelect} ref={ref => this.frequencySelect = ref}/>
@@ -111,20 +114,20 @@ JobForm.defaultProps = {
                                         </Grid.Col>
                                         <Grid.Col all={12}>
                                             <Input
-                                                label="Timeout"
+                                                label={this.i18n('Timeout')}
                                                 name="timeout"
                                                 validate="required,number"
-                                                description="Timeout in seconds"/>
+                                                description={this.i18n('Timeout in seconds')}/>
                                         </Grid.Col>
                                         <Grid.Col all={12}>
-                                            <Switch label="Enabled" name="enabled"/>
+                                            <Switch label={this.i18n('Enabled')} name="enabled"/>
                                         </Grid.Col>
                                     </Grid.Col>
                                 </Grid.Row>
                             </View.Body>
                             <View.Footer>
-                                <Button align="left" type="default" onClick={form.cancel} label="Cancel"/>
-                                <Button align="right" type="primary" onClick={form.submit} label="Submit"/>
+                                <Button align="left" type="default" onClick={form.cancel} label={this.i18n('Cancel')}/>
+                                <Button align="right" type="primary" onClick={form.submit} label={this.i18n('Submit')}/>
                             </View.Footer>
                         </View.Form>
                     );
