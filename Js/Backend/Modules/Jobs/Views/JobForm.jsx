@@ -86,9 +86,9 @@ JobForm.defaultProps = {
                                     <Grid.Col all={6}>
                                         <Section title="About"/>
                                         <Input label="Name" name="name" validate="required"/>
-                                        <RadioGroup label={this.i18n('Target Type')} name="targetType">
-                                            <option value="url">{this.i18n('URL')}</option>
-                                            <option value="class">{this.i18n('Class')}</option>
+                                        <RadioGroup label="Target Type" name="targetType">
+                                            <option value="url">URL</option>
+                                            <option value="class">Class</option>
                                         </RadioGroup>
                                         {this.renderTargetInput(model)}
                                         <Textarea label="Description" name="description"/>
