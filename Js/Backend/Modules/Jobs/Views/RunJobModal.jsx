@@ -46,7 +46,7 @@ class RunJobModal extends Webiny.Ui.ModalComponent {
         return (
             <Modal.Dialog>
                 <Modal.Content>
-                    <Modal.Header title={'Running ' + this.props.data.name}/>
+                    <Modal.Header title={this.i18n('Running {jobName}', {jobName: this.props.data.name})}/>
                     <Modal.Body>
                         <Alert type={this.state.status}>{this.state.message}</Alert>
 
@@ -65,7 +65,7 @@ class RunJobModal extends Webiny.Ui.ModalComponent {
                                 <Link
                                     type="default"
                                     route="CronManager.Job.History"
-                                    params={{'id': this.state.cronId}}>
+                                    params={{id: this.state.cronId}}>
                                     {this.i18n('Cron History')}
                                 </Link>
                             </center>

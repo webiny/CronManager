@@ -28,13 +28,13 @@ JobList.defaultProps = {
         };
 
         const statusProps = {
-            placeholder: 'Status',
+            placeholder: this.i18n('Status'),
             allowClear: true,
             name: 'enabled'
         };
 
         const searchProps = {
-            placeholder: 'Search...',
+            placeholder: this.i18n('Search...'),
             name: '_searchQuery'
         };
 

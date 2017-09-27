@@ -22,7 +22,7 @@ class JobForm extends Webiny.Ui.View {
             targetProps = {
                 label: this.i18n('Class'),
                 name: 'target',
-                placeholder: 'eg. Apps\\TestApp\\Php\\Services\\Crons\\DailyEmails',
+                placeholder: this.i18n('eg. Apps\\TestApp\\Php\\Services\\Crons\\DailyEmails'),
                 validate: 'required,className',
                 description: classDescription
             };
@@ -51,7 +51,7 @@ JobForm.defaultProps = {
             label: this.i18n('Frequency'),
             name: 'frequency',
             sort: 'name',
-            placeholder: 'Select frequency',
+            placeholder: this.i18n('Select frequency'),
             validate: 'required',
             optionRenderer: ({option}) => {
                 return (
@@ -69,7 +69,7 @@ JobForm.defaultProps = {
         const tzSelect = {
             label: this.i18n('Timezone'),
             name: 'timezone',
-            placeholder: 'Select a timezone',
+            placeholder: this.i18n('Select a timezone'),
             allowClear: true,
             api: '/entities/cron-manager/jobs/timezones',
             validate: 'required'
