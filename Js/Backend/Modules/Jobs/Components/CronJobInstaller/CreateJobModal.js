@@ -1,8 +1,10 @@
 import React from 'react';
 import Webiny from 'webiny';
 
+/**
+ * @i18n.namespace CronManager.Backend.Jobs.CronJobInstaller.CreateJobModal
+ */
 class CronJobModal extends Webiny.Ui.ModalComponent {
-
     renderTargetInput(model) {
         const urlDescription = this.i18n(`You can use variables like {apiPath} and {webPath} in the URL which will be replaced 
                                             with your config variables before the job runs.`);
@@ -56,7 +58,7 @@ class CronJobModal extends Webiny.Ui.ModalComponent {
                 return (
                     <div>
                         <strong>{option.data.name}</strong><br/>
-                        <span>Cron: {option.data.mask}</span>
+                        <span>{this.i18n('Cron: {mask}', {mask: option.data.mask})}</span>
                     </div>
                 );
             },
