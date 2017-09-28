@@ -2,6 +2,9 @@ import React from 'react';
 import Webiny from 'webiny';
 import Views from './Views/Views';
 
+/**
+ * @i18n.namespace CronManager.Backend.Jobs
+ */
 class Jobs extends Webiny.App.Module {
 
     init() {
@@ -9,8 +12,8 @@ class Jobs extends Webiny.App.Module {
         const role = 'cron-manager';
 
         this.registerMenus(
-            <Webiny.Ui.Menu label="System" icon="icon-tools">
-                <Webiny.Ui.Menu label="Cron Manager" route="CronManager.Jobs" role={role}/>
+            <Webiny.Ui.Menu label={Webiny.I18n('System')} icon="icon-tools">
+                <Webiny.Ui.Menu label={Webiny.I18n('Cron Manager')} route="CronManager.Jobs" role={role}/>
             </Webiny.Ui.Menu>
         );
 
@@ -27,7 +30,7 @@ class Jobs extends Webiny.App.Module {
             return api.post('validate', {mask: val}).then(ar => {
                 const data = ar.getData();
                 if (!data.status) {
-                    throw new Error(data.frequency || 'Invalid cron job pattern!');
+                    throw new Error(data.frequency || Webiny.I18n('Invalid cron job pattern.'));
                 }
 
                 return data.frequency;

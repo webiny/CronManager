@@ -4,11 +4,12 @@ import Webiny from 'webiny';
 class CronJobModal extends Webiny.Ui.ModalComponent {
 
     renderTargetInput(model) {
-        const urlDescription = 'You can use variables like {apiPath} and {webPath} in the URL which will be replaced with your config variables before the job runs.';
-        const classDescription = 'Provide a class name with full namespace, and Cron Manager can use it directly.';
+        const urlDescription = this.i18n(`You can use variables like {apiPath} and {webPath} in the URL which will be replaced 
+                                            with your config variables before the job runs.`);
+        const classDescription = this.i18n(`Provide a class name with full namespace, and Cron Manager can use it directly.`);
 
         let targetProps = {
-            label: 'Url',
+            label: this.i18n('Url'),
             name: 'target',
             validate: 'required',
             description: urlDescription
@@ -16,7 +17,7 @@ class CronJobModal extends Webiny.Ui.ModalComponent {
 
         if (model.targetType === 'class') {
             targetProps = {
-                label: 'Class',
+                label: this.i18n('Class'),
                 name: 'target',
                 placeholder: 'eg. Apps\\TestApp\\Php\\Services\\Crons\\DailyEmails',
                 validate: 'required,className',
@@ -39,14 +40,14 @@ class CronJobModal extends Webiny.Ui.ModalComponent {
             onSubmitSuccess: 'CronManager.Jobs',
             onCancel: 'CronManager.Jobs',
             onSuccessMessage({model}) {
-                return <span>Cron job <strong>{model.name}</strong> saved!</span>;
+                return this.i18n('Cron job {name} saved!', {name: <strong>{model.name}</strong>})
             }
         };
 
         const frequencySelect = {
             api: '/entities/cron-manager/job-frequency',
             fields: '*',
-            label: 'Frequency',
+            label: this.i18n('Frequency'),
             name: 'frequency',
             sort: 'name',
             placeholder: 'Select frequency',
@@ -65,7 +66,7 @@ class CronJobModal extends Webiny.Ui.ModalComponent {
         };
 
         const tzSelect = {
-            label: 'Timezone',
+            label: this.i18n('Timezone'),
             name: 'timezone',
             placeholder: 'Select a timezone',
             allowClear: true,
@@ -82,32 +83,32 @@ class CronJobModal extends Webiny.Ui.ModalComponent {
                         {({model, form}) => (
                             <Modal.Content>
                                 <Form.Loader/>
-                                <Modal.Header title="Cron Job" onClose={dialog.hide}/>
+                                <Modal.Header title={this.i18n('Cron Job')} onClose={dialog.hide}/>
                                 <Modal.Body>
                                     <Grid.Row>
                                         <Form.Error/>
                                         <Grid.Col all={12}>
-                                            <Input label="Name" name="name" validate="required"/>
-                                            <RadioGroup label="Target Type" name="targetType">
-                                                <option value="url">URL</option>
-                                                <option value="class">Class</option>
+                                            <Input label={this.i18n('Name')} name="name" validate="required"/>
+                                            <RadioGroup label={this.i18n('Target Type')} name="targetType">
+                                                <option value="url">{this.i18n('URL')}</option>
+                                                <option value="class">{this.i18n('Class')}</option>
                                             </RadioGroup>
                                             {this.renderTargetInput(model)}
-                                            <Section title="Run Settings"/>
+                                            <Section title={this.i18n('Run Settings')}/>
                                             <Select {...frequencySelect}/>
                                             <Select {...tzSelect}/>
                                             <Input
-                                                label="Timeout"
+                                                label={this.i18n('Timeout')}
                                                 name="timeout"
                                                 validate="required,number"
-                                                description="Timeout in seconds"/>
-                                            <Switch label="Enabled" name="enabled"/>
+                                                description={this.i18n('Timeout in seconds')}/>
+                                            <Switch label={this.i18n('Enabled')} name="enabled"/>
                                         </Grid.Col>
                                     </Grid.Row>
                                 </Modal.Body>
                                 <Modal.Footer>
-                                    <Button label="Cancel" onClick={this.hide}/>
-                                    <Button type="primary" label="Create Job" onClick={form.submit}/>
+                                    <Button label={this.i18n('Cancel')} onClick={this.hide}/>
+                                    <Button type="primary" label={this.i18n('Create Job')} onClick={form.submit}/>
                                 </Modal.Footer>
                             </Modal.Content>
                         )}

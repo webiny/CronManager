@@ -3,6 +3,9 @@ import _ from 'lodash';
 import Webiny from 'webiny';
 import HistoryDetailsModal from './HistoryDetailsModal';
 
+/**
+ * @i18n.namespace CronManager.Backend.Jobs.JobHistoryList
+ */
 class JobHistoryList extends Webiny.Ui.View {
 
     constructor(props) {
@@ -59,15 +62,15 @@ JobHistoryList.defaultProps = {
                             <Data {...statProps}>
                                 {({data}) => (
                                     <View.List>
-                                        <View.Header title={'Cron Job History: ' + _.get(data, 'name')}>
-                                            <Link type="default" align="right" route="CronManager.Jobs">Back to Job List</Link>
+                                        <View.Header title={this.i18n('Cron Job History: {name}', {name: _.get(data, 'name')})}>
+                                            <Link type="default" align="right" route="CronManager.Jobs">{this.i18n('Back to Job List')}</Link>
                                         </View.Header>
                                         <View.Body>
                                             <Grid.Row>
                                                 <Grid.Row className="text-center">
                                                     <Grid.Col all={4}>
                                                         <Tile>
-                                                            <Tile.Header className="text-center" title="# of executions"/>
+                                                            <Tile.Header className="text-center" title={this.i18n('# of executions')}/>
                                                             <Tile.Body>
                                                                 <h1>{_.get(data, 'stats.numberOfRuns')}</h1>
                                                             </Tile.Body>
@@ -75,7 +78,7 @@ JobHistoryList.defaultProps = {
                                                     </Grid.Col>
                                                     <Grid.Col all={4}>
                                                         <Tile>
-                                                            <Tile.Header title="Success ratio"/>
+                                                            <Tile.Header title={this.i18n('Success ratio')}/>
                                                             <Tile.Body>
                                                                 <h1>{this.getSuccessRatio(data)}</h1>
                                                             </Tile.Body>
@@ -83,7 +86,7 @@ JobHistoryList.defaultProps = {
                                                     </Grid.Col>
                                                     <Grid.Col all={4}>
                                                         <Tile>
-                                                            <Tile.Header title="Avg. response time"/>
+                                                            <Tile.Header title={this.i18n('Avg. response time')}/>
                                                             <Tile.Body>
                                                                 <h1>{this.getAvgResponseTime(data)}</h1>
                                                             </Tile.Body>
@@ -98,23 +101,23 @@ JobHistoryList.defaultProps = {
                                                                 <Table.TimeAgoField
                                                                     name="runDate"
                                                                     align="left"
-                                                                    label="Run Date"
+                                                                    label={this.i18n('Run Date')}
                                                                     sort="runDate"/>
                                                                 <Table.Field
                                                                     name="runTime"
                                                                     align="left"
-                                                                    label="Run Time"
+                                                                    label={this.i18n('Run Time')}
                                                                     sort="runTime"/>
                                                                 <Table.Field
                                                                     name="responseCode"
                                                                     align="center"
-                                                                    label="Response Code"
+                                                                    label={this.i18n('Response Code')}
                                                                     sort="responseCode"/>
                                                                 <Table.Field align="right">
                                                                     {({data}) => (
                                                                         <Button
                                                                             type="default"
-                                                                            label="Show Details"
+                                                                            label={this.i18n('Show Details')}
                                                                             onClick={() => showView('historyModalView')(data)}/>
                                                                     )}
                                                                 </Table.Field>

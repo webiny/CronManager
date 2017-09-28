@@ -21,6 +21,7 @@ use Webiny\Component\Mongo\Index\SingleIndex;
 class JobHistory extends AbstractEntity
 {
     protected static $classId = 'CronManager.Entities.JobHistory';
+    protected static $i18nNamespace = 'CronManager.Entities.JobHistory';
     protected static $collection = 'CronManagerJobHistory';
     protected static $mask = '{job}';
 

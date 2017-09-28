@@ -4,6 +4,9 @@ import Webiny from 'webiny';
 import CreateJobModal from './CreateJobModal';
 import styles from './styles.css';
 
+/**
+ * @i18n.namespace CronManager.Backend.Jobs.CronJobInstaller
+ */
 class CronJobInstaller extends Webiny.Ui.FormComponent {
 
 }
@@ -25,7 +28,9 @@ CronJobInstaller.defaultProps = _.merge({}, Webiny.Ui.FormComponent.defaultProps
                 {this.renderInfo()}
                 <div className={styles['input-group']}>
                     <input {...props}/>
-                    <Button onClick={() => this.modal.show()} type="primary" className={styles.btnCopy}>Install Cron Job</Button>
+                    <Button onClick={() => this.modal.show()} type="primary" className={styles.btnCopy}>
+                        {this.i18n('Install Cron Job')}
+                    </Button>
                     <CreateJobModal ref={ref => this.modal = ref} url={this.props.value}/>
                 </div>
                 {this.renderDescription()}

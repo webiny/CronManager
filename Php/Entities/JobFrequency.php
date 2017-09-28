@@ -18,6 +18,7 @@ use Webiny\Component\Mongo\Index\CompoundIndex;
 class JobFrequency extends AbstractEntity
 {
     protected static $classId = 'CronManager.Entities.JobFrequency';
+    protected static $i18nNamespace = 'CronManager.Entities.JobFrequency';
     protected static $collection = 'CronManagerJobFrequency';
     protected static $mask = '{name}';
 
@@ -28,7 +29,7 @@ class JobFrequency extends AbstractEntity
         $maskValidator = function ($mask) {
             $message = $this->getFrequency($mask);
             if (!$message) {
-                throw new ValidationException('Invalid cron job pattern');
+                throw new ValidationException($this->wI18n('Invalid cron job pattern'));
             }
         };
 
