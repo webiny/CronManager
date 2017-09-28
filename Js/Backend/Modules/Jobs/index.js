@@ -43,9 +43,9 @@ class Jobs extends Webiny.App.Module {
             });
         });
 
-        Webiny.registerModule(
+        /*Webiny.registerModule(
             new Webiny.Module('CronJobSuccessNotification', () => import('./Components/CronJobNotification')).setTags('cron-job-success')
-        );
+        );*/
 
         /*Webiny.registerModule(
          new Webiny.Module('CronJobInstaller', () => import('./Components/CronJobInstaller')).setContext('cron-job')
