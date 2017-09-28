@@ -204,7 +204,7 @@ class Job extends AbstractEntity
         preg_match_all($re, $className, $matches);
 
         if (empty($matches[0])) {
-            throw new AppException('Invalid namespace.');
+            throw new AppException($this->wI18n('Invalid namespace.'));
         }
 
         $className = $this->wRequest()->getRequestData()['className'];
@@ -212,16 +212,16 @@ class Job extends AbstractEntity
         $parts = $this->str($className)->explode('\\')->filter()->values()->val();
         $classFile = $this->wConfig()->get('Webiny.AbsolutePath') . join('/', $parts) . '.php';
         if (!file_exists($classFile)) {
-            throw new AppException('Namespace is valid but file does not exist.');
+            throw new AppException($this->wI18n('Namespace is valid but file does not exist.'));
         }
 
         if (!class_exists($className)) {
-            throw new AppException('Namespace is valid but given class was not found in the file.');
+            throw new AppException($this->wI18n('Namespace is valid but given class was not found in the file.'));
         }
 
         $classInterfaces = class_implements($className);
         if (!isset($classInterfaces[CronJobInterface::class])) {
-            throw new AppException('Class must implement CronJobInterface.');
+            throw new AppException($this->wI18n('Class must implement CronJobInterface.'));
         }
     }
 }

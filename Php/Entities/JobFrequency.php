@@ -29,7 +29,7 @@ class JobFrequency extends AbstractEntity
         $maskValidator = function ($mask) {
             $message = $this->getFrequency($mask);
             if (!$message) {
-                throw new ValidationException('Invalid cron job pattern');
+                throw new ValidationException($this->wI18n('Invalid cron job pattern'));
             }
         };
 
