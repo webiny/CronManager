@@ -18,6 +18,7 @@ use Webiny\Component\Mongo\Index\CompoundIndex;
 class JobFrequency extends AbstractEntity
 {
     protected static $classId = 'CronManager.Entities.JobFrequency';
+    protected static $i18nNamespace = 'CronManager.Entities.JobFrequency';
     protected static $collection = 'CronManagerJobFrequency';
     protected static $mask = '{name}';
 
