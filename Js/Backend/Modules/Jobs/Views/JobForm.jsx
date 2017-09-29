@@ -40,7 +40,7 @@ JobForm.defaultProps = {
             connectToRouter: true,
             onSubmitSuccess: 'CronManager.Jobs',
             onCancel: 'CronManager.Jobs',
-            onSuccessMessage({model}) {
+            onSuccessMessage: ({model}) => {
                 return <span>{this.i18n('Cron job {name} saved!', {name: model.name})}</span>;
             }
         };
