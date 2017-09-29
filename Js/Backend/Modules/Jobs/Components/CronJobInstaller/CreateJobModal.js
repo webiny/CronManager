@@ -41,7 +41,7 @@ class CronJobModal extends Webiny.Ui.ModalComponent {
             connectToRouter: true,
             onSubmitSuccess: 'CronManager.Jobs',
             onCancel: 'CronManager.Jobs',
-            onSuccessMessage({model}) {
+            onSuccessMessage: ({model}) => {
                 return this.i18n('Cron job {name} saved!', {name: <strong>{model.name}</strong>})
             }
         };
